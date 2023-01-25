@@ -3,6 +3,9 @@ package tz.co.vodacom.bujikun.util;
 import tz.co.vodacom.bujikun.thread.InitialFilesGeneratorRunnable;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,6 +63,24 @@ public class FileUtility {
             files.set(i, temp);
         }
         return files;
+    }
+
+    public static String createNewFile(String fileName) {
+
+                try {
+                    var filePath = Paths.get(ROOT_PATH).resolve(fileName);
+                    if (!Files.exists(filePath)) {
+                        Files.createFile(filePath);
+                    }
+                    return "File successfully created: " + filePath.toString();
+                }catch (InvalidPathException e){
+                    return "Invalid filename supplied. Please try to use non alphanumeric characters";
+
+                } catch (IOException e) {
+                    //throw new RuntimeException(e);
+                    return "File could not be created due to failed IO operations";
+                }
+
     }
 
 }

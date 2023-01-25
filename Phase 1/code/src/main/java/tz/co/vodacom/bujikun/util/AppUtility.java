@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class AppUtility {
     public static void displayTitle() {
@@ -39,7 +38,7 @@ public class AppUtility {
         }
         AtomicInteger count = new AtomicInteger();
         System.out.println("\n");
-        System.out.println("ROOT DIRECTORY: "+new File(FileUtility.ROOT_PATH).getAbsolutePath());
+        System.out.println("ROOT DIRECTORY: " + new File(FileUtility.ROOT_PATH).getAbsolutePath());
         System.out.println("Available Files: \n");
 //        List<String> fileNames = files.stream()
 //                .map(f->f.toPath().getFileName().toString())
@@ -48,7 +47,7 @@ public class AppUtility {
         files.stream()
                 .sorted()
                 .forEach(f -> {
-                    display("\t%s%n", count.incrementAndGet() + ". " +f);
+                    display("\t%s%n", count.incrementAndGet() + ". " + f);
                 });
     }
 
@@ -58,10 +57,12 @@ public class AppUtility {
             case "1" -> {
                 AppUtility.displayFiles(FileUtility.
                         getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
-                handleSubMenuChoice("1");
+                AppUtility.readUserChoice("\nEnter  * to go back to main menu: ",
+                        "*", false);
             }
             case "2" -> {
-
+                handlFileManipulationChoice();
+                //AppUtility.readUserChoice("", "*", false);
             }
             case "3" -> {
 
@@ -69,18 +70,30 @@ public class AppUtility {
         }
     }
 
-    public static void handleSubMenuChoice(String choice) {
-        switch (choice) {
-            case "1" -> {
-                //readUserChoice("Enter  * to go back to main menu: ", "*",false);
-            }
-            case "2" -> {
+    public static void handlFileManipulationChoice() {
+        outer: do {
+            AppUtility.displaySubMenu();
+            String choice = readUserChoice("Choose an option a/b/c/*?: ");
+            switch (choice) {
+                case "a" -> {
+                    display("\t%s%n", "2a. File Creation\n");
+                    String fileName = readUserChoice("Enter file name: ");
+                    String responseMessage = FileUtility.createNewFile(fileName);
+                    System.out.println(responseMessage);
+                    displayFiles(FileUtility.getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
 
-            }
-            case "3" -> {
+                }
+                case "b" -> {
 
+                }
+                case "c" -> {
+
+                }
+                case "*"->{
+                    break outer;
+                }
             }
-        }
+        } while (true);
     }
 
     public static String readUserChoice(String message, String terminator, boolean isMainMenu) {
@@ -89,12 +102,29 @@ public class AppUtility {
         do {
             System.out.print(message);
             input = scanner.nextLine();
-//            while ((input = scanner.nextLine()) == null) {
-//
-//            }
             if (isMainMenu && input != null && terminator.matches("[1-3]")) {
                 return input;
             }
+        } while (input == null || !input.equals(terminator));
+        return input;
+    }
+
+    public static String readUserChoice(String message) {
+        String input = null;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.print(message);
+            input = scanner.nextLine();
+        } while (input == null);
+        return input;
+    }
+
+    public static String readUserChoice(String message, String terminator) {
+        String input = null;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.print(message);
+            input = scanner.nextLine();
         } while (input == null || !input.equals(terminator));
         return input;
     }
