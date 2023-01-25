@@ -2,8 +2,8 @@ package tz.co.vodacom.bujikun.util;
 
 public class AppUtility {
     public static void displayTitle(){
-        System.out.printf("%n%s%n","LockedMe.com File Management Application");
-        System.out.printf("%s%n","Developer: Newton Bujiku - bujikun@vodacom.co.tz\n");
+        System.out.printf("%n\t%s%n","LockedMe.com File Management Application");
+        System.out.printf("\t%s%n","Developer: Newton Bujiku - bujikun@vodacom.co.tz\n");
     }
 
     public static void displayMainMenu(){
