@@ -34,17 +34,17 @@ public class Main {
         do {
             AppUtility.displayTitle();
             AppUtility.displayMainMenu();
-            choice = AppUtility.readUserChoice("Enter Option Number 1/2/3: ",
+            choice = AppUtility.readUserChoice("Choose Option Number 1/2/3? : ",
                     "3", true);
             switch (choice) {
                 case "1" -> {
                     AppUtility.handleMenuChoice("1");
-                    AppUtility.readUserChoice("Enter  * to go back to main menu: ", "*", false);
+                    AppUtility.readUserChoice("\nEnter  * to go back to main menu: ", "*", false);
                 }
 
                 case "2" -> {
                     AppUtility.displaySubMenu();
-                    AppUtility.readUserChoice("", "d", false);
+                    AppUtility.readUserChoice("", "*", false);
                 }
 
 

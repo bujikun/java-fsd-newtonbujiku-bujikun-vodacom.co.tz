@@ -13,9 +13,9 @@ public class AppUtility {
     }
 
     public static void displayMainMenu() {
-        System.out.printf("%n%s%n", "1. Display All Files (Ascending Order)");
-        System.out.printf("%s%n", "2. File Manipulation");
-        System.out.printf("%s%n", "3. Exit Application\n");
+        System.out.printf("%n\t%s%n", "1. Display All Files (Ascending Order)");
+        System.out.printf("\t%s%n", "2. File Manipulation");
+        System.out.printf("\t%s%n", "3. Exit Application\n");
 
     }
 
@@ -38,6 +38,10 @@ public class AppUtility {
             return;
         }
         AtomicInteger count = new AtomicInteger();
+        System.out.println("\n");
+        System.out.println("ROOT DIRECTORY: "+new File(FileUtility.ROOT_PATH).getAbsolutePath());
+        System.out.println("Available Files: \n");
+
         files.stream()
                 .sorted()
                 .forEach(f -> {
@@ -81,10 +85,11 @@ public class AppUtility {
         String input = null;
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println(message);
-            while ((input = scanner.nextLine()) == null) {
-
-            }
+            System.out.print(message);
+            input = scanner.nextLine();
+//            while ((input = scanner.nextLine()) == null) {
+//
+//            }
             if (isMainMenu && input != null && terminator.matches("[1-3]")) {
                 return input;
             }
