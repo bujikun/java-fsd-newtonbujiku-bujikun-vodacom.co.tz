@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileUtility {
-    public static final  String ROOT_PATH = "root";
+    public static final String ROOT_PATH = "root";
+
     public static void createInitialFiles(String[] userFileNames) {
         Thread fileCreatorThread;
         if (userFileNames.length > 0) {
@@ -30,13 +31,35 @@ public class FileUtility {
         }
     }
 
-    public static List<File> getAllFilesInADirectory(String directoryName) {
+    public static List<String> getAllFileNamesInADirectory(String directoryName) {
         var directory = new File(Paths.get(directoryName).toAbsolutePath().toString());
         if (directory.exists()) {
-           return Arrays.stream(directory.listFiles())
-                   .collect(Collectors.toList());
+            return Arrays.stream(directory.listFiles())
+                    .map(f -> f.toPath().getFileName().toString())
+                    .collect(Collectors.toList());
         }
         return new ArrayList<>();
+    }
+
+    public static List<String> sortBySelectionSort(List<String> files) {
+        int pos;
+        String temp;
+        for (int i = 0; i < files.size(); i++) {
+            pos = i;
+            for (int j = i + 1; j < files.size(); j++) {
+                //find the index of the minimum filename
+                //ignoring case
+                if (files.get(j).compareTo(files.get(pos)) < 0)
+                {
+                    pos = j;
+                }
+            }
+            //swap the current filename with the minimum filename
+            temp = files.get(pos);
+            files.set(pos, files.get(i));
+            files.set(i, temp);
+        }
+        return files;
     }
 
 }

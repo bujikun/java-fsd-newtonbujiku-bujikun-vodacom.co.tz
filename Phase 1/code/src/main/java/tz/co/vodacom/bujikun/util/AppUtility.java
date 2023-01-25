@@ -1,10 +1,10 @@
 package tz.co.vodacom.bujikun.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class AppUtility {
     public static void displayTitle() {
@@ -32,21 +32,23 @@ public class AppUtility {
         System.out.printf(pattern, message);
     }
 
-    public static void displayFiles(List<? extends File> files) {
+    public static void displayFiles(List<String> files) {
         if (files.size() == 0) {
-            display("\t%s%n", "No Files");
+            display("\t%s%n", "\nNo Files In the Root Directory");
             return;
         }
         AtomicInteger count = new AtomicInteger();
         System.out.println("\n");
         System.out.println("ROOT DIRECTORY: "+new File(FileUtility.ROOT_PATH).getAbsolutePath());
         System.out.println("Available Files: \n");
-
+//        List<String> fileNames = files.stream()
+//                .map(f->f.toPath().getFileName().toString())
+//                .collect(Collectors.toList());
+        files = FileUtility.sortBySelectionSort(files);//sort file names before displaying
         files.stream()
                 .sorted()
                 .forEach(f -> {
-                    display("\t%s%n", count.incrementAndGet() + ". " + f.toPath()
-                            .getFileName().toString());
+                    display("\t%s%n", count.incrementAndGet() + ". " +f);
                 });
     }
 
@@ -55,7 +57,7 @@ public class AppUtility {
         switch (choice) {
             case "1" -> {
                 AppUtility.displayFiles(FileUtility.
-                        getAllFilesInADirectory(FileUtility.ROOT_PATH));
+                        getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
                 handleSubMenuChoice("1");
             }
             case "2" -> {
