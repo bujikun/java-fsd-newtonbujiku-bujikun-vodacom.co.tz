@@ -7,8 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class AppUtility {
     public static void displayTitle() {
-        System.out.printf("%n\t%s%n", "LockedMe.com File Management Application");
-        System.out.printf("\t%s%n", "Developer: Newton Bujiku - bujikun@vodacom.co.tz\n");
+        System.out.printf("%n\t%s%n", "LockedMe.com - File Management Application");
+        System.out.printf("\t%s%n", "Developer: Newton Bujiku - bujikun@vodacom.co.tz");
     }
 
     public static void displayMainMenu() {
@@ -19,12 +19,11 @@ public class AppUtility {
     }
 
     public static void displaySubMenu() {
-        System.out.printf("%n%s%n", "2. File Manipulation");
-        System.out.printf("%s%n", "a. Create a new file");
-        System.out.printf("%s%n", "b. Delete a file");
-        System.out.printf("%s%n", "c. Search a file");
-        System.out.printf("%s%n", "*. Go Back To Main Screen\n");
-
+        display("%n\t%s%n", "2. File Manipulation");
+        display("\t%s%n", "a. Create a new file");
+        display("\t%s%n", "b. Delete a file");
+        display("\t%s%n", "c. Search a file");
+        display("\t%s%n", "*. Back To Main Screen\n");
     }
 
     public static void display(String pattern, String message) {
@@ -33,63 +32,46 @@ public class AppUtility {
 
     public static void displayFiles(List<String> files) {
         if (files.size() == 0) {
-            display("\t%s%n", "\nNo Files In the Root Directory");
+            display("\t%s%n", "\n\tNo files in the root directory");
             return;
         }
         AtomicInteger count = new AtomicInteger();
-        System.out.println("\n");
-        System.out.println("ROOT DIRECTORY: " + new File(FileUtility.ROOT_PATH).getAbsolutePath());
-        System.out.println("Available Files: \n");
-//        List<String> fileNames = files.stream()
-//                .map(f->f.toPath().getFileName().toString())
-//                .collect(Collectors.toList());
+        display("\n\t%s%n", "ROOT DIRECTORY: " + new File(FileUtility.ROOT_PATH).getAbsolutePath());
+        display("\t%s%n", "Available Files: \n");
         files = FileUtility.sortBySelectionSort(files);//sort file names before displaying
-        files.stream()
-                .sorted()
-                .forEach(f -> {
-                    display("\t%s%n", count.incrementAndGet() + ". " + f);
-                });
+        files.stream().sorted().forEach(f -> {
+            display("\t%s%n", count.incrementAndGet() + ". " + f);
+        });
     }
 
     public static void handleMenuChoice(String choice) {
-
         switch (choice) {
             case "1" -> {
-                AppUtility.displayFiles(FileUtility.
-                        getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
-                AppUtility.readUserChoice("\nEnter  * to go back to main menu: ",
-                        "*", false);
+                AppUtility.displayFiles(FileUtility.getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
+                AppUtility.readUserChoice("\n\tEnter * to go back to main menu: ", "*", false);
             }
             case "2" -> {
                 handlFileManipulationChoice();
-                //AppUtility.readUserChoice("", "*", false);
-            }
-            case "3" -> {
-
             }
         }
     }
 
     public static void handlFileManipulationChoice() {
-        outer: do {
+        outer:
+        do {
             AppUtility.displaySubMenu();
-            String choice = readUserChoice("Choose an option a/b/c/*?: ");
+            String choice = readUserChoice("\tChoose an option a/b/c/*?: ");
             switch (choice) {
                 case "a" -> {
-                    display("\t%s%n", "2a. File Creation\n");
-                    String fileName = readUserChoice("Enter file name: ");
-                    String responseMessage = FileUtility.createNewFile(fileName);
-                    System.out.println(responseMessage);
-                    displayFiles(FileUtility.getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
-
+                    FileUtility.createNewFile();
                 }
                 case "b" -> {
-
+                    FileUtility.deleteNewFile();
                 }
                 case "c" -> {
-
+                    FileUtility.searchFile();
                 }
-                case "*"->{
+                case "*" -> {
                     break outer;
                 }
             }
@@ -118,15 +100,4 @@ public class AppUtility {
         } while (input == null);
         return input;
     }
-
-    public static String readUserChoice(String message, String terminator) {
-        String input = null;
-        Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.print(message);
-            input = scanner.nextLine();
-        } while (input == null || !input.equals(terminator));
-        return input;
-    }
-
 }
