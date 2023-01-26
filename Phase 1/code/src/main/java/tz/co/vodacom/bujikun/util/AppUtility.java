@@ -20,11 +20,11 @@ public class AppUtility {
 
     public static void displaySubMenu() {
         display("%n\t%s%n", "2. File Manipulation");
-        display("\t%s%n", "a. Create a new file");
-        display("\t%s%n", "b. Delete a file");
-        display("\t%s%n", "c. Search a file");
-        display("\t%s%n", "d. Search a file by character sequence");
-        display("\t%s%n", "*. Back To Main Screen\n");
+        display("\t%s%n", "\ta. Create a new file");
+        display("\t%s%n", "\tb. Delete a file");
+        display("\t%s%n", "\tc. Search a file");
+        display("\t%s%n", "\td. Search a file by character sequence");
+        display("\t%s%n", "\t*. Back To Main Screen\n");
     }
 
     public static void display(String pattern, String message) {
@@ -61,7 +61,7 @@ public class AppUtility {
         outer:
         do {
             AppUtility.displaySubMenu();
-            String choice = readUserChoice("\tChoose an option a/b/c/*?: ");
+            String choice = readUserChoice("\tChoose an option a/b/c/d/*?: ");
             switch (choice) {
                 case "a" -> {
                     FileUtility.createNewFile();

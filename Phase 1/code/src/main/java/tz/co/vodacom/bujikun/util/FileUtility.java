@@ -14,13 +14,7 @@ public class FileUtility {
     public static final String ROOT_PATH = "root";
 
     public static void createInitialFiles(String[] userFileNames) {
-        Thread fileCreatorThread;
-        if (userFileNames.length > 0) {
-            fileCreatorThread = new Thread(new InitialFilesGeneratorRunnable(userFileNames));
-        } else {
-            fileCreatorThread = new Thread(new InitialFilesGeneratorRunnable());
-        }
-        fileCreatorThread.start();
+        new Thread(new InitialFilesGeneratorRunnable(userFileNames)).start();
     }
 
     public static void deleteDirectory(String dirName) {

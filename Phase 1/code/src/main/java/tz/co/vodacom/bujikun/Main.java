@@ -46,7 +46,7 @@ public class Main {
                             f.delete();
                         }
                     });
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
         }).start();
