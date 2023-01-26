@@ -6,16 +6,31 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * A runnable that will be called when the application launches to create
+ * auto generated files in the root directory and also user declared files
+ * provided through CLI arguments
+ * @author Newton Bujiku
+ * @since 2023
+ */
 public class InitialFilesGeneratorRunnable implements Runnable {
     private String[] userFiles;
 
-    public InitialFilesGeneratorRunnable() {
-    }
-
+    /**
+     * Constructs a runnable passing to it user supplied CLI arguments
+     * @param userFiles CLI arguments
+     * @author Newton Bujiku
+     * @since 2023
+     */
     public InitialFilesGeneratorRunnable(String[] userFiles) {
         this.userFiles = userFiles;
     }
 
+    /**
+     * The actual run method that creates files
+     * @author Newton Bujiku
+     * @since 2023
+     */
     @Override
     public void run() {
         //get a path to the current directory
@@ -41,6 +56,13 @@ public class InitialFilesGeneratorRunnable implements Runnable {
         }
     }
 
+    /**
+     * Verifies existence of a file and creates it if does not exist
+     * @param file Path to the file
+     * @throws IOException Thrown when the operations fail
+     * @author Newton Bujiku
+     * @2023
+     */
     private void checkAndCreate(Path file) throws IOException {
         if (!Files.exists(file)) {
             Files.createFile(file);

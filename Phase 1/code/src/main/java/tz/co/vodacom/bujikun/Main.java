@@ -6,9 +6,22 @@ import tz.co.vodacom.bujikun.util.FileUtility;
 import java.io.File;
 import java.util.Arrays;
 
+/**
+ * Launches the application and presents the user
+ * with 3 menu options to manipulate files or exit the application
+ * @author Newton Bujiku
+ * @since 2023
+ */
 public class Main {
     private static boolean isNotTerminated = true;
 
+    /**
+     * Entry point to the program
+     * @param args Command line arguments that
+     *             will be used to create files in the root directory
+     * @author Newton Bujiku
+     * @since 2023
+     */
     public static void main(String[] args) {
         FileUtility.createInitialFiles(args);
         runFileWatcher();
@@ -35,6 +48,12 @@ public class Main {
 
     }
 
+    /**
+     * Starts a thread that watches the root directory for
+     * any file containing * character in its name and deletes it.
+     * @author Newton Bujiku
+     * @since 2023
+     */
     public static void runFileWatcher() {
         new Thread(() -> {
             while (Main.isNotTerminated) {

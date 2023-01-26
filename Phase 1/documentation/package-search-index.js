@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"tz.co.vodacom.bujikun"},{"l":"tz.co.vodacom.bujikun.thread"},{"l":"tz.co.vodacom.bujikun.util"}];updateSearchResults();

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"tz.co.vodacom.bujikun.util","l":"AppUtility"},{"p":"tz.co.vodacom.bujikun.util","l":"FileUtility"},{"p":"tz.co.vodacom.bujikun.thread","l":"InitialFilesGeneratorRunnable"},{"p":"tz.co.vodacom.bujikun","l":"Main"}];updateSearchResults();
