@@ -66,6 +66,9 @@ public class FileUtility {
             return;
         }
         try {
+            if (fileName.contains("*")) {
+                throw new InvalidPathException("","");
+            }
             var filePath = Paths.get(ROOT_PATH).resolve(fileName);
             if(!Files.exists(Paths.get(ROOT_PATH))){
                 Files.createDirectory(Paths.get(ROOT_PATH));
@@ -73,13 +76,13 @@ public class FileUtility {
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }
-            System.out.println("\tFile successfully created: " + filePath);
+            System.out.println("\n\tFile successfully created: " + filePath);
             AppUtility.displayFiles(FileUtility.getAllFileNamesInADirectory(FileUtility.ROOT_PATH));
         } catch (InvalidPathException e) {
-            System.out.println("\tInvalid filename supplied. Please try to use non alphanumeric characters");
+            System.out.println("\n\tInvalid filename supplied. Please try to use non alphanumeric characters");
 
         } catch (IOException e) {
-            System.out.println("\tFile could not be created due to failed IO operations");
+            System.out.println("\n\tFile could not be created due to failed IO operations");
         }
 
     }
@@ -102,24 +105,24 @@ public class FileUtility {
             var filePath = Paths.get(ROOT_PATH).resolve(fileName);
             if (Files.exists(filePath)) {
                 Files.delete(filePath);
-                System.out.println("\tFile successfully deleted: " + filePath.toAbsolutePath());
+                System.out.println("\n\tFile successfully deleted: " + filePath.toAbsolutePath());
                 return;
             }
 
         } catch (InvalidPathException e) {
-            System.out.println("\tInvalid filename supplied. Please try to use non alphanumeric characters");
+            System.out.println("\n\tInvalid filename supplied. Please try to use non alphanumeric characters");
 
 
         } catch (NoSuchFileException e) {
-            System.out.println("\tThe file name you entered does not exist in the directory");
+            System.out.println("\n\tThe file name you entered does not exist in the directory");
 
         } catch (DirectoryNotEmptyException e) {
-            System.out.println("\tYou can not delete a non empty directory");
+            System.out.println("\n\tYou can not delete a non empty directory");
 
         } catch (IOException e) {
-            System.out.println("\tFile could not be deleted due to failed IO operations");
+            System.out.println("\n\tFile could not be deleted due to failed IO operations");
         }
-        System.out.println("\tThe file name you entered does not exist in the directory");
+        System.out.println("\n\tThe file name you entered does not exist in the directory");
 
     }
 
@@ -131,15 +134,15 @@ public class FileUtility {
         }
         List<String> fileNames = getAllFileNamesInADirectory(ROOT_PATH);
         if (fileNames.size() < 0) {
-            System.out.println("\tCan not perform search. No files in the root directory");
+            System.out.println("\n\tCan not perform search. No files in the root directory");
             return;
         }
         var sortedFileNames = sortBySelectionSort(fileNames);
         if (binarySearch(sortedFileNames, fileName) != -1) {
-            System.out.println("\tFound file: " + new File(fileName).getAbsolutePath());
+            System.out.println("\n\tFound file: " + new File(fileName).getAbsolutePath());
             return;
         }
-        System.out.println("\tFile not present in the root directory");
+        System.out.println("\n\tFile not present in the root directory");
     }
 
     public static int binarySearch(List<String> a, String searchString) {
@@ -160,5 +163,22 @@ public class FileUtility {
         }
         return -1;
     }
+
+
+    public static boolean containsSubstring(String searchMe, String findMe){
+        int searchMeLength = searchMe.length();
+        int findMeLength = findMe.length();
+        boolean foundIt = false;
+        for (int i = 0;
+             i <= (searchMeLength - findMeLength);
+             i++) {
+            if (searchMe.regionMatches(i, findMe, 0, findMeLength)) {
+                 foundIt = true;
+                break;
+            }
+        }
+        return foundIt;
+    }
+
 
 }

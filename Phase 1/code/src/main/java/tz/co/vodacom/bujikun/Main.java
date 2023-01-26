@@ -4,22 +4,19 @@ import tz.co.vodacom.bujikun.util.AppUtility;
 import tz.co.vodacom.bujikun.util.FileUtility;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class Main {
-    private  static boolean isNotTerminated = true;
+    private static boolean isNotTerminated = true;
 
     public static void main(String[] args) {
         FileUtility.createInitialFiles(args);
-        runFileWatcher(isNotTerminated);
+        runFileWatcher();
         String choice = null;
         do {
             AppUtility.displayTitle();
             AppUtility.displayMainMenu();
-            choice = AppUtility.readUserChoice("\tChoose option number 1/2/3? : ",
-                    "3", true);
+            choice = AppUtility.readUserChoice("\tChoose option number 1/2/3? : ", "3", true);
             switch (choice) {
                 case "1" -> {
                     AppUtility.handleMenuChoice("1");
@@ -38,17 +35,18 @@ public class Main {
 
     }
 
-    public static  void runFileWatcher(boolean isNotTerminated){
-        new Thread(()->{
-            while(isNotTerminated){
-                var invalidFile = Paths.get(FileUtility.ROOT_PATH);
-                if(invalidFile.getFileName().toString().matches("'^[^*&%\\s]+$'")&&Files.exists(invalidFile)){
-                    System.out.println("resolved *"+invalidFile.toAbsolutePath());
-                    try {
-                        Files.delete(invalidFile);
-                    } catch (IOException e) {
-                        //throw new RuntimeException(e);
-                    }
+    public static void runFileWatcher() {
+        new Thread(() -> {
+            while (Main.isNotTerminated) {
+                var root = new File(FileUtility.ROOT_PATH);
+                try {
+                    Arrays.stream(root.listFiles()).forEach(f -> {
+                        if (f.getName().contains("*")) {
+                            System.out.println("resolved *" + f.getAbsolutePath());
+                            f.delete();
+                        }
+                    });
+                }catch (Exception e){
                 }
             }
         }).start();

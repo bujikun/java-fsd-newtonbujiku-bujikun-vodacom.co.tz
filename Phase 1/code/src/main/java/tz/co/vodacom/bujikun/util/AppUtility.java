@@ -71,6 +71,9 @@ public class AppUtility {
                 case "c" -> {
                     FileUtility.searchFile();
                 }
+                case "d" -> {
+                    FileUtility.searchBySubString();
+                }
                 case "*" -> {
                     break outer;
                 }
