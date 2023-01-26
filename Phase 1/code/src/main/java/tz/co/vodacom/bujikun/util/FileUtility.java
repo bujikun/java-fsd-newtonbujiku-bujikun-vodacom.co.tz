@@ -128,7 +128,7 @@ public class FileUtility {
 
     public static void searchFile() {
         AppUtility.display("\t%s%n", "2b. File Search\n");
-        String fileName = AppUtility.readUserChoice("\tEnter name of the file to be searched or * to go back: ");
+        String fileName = AppUtility.readUserChoice("\tEnter exact name of the file to be searched or * to go back: ");
         if(fileName.equals("*")){
             return;
         }
@@ -143,6 +143,30 @@ public class FileUtility {
             return;
         }
         System.out.println("\n\tFile not present in the root directory");
+    }
+
+    public static void searchBySubstring() {
+        AppUtility.display("\t%s%n", "2b. File Search By Character Sequence\n");
+        String charSeq = AppUtility.readUserChoice("\tEnter character(s) to  be used in search or * to go back: ");
+        if(charSeq.equals("*")){
+            return;
+        }
+        List<String> fileNames = getAllFileNamesInADirectory(ROOT_PATH);
+        if (fileNames.size() < 0) {
+            System.out.println("\n\tCan not perform search. No files in the root directory");
+            return;
+        }
+        var sortedFileNames = sortBySelectionSort(fileNames);
+        //do search
+        List<String> found = fileNames.stream()
+                        .filter(s->containsSubstring(s,charSeq))
+                                .collect(Collectors.toList());
+        if(found.size()>0){
+            System.out.println("\n\tFound "+found.size()+" files : \n");
+            found.stream().forEach(s->System.out.println("\t\t"+s));
+            return;
+        }
+        System.out.println("\n\tNo file with a name like that");
     }
 
     public static int binarySearch(List<String> a, String searchString) {
@@ -179,6 +203,4 @@ public class FileUtility {
         }
         return foundIt;
     }
-
-
 }

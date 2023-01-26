@@ -23,6 +23,7 @@ public class AppUtility {
         display("\t%s%n", "a. Create a new file");
         display("\t%s%n", "b. Delete a file");
         display("\t%s%n", "c. Search a file");
+        display("\t%s%n", "d. Search a file by character sequence");
         display("\t%s%n", "*. Back To Main Screen\n");
     }
 
@@ -72,7 +73,7 @@ public class AppUtility {
                     FileUtility.searchFile();
                 }
                 case "d" -> {
-                    FileUtility.searchBySubString();
+                    FileUtility.searchBySubstring();
                 }
                 case "*" -> {
                     break outer;
