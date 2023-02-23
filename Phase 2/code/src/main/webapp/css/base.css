@@ -1,3 +1,32 @@
+*{
+    box-sizing: border-box;
+}
 body{
     font-family: source-code-regular;
+    color: #1a1e21;
+    background-color: #eeeeee;
+    font-size: 1rem;
 }
+
+.fa-form-container{
+    background-color: #fff;
+    box-shadow: 0 .5rem .5rem rgba(0,0,0,.2);
+    width: 80%;
+    border-radius: .2rem;
+}
+
+
+.fa-form-container>h5{
+    text-align: center;
+    font-weight: bold;
+}
+input,
+label{
+    margin: 0.4rem 0;
+}
+
+.material-icons-outlined{
+    vertical-align: middle;
+}
+
+/*#198754*/
