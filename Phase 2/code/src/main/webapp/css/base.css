@@ -1,3 +1,6 @@
+:root{
+    --list-group-action-hover-color:#198754;
+}
 *{
     box-sizing: border-box;
 }
@@ -15,7 +18,6 @@ body{
     border-radius: .2rem;
 }
 
-
 .fa-form-container>h5{
     text-align: center;
     font-weight: bold;
@@ -29,4 +31,8 @@ label{
     vertical-align: middle;
 }
 
+.list-group-item:hover{
+    color: #ffffff;
+    background-color: var(--list-group-action-hover-color);
+}
 /*#198754*/

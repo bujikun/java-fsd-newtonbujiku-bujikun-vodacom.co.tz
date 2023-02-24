@@ -55,7 +55,7 @@
                     <span class="h6 text-success" style="display: block;text-align: start;">From Moscow to Madrid on 02/23/2023</span></div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="passenger-registration" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Emirates</h5>
                                 <small>EK25</small>
