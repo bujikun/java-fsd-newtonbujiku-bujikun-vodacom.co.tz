@@ -11,7 +11,9 @@
 <link rel="preload" href="font/source-code-pro/SourceCodePro-ExtraLight.ttf" as="font" type="font/ttf"
       crossorigin="anonymous">
 <link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/base.css" crossorigin="anonymous">
+<link rel="stylesheet" href="css/percircle.css" crossorigin="anonymous">
+
 <style>
     @font-face {
         font-family: "source-code-regular";

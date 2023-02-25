@@ -8,11 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name="PassengerRegistration",value = "/passenger-registration")
-public class PassengerRegistrationController extends HttpServlet {
+@WebServlet(name = "RootController",value = "/flyaway")
+public class RootController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("passenger-registration.jsp").forward(req,resp);
+        req.getRequestDispatcher("index.jsp").forward(req,resp);
     }
 
     @Override

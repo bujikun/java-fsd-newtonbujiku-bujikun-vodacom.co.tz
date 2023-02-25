@@ -32,19 +32,25 @@
         <div class="col-md-8 col-lg-8 col-xl-8">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div class="m-1 p-2">
-                    <span class="h4 text-success">Flight Details
+                    <span class="h4 text-success">Your Booking Details
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
                 </div>
-                <div class="fa-booking fa-form-container m-2 p-2 my-1" >
+                <div class="fa-booking fa-form-container m-2 p-2 my-1">
                     <span class="d-block">BOOKING</span>
                     <span class="d-block">Number: H2424A</span>
                 </div>
+                <div class="fa-booking details fa-form-container m-2 p-2 my-1">
+                    <span class="d-block">PASSENGER</span>
+                    <small class="d-block">Name: Newton Bujiku</small>
+                    <small class="d-block">DOB: 19/01/1990</small>
+                    <small class="d-block">Address: Dar Es Salam</small>
+                </div>
 
-                <div class="fa-booking fa-form-container m-2 p-2 my-1" >
+                <div class="fa-booking fa-form-container m-2 p-2 my-1">
                     <span class="d-block">AIRLINE</span>
                     <small class="d-block">Name: Emirates</small>
                 </div>
-                <div class="fa-booking fa-form-container m-2 p-2 my-1" >
+                <div class="fa-booking fa-form-container m-2 p-2 my-1">
                     <span class="d-block">FLIGHT</span>
                     <small class="d-block">From: Madrid</small>
                     <small class="d-block">To: Moscow</small>
@@ -56,9 +62,14 @@
                     <span class="d-block">PRICE</span>
                     <small class="d-block">$500</small>
                 </div>
-                    <form action="making-payment" method="post" style="width: 80%;" class="mt-4">
-                    <button class="btn btn-outline-success fa-form-container" type="submit" style="width: 100%;">Make Payment</button>
-                    </form>
+                <div class="mt-5">
+                    <small class="d-block mt-5">**Remember to note down your Booking Number as you can use it to search for
+                        your <br/>flight
+                        details in case you forget them.
+                    </small>
+                    <small class="d-block">**Please arrive at the airport 2 hours before your flight.
+                    </small>
+                </div>
             </div>
 
         </div>

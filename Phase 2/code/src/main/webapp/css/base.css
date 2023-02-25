@@ -14,7 +14,7 @@ body{
 .fa-form-container{
     background-color: #fff;
     box-shadow: 0 .5rem .5rem rgba(0,0,0,.2);
-    width: 80%;
+    width: 65%;
     border-radius: .2rem;
 }
 
@@ -36,3 +36,21 @@ label{
     background-color: var(--list-group-action-hover-color);
 }
 /*#198754*/
+.fa-nav-button{
+    color: #198754;
+}
+.fa-nav-button:hover{
+    color: #ffffff;
+}
+
+.fa-booking:hover{
+    background-color:#198754;
+    color: #ffffff;
+}
+
+.fa-booking{
+    color: #333;
+}
+.navbar-light, .navbar-nav, .nav-link:hover{
+   color:#198754;
+}

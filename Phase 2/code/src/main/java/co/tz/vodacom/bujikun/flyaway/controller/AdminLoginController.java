@@ -7,16 +7,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-
-@WebServlet(name="PassengerRegistration",value = "/passenger-registration")
-public class PassengerRegistrationController extends HttpServlet {
+@WebServlet(name = "AdminController",value = "/login")
+public class AdminLoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("passenger-registration.jsp").forward(req,resp);
+        req.getRequestDispatcher("admin-login.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //req.getRequestDispatcher("flight-details.jsp").forward(req,resp);
+        //req.getRequestDispatcher("admin-home").forward(req,resp);
+        resp.sendRedirect("admin-home");
     }
 }
