@@ -3,6 +3,8 @@ package co.tz.vodacom.bujikun.flyaway.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -10,11 +12,13 @@ import lombok.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "airlines")
-public class Airline {
+@Table(name = "passengers")
+public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String codename;
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
+    private String address;
 }
