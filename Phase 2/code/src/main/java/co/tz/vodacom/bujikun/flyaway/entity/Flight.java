@@ -6,28 +6,35 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalTime;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Builder
 @Entity
-@Table(name = "passengers")
+@Table(name = "flights")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)//to prevent cyclic reference
-public class Passenger {
+public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String firstName;
-    private String lastName;
-    private LocalDate dateOfBirth;
-    private String address;
     @Column(unique = true)
-    @OneToMany(mappedBy = "passenger")
-    private List<Payment> payments;
-    @OneToOne(mappedBy = "passenger")
+    private String code;
+    private LocalDate date;
+    private LocalTime departure;
+    private LocalTime arrival;
+    private Integer sourceId;
+    private Integer destinationId;
+    private Double price;
+    @OneToOne(mappedBy = "flight")
     private Booking booking;
+    @ManyToOne
+    @JoinColumn(name = "fk_source_id",insertable = false)
+    private Place placeSource;
+    @ManyToOne
+    @JoinColumn(name = "fk_dest_id",insertable = false)
+    private Place placeDest;
 }

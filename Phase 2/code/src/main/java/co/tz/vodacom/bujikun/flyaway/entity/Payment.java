@@ -5,21 +5,29 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
-@NoArgsConstructor
+import java.awt.print.Book;
+
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @Builder
 @Entity
-@Table(name = "airlines")
+@Table(name = "payments")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)//to prevent cyclic reference
-public class Airline {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(unique = true)
-    private String name;
+    private Double amount;
     @Column(unique = true)
     private String codename;
+    private Integer passengerId;
+    @ManyToOne
+    @JoinColumn(insertable = false)
+    private Passenger passenger;
+    @OneToOne(mappedBy = "payment")
+    private Booking booking;
 }
+

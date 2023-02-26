@@ -12,14 +12,12 @@ import lombok.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "airlines")
+@Table(name = "places")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)//to prevent cyclic reference
-public class Airline {
+public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(unique = true)
     private String name;
-    @Column(unique = true)
-    private String codename;
 }
