@@ -14,7 +14,4 @@ public class DatabaseResource {
         return sessionFactory;
     }
 
-    public static void main(String[] args) {
-        sessionFactory.openSession();
-    }
 }

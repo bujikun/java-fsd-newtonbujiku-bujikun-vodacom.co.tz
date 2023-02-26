@@ -8,6 +8,7 @@ import lombok.*;
 import java.awt.print.Book;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -23,9 +24,8 @@ public class Payment {
     private Double amount;
     @Column(unique = true)
     private String codename;
-    private Integer passengerId;
     @ManyToOne
-    @JoinColumn(insertable = false)
+    @JoinColumn(name = "fk_passenger_id")
     private Passenger passenger;
     @OneToOne(mappedBy = "payment")
     private Booking booking;

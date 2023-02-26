@@ -18,18 +18,15 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(unique = true)
-    private Integer passengerId;
-    private Integer flightId;
-    private Integer paymentId;
     private String bookingNumber;
     @OneToOne
-    @JoinColumn (insertable = false)
+    @JoinColumn(name = "fk_passenger_id")
     private Passenger passenger;
     @OneToOne
-    @JoinColumn(insertable = false)
+    @JoinColumn(name = "fk_payment_id")
     private Payment payment;
     @OneToOne
-    @JoinColumn(insertable = false)
+    @JoinColumn(name = "fk_flight_id")
     private Flight flight;
 
 }

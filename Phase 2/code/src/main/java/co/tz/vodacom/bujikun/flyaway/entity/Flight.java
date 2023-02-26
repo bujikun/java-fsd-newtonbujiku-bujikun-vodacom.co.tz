@@ -26,15 +26,13 @@ public class Flight {
     private LocalDate date;
     private LocalTime departure;
     private LocalTime arrival;
-    private Integer sourceId;
-    private Integer destinationId;
     private Double price;
     @OneToOne(mappedBy = "flight")
     private Booking booking;
     @ManyToOne
-    @JoinColumn(name = "fk_source_id",insertable = false)
+    @JoinColumn(name = "fk_source_id")
     private Place placeSource;
     @ManyToOne
-    @JoinColumn(name = "fk_dest_id",insertable = false)
+    @JoinColumn(name = "fk_dest_id")
     private Place placeDest;
 }
