@@ -2,6 +2,7 @@ package co.tz.vodacom.bujikun.flyaway.service;
 
 import co.tz.vodacom.bujikun.flyaway.dao.PassengerDAO;
 import co.tz.vodacom.bujikun.flyaway.entity.Passenger;
+import co.tz.vodacom.bujikun.flyaway.entity.Payment;
 import co.tz.vodacom.bujikun.flyaway.entity.Place;
 
 import java.sql.SQLException;
@@ -53,5 +54,13 @@ public class PassengerService implements IService<Passenger> {
             e.printStackTrace();
         }
         return "Passenger Could Not Be Deleted";
+    }
+    public int createAndGetId(Passenger passenger) {
+        try {
+            return passengerDAO.createAndGetId(passenger);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

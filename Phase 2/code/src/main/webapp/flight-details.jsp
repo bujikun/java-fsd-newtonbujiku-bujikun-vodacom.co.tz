@@ -1,4 +1,4 @@
-<%--
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %><%--
   Created by IntelliJ IDEA.
   User: newtonbujiku
   Date: 2/23/23
@@ -20,6 +20,11 @@
     <title>Welcome to FlyAway</title>
     <style>
         body{background-color: #fff;}
+        .fa-make-payment-btn{
+            background-color: #fff;
+            width: 65%;
+            border-radius: .2rem;
+        }
     </style>
 </head>
 <body>
@@ -37,28 +42,31 @@
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
                     <span class="d-block">BOOKING</span>
-                    <span class="d-block">Number: H2424A</span>
+                    <span class="d-block">Number: <%= request.getAttribute("booking-number")%></span>
                 </div>
 
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
                     <span class="d-block">AIRLINE</span>
-                    <small class="d-block">Name: Emirates</small>
+                    <small class="d-block">Name: <%= ((Flight)request.getAttribute("flight")).getAirline().getName()%></small>
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
                     <span class="d-block">FLIGHT</span>
-                    <small class="d-block">From: Madrid</small>
-                    <small class="d-block">To: Moscow</small>
-                    <small class="d-block">Departure: 14:25</small>
-                    <small class="d-block">Arrival: 20:25</small>
-                    <small class="d-block">Flight Number: EK25</small>
+                    <small class="d-block">From: <%= ((Flight)request.getAttribute("flight")).getPlaceSource().getName()%></small>
+                    <small class="d-block">To: <%= ((Flight)request.getAttribute("flight")).getPlaceDest().getName()%></small>
+                    <small class="d-block">Departure: <%= ((Flight)request.getAttribute("flight")).getDeparture()%></small>
+                    <small class="d-block">Arrival: <%= ((Flight)request.getAttribute("flight")).getDeparture()%></small>
+                    <small class="d-block">Flight Number: <%= ((Flight)request.getAttribute("flight")).getCode()%></small>
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
                     <span class="d-block">PRICE</span>
-                    <small class="d-block">$500</small>
+                    <small class="d-block"><%= ((Flight)request.getAttribute("flight")).getPrice()%></small>
                 </div>
-                    <form action="making-payment" method="post" style="width: 80%;" class="mt-4">
-                    <button class="btn btn-outline-success fa-form-container" type="submit" style="width: 100%;">Make Payment</button>
+                <div class="fa-make-payment-btn mt-5">
+                    <form action="making-payment" method="post" class="d-block">
+                        <button class="btn btn-outline-success fa-form-container" type="submit">Make Payment</button>
                     </form>
+                </div>
+
             </div>
 
         </div>

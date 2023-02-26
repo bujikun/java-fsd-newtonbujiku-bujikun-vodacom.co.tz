@@ -2,6 +2,7 @@ package co.tz.vodacom.bujikun.flyaway.dao;
 
 import co.tz.vodacom.bujikun.flyaway.config.DatabaseResource;
 import co.tz.vodacom.bujikun.flyaway.entity.Passenger;
+import co.tz.vodacom.bujikun.flyaway.entity.Payment;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 
@@ -53,5 +54,13 @@ public class PassengerDAO implements IDAO<Passenger> {
         session.beginTransaction();
         session.remove(findOneById(id));
         session.getTransaction().commit();
+    }
+    public int createAndGetId(Passenger passenger) throws SQLException{
+        var session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.persist(passenger);
+        var pmt = (Integer) session.getIdentifier(passenger);
+        session.getTransaction().commit();
+        return pmt.intValue();
     }
 }

@@ -2,6 +2,7 @@ package co.tz.vodacom.bujikun.flyaway.controller;
 
 import co.tz.vodacom.bujikun.flyaway.entity.Flight;
 import co.tz.vodacom.bujikun.flyaway.service.FlightService;
+import co.tz.vodacom.bujikun.flyaway.service.PlaceService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,6 +27,9 @@ public class ShowFlightsController extends HttpServlet {
         var destination = req.getParameter("destination");
         var flights = new FlightService().findAll(date,source,destination);
         req.setAttribute("flights",flights);
+        req.setAttribute("date",date);
+        req.setAttribute("source",new PlaceService().findOneById(Integer.valueOf(source)).getName());
+        req.setAttribute("destination",new PlaceService().findOneById(Integer.valueOf(destination)).getName());
         req.getRequestDispatcher("showflights.jsp").forward(req,resp);
     }
 

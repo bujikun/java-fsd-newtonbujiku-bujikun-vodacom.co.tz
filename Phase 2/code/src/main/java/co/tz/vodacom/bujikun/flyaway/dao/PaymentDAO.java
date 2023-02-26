@@ -31,10 +31,10 @@ public class PaymentDAO implements IDAO<Payment> {
     }
 
     @Override
-    public void create(Payment passenger) throws SQLException {
+    public void create(Payment payment) throws SQLException {
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        session.persist(passenger);
+        session.persist(payment);
         session.getTransaction().commit();
     }
 
@@ -53,5 +53,13 @@ public class PaymentDAO implements IDAO<Payment> {
         session.beginTransaction();
         session.remove(findOneById(id));
         session.getTransaction().commit();
+    }
+    public int createAndGetId(Payment payment) throws SQLException{
+        var session = sessionFactory.openSession();
+        session.beginTransaction();
+         session.persist(payment);
+         var pmt = (Integer) session.getIdentifier(payment);
+        session.getTransaction().commit();
+        return pmt.intValue();
     }
 }

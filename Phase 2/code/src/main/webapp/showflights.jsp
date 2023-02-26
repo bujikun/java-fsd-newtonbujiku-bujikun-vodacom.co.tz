@@ -28,11 +28,19 @@
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
                 </div>
                 <div class="px-2 mx-2">
-                    <span class="h6 text-success" style="display: block;text-align: start;">From Moscow to Madrid on 02/23/2023</span></div>
+                    <span class="h6 text-success" style="display: block;text-align: start;">From <%=request.getAttribute("source") %> to
+                        <%=request.getAttribute("destination") %> on <%=request.getAttribute("date") %></span></div>
                 <div class="fa-form-container m-2">
+                    <% if(((List<Flight>)request.getAttribute("flights")).size()<= 0 ){%>
+                    <div class="p-4">
+                        <h5 class="text-danger p-4">No Available Flights From the Selections!<br/>
+                            Please refine your search.
+                        </h5>
+                    </div>
+                    <%}%>
                     <div class="list-group">
                         <% for(Flight flight:(List<Flight>) request.getAttribute("flights")){%>
-                        <a href="passenger-registration" class="list-group-item list-group-item-action" aria-current="true">
+                        <a href="passenger-registration?flight=<%= flight.getId()%>" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1"><%= flight.getAirline().getName()%></h5>
                                 <small><%=flight.getAirline().getCodename()%></small>

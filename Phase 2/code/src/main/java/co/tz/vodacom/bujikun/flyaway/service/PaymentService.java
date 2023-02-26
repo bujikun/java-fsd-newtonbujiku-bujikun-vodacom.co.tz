@@ -56,4 +56,13 @@ public class PaymentService implements IService<Payment> {
         }
         return "Payment Could Not Be Deleted";
     }
+
+    public int createAndGetId(Payment payment) {
+        try {
+            return paymentDAO.createAndGetId(payment);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

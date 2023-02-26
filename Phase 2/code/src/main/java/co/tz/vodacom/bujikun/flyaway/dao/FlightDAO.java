@@ -25,7 +25,6 @@ public class FlightDAO implements IDAO<Flight> {
         var placeDAO = new PlaceDAO();
         query.setParameter("source",placeDAO.findOneById(Integer.valueOf(source)));
         query.setParameter("destination",placeDAO.findOneById(Integer.valueOf(destination)));
-        Logger.getLogger(this.getClass().getName()).info(date + source+destination);
         query.getResultList().forEach(f->Logger.getLogger(this.getClass().getName()).log(Level.INFO,f.toString()));
         return query.getResultList();
     }

@@ -12,6 +12,8 @@ import java.io.IOException;
 public class PassengerRegistrationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var flightId = req.getParameter("flight");
+        req.setAttribute("flight",flightId);
         req.getRequestDispatcher("passenger-registration.jsp").forward(req,resp);
     }
 
