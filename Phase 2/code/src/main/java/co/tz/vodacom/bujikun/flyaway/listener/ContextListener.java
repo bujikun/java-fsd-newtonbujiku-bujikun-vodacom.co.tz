@@ -1,5 +1,6 @@
 package co.tz.vodacom.bujikun.flyaway.listener;
 
+import co.tz.vodacom.bujikun.flyaway.config.DataInit;
 import co.tz.vodacom.bujikun.flyaway.config.DatabaseResource;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -11,7 +12,7 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         //Create database tables
         DatabaseResource.getSessionFactory().openSession().close();
-        System.out.println("CONTEXT ON");
+        DataInit.populateDatabase();
     }
 
     @Override

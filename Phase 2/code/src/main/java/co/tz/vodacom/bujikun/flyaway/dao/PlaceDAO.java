@@ -1,19 +1,20 @@
 package co.tz.vodacom.bujikun.flyaway.dao;
 
 import co.tz.vodacom.bujikun.flyaway.config.DatabaseResource;
-import co.tz.vodacom.bujikun.flyaway.entity.Payment;
 import co.tz.vodacom.bujikun.flyaway.entity.Place;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 
+import java.sql.SQLException;
 import java.util.List;
 
-public class PlaceDAO  implements IDAO<Place> {
+public class PlaceDAO implements IDAO<Place> {
     private final SessionFactory sessionFactory;
 
     {
         sessionFactory = DatabaseResource.getSessionFactory();
     }
+
     @Override
     public List<Place> findAll() {
         var session = sessionFactory.openSession();
@@ -25,44 +26,32 @@ public class PlaceDAO  implements IDAO<Place> {
     public Place findOneById(Integer id) {
         var session = sessionFactory.openSession();
         TypedQuery<Place> query = session.createQuery("SELECT p FROM Place p WHERE p.id=:id", Place.class);
-        query.setParameter("id",id);
+        query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public void create(Place place) {
+    public void create(Place place) throws SQLException {
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        try{
-            session.persist(place);
-        }catch (Exception e){
-
-        }
+        session.persist(place);
         session.getTransaction().commit();
     }
 
     @Override
-    public void update(Integer id, Place place) {
+    public void update(Integer id, Place place) throws SQLException {
         place.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        try{
-            session.merge(place);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        session.merge(place);
         session.getTransaction().commit();
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws SQLException {
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        try{
-            session.remove(findOneById(id));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        session.remove(findOneById(id));
         session.getTransaction().commit();
     }
 }

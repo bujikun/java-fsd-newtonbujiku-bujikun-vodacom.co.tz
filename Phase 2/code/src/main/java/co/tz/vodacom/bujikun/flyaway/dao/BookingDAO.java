@@ -1,11 +1,11 @@
 package co.tz.vodacom.bujikun.flyaway.dao;
 
 import co.tz.vodacom.bujikun.flyaway.config.DatabaseResource;
-import co.tz.vodacom.bujikun.flyaway.entity.Airline;
 import co.tz.vodacom.bujikun.flyaway.entity.Booking;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class BookingDAO implements IDAO<Booking> {
@@ -14,55 +14,44 @@ public class BookingDAO implements IDAO<Booking> {
     {
         sessionFactory = DatabaseResource.getSessionFactory();
     }
+
     @Override
     public List<Booking> findAll() {
         var session = sessionFactory.openSession();
-        TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b",Booking.class);
+        TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b", Booking.class);
         return query.getResultList();
     }
 
     @Override
     public Booking findOneById(Integer id) {
         var session = sessionFactory.openSession();
-        TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b WHERE b.id=:id",Booking.class);
-        query.setParameter("id",id);
+        TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b WHERE b.id=:id", Booking.class);
+        query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public void create(Booking booking) {
+    public void create(Booking booking) throws SQLException {
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        try{
-            session.persist(booking);
-        }catch (Exception e){
-
-        }
+        session.persist(booking);
         session.getTransaction().commit();
     }
 
     @Override
-    public void update(Integer id, Booking booking) {
+    public void update(Integer id, Booking booking) throws SQLException {
         booking.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        try{
-            session.merge(booking);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        session.merge(booking);
         session.getTransaction().commit();
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws SQLException {
         var session = sessionFactory.openSession();
         session.beginTransaction();
-        try{
-            session.remove(findOneById(id));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        session.remove(findOneById(id));
         session.getTransaction().commit();
     }
 }
