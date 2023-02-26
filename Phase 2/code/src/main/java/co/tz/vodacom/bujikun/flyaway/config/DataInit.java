@@ -49,13 +49,13 @@ public class DataInit {
         return List.of(
                 Flight.builder().code("AC23").date(LocalDate.now()).departure(LocalTime.now())
                         .arrival(LocalTime.now().plusHours(6)).placeSource(PLACES.get(1)).placeDest(PLACES.get(3))
-                        .price(500.99).build(),
+                        .price(500.99).airline(AIRLINES.get(0)).build(),
                 Flight.builder().code("AF45").date(LocalDate.now()).departure(LocalTime.now())
                         .arrival(LocalTime.now().plusHours(4)).placeSource(PLACES.get(3)).placeDest(PLACES.get(6))
-                        .price(499.99).build(),
+                        .price(499.99).airline(AIRLINES.get(1)).build(),
                 Flight.builder().code("AI98").date(LocalDate.now()).departure(LocalTime.now())
                         .arrival(LocalTime.now().plusHours(8)).placeSource(PLACES.get(7)).placeDest(PLACES.get(2))
-                        .price(800.59).build()
+                        .price(800.59).airline(AIRLINES.get(3)).build()
         );
     }
 

@@ -27,8 +27,9 @@ public class Flight {
     private LocalTime departure;
     private LocalTime arrival;
     private Double price;
-    @OneToOne(mappedBy = "flight")
-    private Booking booking;
+    @OneToOne
+    @JoinColumn(name = "fk_airline_id")
+    private Airline airline;
     @ManyToOne
     @JoinColumn(name = "fk_source_id")
     private Place placeSource;

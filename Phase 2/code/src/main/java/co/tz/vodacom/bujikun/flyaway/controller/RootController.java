@@ -1,5 +1,6 @@
 package co.tz.vodacom.bujikun.flyaway.controller;
 
+import co.tz.vodacom.bujikun.flyaway.service.FlightService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,10 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "RootController",value = "/flyaway")
+@WebServlet("/flyaway")
 public class RootController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var flights = new FlightService().findAll();
+        //req.setAttribute("flights",flights);
         req.getRequestDispatcher("index.jsp").forward(req,resp);
     }
 

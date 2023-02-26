@@ -5,6 +5,7 @@ import co.tz.vodacom.bujikun.flyaway.entity.Flight;
 import co.tz.vodacom.bujikun.flyaway.entity.Place;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class FlightService implements IService<Flight> {
@@ -17,6 +18,11 @@ public class FlightService implements IService<Flight> {
     @Override
     public List<Flight> findAll() {
         return flightDAO.findAll();
+    }
+
+    public List<Flight> findAll(LocalDate date,String source, String destination) {
+
+        return flightDAO.findAll(date,source,destination);
     }
 
     @Override

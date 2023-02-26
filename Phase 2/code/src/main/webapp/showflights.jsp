@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %><%--
   Created by IntelliJ IDEA.
   User: newtonbujiku
   Date: 2/23/23
@@ -30,36 +31,38 @@
                     <span class="h6 text-success" style="display: block;text-align: start;">From Moscow to Madrid on 02/23/2023</span></div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">
+                        <% for(Flight flight:(List<Flight>) request.getAttribute("flights")){%>
                         <a href="passenger-registration" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Emirates</h5>
-                                <small>EK25</small>
+                                <h5 class="mb-1"><%= flight.getAirline().getName()%></h5>
+                                <small><%=flight.getAirline().getCodename()%></small>
                             </div>
-                            <p class="mb-1">Departure: 14:25 &nbsp;
+                            <p class="mb-1">Departure: <span><%=flight.getDeparture()%></span> &nbsp;
                                 <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: 21:00</p>
-                            <small>Price : $500</small>
+                                &nbsp;Arrival: <span><%=flight.getArrival()%></span></p>
+                            <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Air India</h5>
-                                <small>EK25</small>
-                            </div>
-                            <p class="mb-1">Departure: 14:25 &nbsp;
-                                <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: 21:00</p>
-                            <small>Price : $500</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">KLM</h5>
-                                <small>EK25</small>
-                            </div>
-                            <p class="mb-1">Departure: 14:25 &nbsp;
-                                <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: 21:00</p>
-                            <small>Price : $500</small>
-                        </a>
+                        <%}%>
+<%--                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">--%>
+<%--                            <div class="d-flex w-100 justify-content-between">--%>
+<%--                                <h5 class="mb-1">Air India</h5>--%>
+<%--                                <small>EK25</small>--%>
+<%--                            </div>--%>
+<%--                            <p class="mb-1">Departure: 14:25 &nbsp;--%>
+<%--                                <span class="material-icons-outlined">flight</span>--%>
+<%--                                &nbsp;Arrival: 21:00</p>--%>
+<%--                            <small>Price : $500</small>--%>
+<%--                        </a>--%>
+<%--                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">--%>
+<%--                            <div class="d-flex w-100 justify-content-between">--%>
+<%--                                <h5 class="mb-1">KLM</h5>--%>
+<%--                                <small>EK25</small>--%>
+<%--                            </div>--%>
+<%--                            <p class="mb-1">Departure: 14:25 &nbsp;--%>
+<%--                                <span class="material-icons-outlined">flight</span>--%>
+<%--                                &nbsp;Arrival: 21:00</p>--%>
+<%--                            <small>Price : $500</small>--%>
+<%--                        </a>--%>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.service.FlightService" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -49,28 +54,32 @@
                         <div class="mb-3">
                             <label for="datepicker" class="form-label">Departure</label>
                             &nbsp;<span class="material-icons-outlined">calendar_month</span>
-                            <input type="date" class="form-control" id="datepicker" value="2023-02-27"
-                                   min="2023-01-01" max="2023-12-31" required>
+                            <input type="date" class="form-control" id="datepicker"
+                                   value="<%= LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) %>"
+                                   min="2023-02-25" max="2023-03-10" name="date" required>
                         </div>
                         <div class="mb-3">
                             <label for="source" class="form-label">Source</label>&nbsp;<span
                                 class="material-icons-outlined">
                             flight_takeoff</span>
-                            <select class="form-select" id="source" required>
-                                <option value="1">Madrid</option>
-                                <option value="2">London</option>
-                                <option value="3">Paris</option>
+                            <%! List<Flight> flights = new FlightService().findAll();%>
+                            <select class="form-select" id="source" name="source" required>
+                                <% for(int i=0; i<flights.size();i++){%>
+                                <option value="<%= flights.get(i).getPlaceSource().getId()%>">
+                                    <%= flights.get(i).getPlaceSource().getName()%>
+                                </option>
+                                <%}%>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="destination" class="form-label">Destination</label>&nbsp;<span
-                                class="material-icons-outlined">
-flight_land
-</span>
-                            <select class="form-select" id="destination" required>
-                                <option value="1">Moscow</option>
-                                <option value="2">Kiev</option>
-                                <option value="3">Lisbon</option>
+                                class="material-icons-outlined">flight_land</span>
+                            <select class="form-select" id="destination" name="destination" required>
+                                <% for(int i=0; i<flights.size();i++){%>
+                                <option value="<%= flights.get(i).getPlaceSource().getId()%>">
+                                    <%= flights.get(i).getPlaceSource().getName()%>
+                                </option>
+                                <%}%>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-outline-success form-control">Find Flight</button>

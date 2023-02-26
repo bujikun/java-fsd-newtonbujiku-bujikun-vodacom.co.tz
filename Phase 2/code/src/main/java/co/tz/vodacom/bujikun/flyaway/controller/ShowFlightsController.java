@@ -1,5 +1,7 @@
 package co.tz.vodacom.bujikun.flyaway.controller;
 
+import co.tz.vodacom.bujikun.flyaway.entity.Flight;
+import co.tz.vodacom.bujikun.flyaway.service.FlightService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,8 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-@WebServlet(name = "ShowFlightsServlet",value = "/show-flights")
+@WebServlet("/show-flights")
 public class ShowFlightsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -17,6 +21,11 @@ public class ShowFlightsController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var date = LocalDate.parse(req.getParameter("date"));
+        var source = req.getParameter("source");
+        var destination = req.getParameter("destination");
+        var flights = new FlightService().findAll(date,source,destination);
+        req.setAttribute("flights",flights);
         req.getRequestDispatcher("showflights.jsp").forward(req,resp);
     }
 
