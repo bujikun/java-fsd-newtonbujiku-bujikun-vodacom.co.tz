@@ -51,26 +51,6 @@
                             <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
                         <%}%>
-<%--                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">--%>
-<%--                            <div class="d-flex w-100 justify-content-between">--%>
-<%--                                <h5 class="mb-1">Air India</h5>--%>
-<%--                                <small>EK25</small>--%>
-<%--                            </div>--%>
-<%--                            <p class="mb-1">Departure: 14:25 &nbsp;--%>
-<%--                                <span class="material-icons-outlined">flight</span>--%>
-<%--                                &nbsp;Arrival: 21:00</p>--%>
-<%--                            <small>Price : $500</small>--%>
-<%--                        </a>--%>
-<%--                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">--%>
-<%--                            <div class="d-flex w-100 justify-content-between">--%>
-<%--                                <h5 class="mb-1">KLM</h5>--%>
-<%--                                <small>EK25</small>--%>
-<%--                            </div>--%>
-<%--                            <p class="mb-1">Departure: 14:25 &nbsp;--%>
-<%--                                <span class="material-icons-outlined">flight</span>--%>
-<%--                                &nbsp;Arrival: 21:00</p>--%>
-<%--                            <small>Price : $500</small>--%>
-<%--                        </a>--%>
                     </div>
                 </div>
             </div>

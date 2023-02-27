@@ -1,3 +1,6 @@
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %>
+<%@ page import="java.util.List" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -27,12 +30,16 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="#"
+                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="flights"
                                 >Flights</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn  mx-2"  aria-current="page" href="#"
                                 >Airlines</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn  mx-2"  aria-current="page" href="#"
+                                >Bookings</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn  mx-2"  aria-current="page" href="#"
@@ -44,6 +51,9 @@
                                 >Change Password</a>
                             </li>
                         </ul>
+                        <div class="d-flex" action="login" method="post">
+                            <span style="color: white">Hi!,<%= ((User)session.getAttribute("user")).getUsername().toUpperCase()%></span>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -60,36 +70,18 @@
                 </div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">
-                        <a href="passenger-registration" class="list-group-item list-group-item-action" aria-current="true">
+                        <% for(Flight flight:(List<Flight>) request.getAttribute("flights")){%>
+                        <a href="passenger-registration?flight=<%= flight.getId()%>" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Emirates</h5>
-                                <small>EK25</small>
+                                <h5 class="mb-2"><%= flight.getAirline().getName()%></h5>
+                                <small><%=flight.getAirline().getCodename()%></small>
                             </div>
-                            <p class="mb-1">Departure: 14:25 &nbsp;
+                            <p class="mb-1">Departure: <span><%=flight.getDeparture()%></span> &nbsp;
                                 <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: 21:00</p>
-                            <small>Price : $500</small>
+                                &nbsp;Arrival: <span><%=flight.getArrival()%></span></p>
+                            <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Air India</h5>
-                                <small>EK25</small>
-                            </div>
-                            <p class="mb-1">Departure: 14:25 &nbsp;
-                                <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: 21:00</p>
-                            <small>Price : $500</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">KLM</h5>
-                                <small>EK25</small>
-                            </div>
-                            <p class="mb-1">Departure: 14:25 &nbsp;
-                                <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: 21:00</p>
-                            <small>Price : $500</small>
-                        </a>
+                        <%}%>
                     </div>
                 </div>
             </div>

@@ -62,7 +62,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             &nbsp;<span class="material-icons-outlined">lock</span>
-                            <input type="text" class="form-control" id="password" placeholder="Enter password"
+                            <input type="password" class="form-control" id="password" placeholder="Enter password"
                                    name="password" required>
                         </div>
                         <button type="submit" class="btn btn-outline-success form-control">Log In</button>

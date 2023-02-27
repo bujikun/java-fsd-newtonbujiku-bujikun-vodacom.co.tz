@@ -1,5 +1,6 @@
 package co.tz.vodacom.bujikun.flyaway.controller;
 
+import co.tz.vodacom.bujikun.flyaway.service.FlightService;
 import co.tz.vodacom.bujikun.flyaway.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
 @WebServlet("/login")
 public class AdminLoginController extends HttpServlet {
     @Override
@@ -27,6 +30,8 @@ public class AdminLoginController extends HttpServlet {
             req.getRequestDispatcher("admin-login.jsp").forward(req,resp);
             return;
         }
-        resp.sendRedirect("admin-home");
+        var session = req.getSession();
+            session.setAttribute("user",user);
+       resp.sendRedirect("admin-home");
     }
 }
