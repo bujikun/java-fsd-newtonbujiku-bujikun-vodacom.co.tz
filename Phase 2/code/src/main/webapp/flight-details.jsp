@@ -41,16 +41,16 @@
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
-                    <span class="d-block">BOOKING</span>
+                    <span class="d-block mb-1">BOOKING</span>
                     <span class="d-block">Number: <%= request.getAttribute("booking-number")%></span>
                 </div>
 
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
-                    <span class="d-block">AIRLINE</span>
+                    <span class="d-block mb-1">AIRLINE</span>
                     <small class="d-block">Name: <%= ((Flight)request.getAttribute("flight")).getAirline().getName()%></small>
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
-                    <span class="d-block">FLIGHT</span>
+                    <span class="d-block mb-1">FLIGHT</span>
                     <small class="d-block">From: <%= ((Flight)request.getAttribute("flight")).getPlaceSource().getName()%></small>
                     <small class="d-block">To: <%= ((Flight)request.getAttribute("flight")).getPlaceDest().getName()%></small>
                     <small class="d-block">Departure: <%= ((Flight)request.getAttribute("flight")).getDeparture()%></small>
@@ -58,15 +58,9 @@
                     <small class="d-block">Flight Number: <%= ((Flight)request.getAttribute("flight")).getCode()%></small>
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
-                    <span class="d-block">PRICE</span>
+                    <span class="d-block mb-1">PRICE</span>
                     <small class="d-block">$<%= ((Flight)request.getAttribute("flight")).getPrice()%></small>
                 </div>
-<%--                <div class="fa-make-payment-btn mt-5 m-2 p-2 my-1">--%>
-<%--                    <form action="making-payment" method="post" class="fa-make-payment-btn mt-5">--%>
-<%--                        <button class="btn btn-outline-success" type="submit">Make Payment</button>--%>
-<%--                    </form>--%>
-<%--                </div>--%>
-
                 <div class="fa-make-payment-btn mt-2 p-2">
                     <form action="making-payment" method="post" class="mt-3 p-2">
                         <input type="hidden" name="flight-id" value=" <%= ((Flight)request.getAttribute("flight")).getId()%>">

@@ -54,4 +54,11 @@ public class UserDAO implements IDAO<User> {
         session.remove(findOneById(id));
         session.getTransaction().commit();
     }
+
+    public User findByUsername(String username) throws Exception{
+        var session = sessionFactory.openSession();
+        TypedQuery<User> query = session.createQuery("SELECT u FROM User u WHERE u.username=:username", User.class);
+        query.setParameter("username", username);
+        return query.getSingleResult();
+    }
 }

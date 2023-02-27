@@ -4,8 +4,10 @@ import co.tz.vodacom.bujikun.flyaway.dao.PlaceDAO;
 import co.tz.vodacom.bujikun.flyaway.dao.UserDAO;
 import co.tz.vodacom.bujikun.flyaway.entity.Place;
 import co.tz.vodacom.bujikun.flyaway.entity.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
+import java.sql.SQLWarning;
 import java.util.List;
 
 public class UserService implements IService<User>{
@@ -56,5 +58,16 @@ public class UserService implements IService<User>{
             e.printStackTrace();
         }
         return "User Could Not Be Deleted";
+    }
+    public User doLogin(String username, String password){
+        try{
+            var user= userDAO.findByUsername(username);
+            if(BCrypt.checkpw(password,user.getPassword())){
+                return user;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

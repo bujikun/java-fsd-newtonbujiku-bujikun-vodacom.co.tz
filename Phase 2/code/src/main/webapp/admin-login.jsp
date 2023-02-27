@@ -45,19 +45,25 @@
                        <span class="material-icons-outlined" style="font-size: 2rem;">admin_panel_settings</span></span>
                 </div>
                 <div class="fa-form-container m-2 p-4">
+                    <% if(request.getAttribute("failed")!= null && request.getAttribute("failed").equals("1") ){%>
+                        <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+                            <span>Invalid username or password!</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <%}%>
 <%--                    <h5 class="h5 my-2 my-2">Admin</h5>--%>
                     <form action="login" method="post" class="p-2">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             &nbsp;<span class="material-icons-outlined">person</span>
                             <input type="text" class="form-control" id="username" placeholder="Enter username"
-                               name="username"  >
+                               name="username"  required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             &nbsp;<span class="material-icons-outlined">lock</span>
                             <input type="text" class="form-control" id="password" placeholder="Enter password"
-                                   name="password"  >
+                                   name="password" required>
                         </div>
                         <button type="submit" class="btn btn-outline-success form-control">Log In</button>
                     </form>

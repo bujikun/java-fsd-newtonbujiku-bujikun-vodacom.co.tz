@@ -4,6 +4,14 @@
 <head>
     <jsp:include page="style.jsp"></jsp:include>
     <title>Admin Panel</title>
+    <style>
+        .fa-form-container{
+            background-color: #fff;
+            box-shadow: 0 .5rem .5rem rgba(0,0,0,.2);
+            width: 100%;
+            border-radius: .2rem;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -18,10 +26,6 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link btn  mx-2"  aria-current="page" href="#"
-                                >Home</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link btn  mx-2 active"  aria-current="page" href="#"
                                 >Flights</a>
@@ -51,8 +55,8 @@
         <div class="col-md-8 col-lg-8 col-xl-8">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div class="m-2 p-2">
-                    <span class="display-6 text-success">Available Flights
-                       <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
+                    <h4 class="text-success">Available Flights
+                       <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></h4>
                 </div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">

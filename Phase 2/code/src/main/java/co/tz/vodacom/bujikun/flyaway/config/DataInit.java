@@ -1,17 +1,12 @@
 package co.tz.vodacom.bujikun.flyaway.config;
 
-import co.tz.vodacom.bujikun.flyaway.entity.Airline;
-import co.tz.vodacom.bujikun.flyaway.entity.Flight;
-import co.tz.vodacom.bujikun.flyaway.entity.Passenger;
-import co.tz.vodacom.bujikun.flyaway.entity.Place;
-import co.tz.vodacom.bujikun.flyaway.service.AirlineService;
-import co.tz.vodacom.bujikun.flyaway.service.FlightService;
-import co.tz.vodacom.bujikun.flyaway.service.PassengerService;
-import co.tz.vodacom.bujikun.flyaway.service.PlaceService;
+import co.tz.vodacom.bujikun.flyaway.entity.*;
+import co.tz.vodacom.bujikun.flyaway.service.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -39,10 +34,15 @@ public class DataInit {
         var plc = new PlaceService();
         var fl = new FlightService();
 
+
         AIRLINES.forEach(a -> as.create(a));
         PASSENGERS.forEach(p -> pas.create(p));
         PLACES.forEach(p -> plc.create(p));
         FLIGHTS.forEach(f -> fl.create(f));
+        new UserService().create(User.builder().username("admin")
+                .password(BCrypt.hashpw("password", BCrypt.gensalt(10)))
+                .role("admin").build());
+
     }
 
     private static List<Flight> getFlights() {
