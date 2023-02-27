@@ -38,7 +38,7 @@
                 <div class="fa-booking details fa-form-container m-2 p-2 my-1">
                     <span class="d-block mb-1">PASSENGER</span>
                     <small class="d-block">Name: <%= ((Passenger)request.getAttribute("passenger")).getFirstName()+" "
-                            +((Passenger)request.getAttribute("passenger")).getFirstName() %></small>
+                            +((Passenger)request.getAttribute("passenger")).getLastName() %></small>
                     <small class="d-block">DOB: <%= ((Passenger)request.getAttribute("passenger")).getDateOfBirth()%></small>
                     <small class="d-block">Address: <%= ((Passenger)request.getAttribute("passenger")).getAddress()%></small>
                 </div>

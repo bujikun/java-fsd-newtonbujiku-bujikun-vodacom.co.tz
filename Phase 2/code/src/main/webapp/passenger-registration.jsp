@@ -36,7 +36,7 @@
                                    name="lastname"  required>
                         </div>
                         <div class="mb-3">
-                            <label for="dob" class="form-label">Departure</label>
+                            <label for="dob" class="form-label">Date of Birth</label>
                             &nbsp;<span class="material-icons-outlined">calendar_month</span>
                             <input type="date" class="form-control" id="dob" value="1995-02-27"
                                    min="1950-01-01" max="2004-12-31" name="dob" required>

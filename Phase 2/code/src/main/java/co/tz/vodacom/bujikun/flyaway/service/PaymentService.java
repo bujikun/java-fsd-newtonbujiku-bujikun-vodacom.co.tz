@@ -65,4 +65,13 @@ public class PaymentService implements IService<Payment> {
         }
         return -1;
     }
+
+    public Payment createAndGet(Payment payment) {
+        try {
+            return paymentDAO.createAndGet(payment);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

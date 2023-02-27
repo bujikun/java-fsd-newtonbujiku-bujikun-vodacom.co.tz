@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @Table(name = "places")
@@ -20,4 +19,9 @@ public class Place {
     private Integer id;
     @Column(unique = true)
     private String name;
+
+    @Override
+    public String toString() {
+        return name ;
+    }
 }

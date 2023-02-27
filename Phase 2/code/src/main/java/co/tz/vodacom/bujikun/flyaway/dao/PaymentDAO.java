@@ -62,4 +62,12 @@ public class PaymentDAO implements IDAO<Payment> {
         session.getTransaction().commit();
         return pmt.intValue();
     }
+    public Payment createAndGet(Payment payment) throws SQLException{
+        var session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.persist(payment);
+        var pmt = (Integer) session.getIdentifier(payment);
+        session.getTransaction().commit();
+        return findOneById(pmt);
+    }
 }

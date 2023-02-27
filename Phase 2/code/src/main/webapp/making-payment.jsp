@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="px-2 mx-2 mt-4">
-                    <span class="h6 text-success" style="display: block;text-align: start;">Contacting Dummy Payment Gateway...</span>
+                    <span class="h6 text-success" style="display: block;text-align: start;">Processing payment via Dummy Payment Gateway...</span>
                 </div>
                 <div class="fa-form-container m-2">
                     <form id="#payment-form" action="show-booking-details" method="post" class="d-none">

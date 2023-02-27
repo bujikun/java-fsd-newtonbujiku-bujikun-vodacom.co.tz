@@ -12,7 +12,6 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @Table(name = "flights")
@@ -36,4 +35,13 @@ public class Flight {
     @ManyToOne
     @JoinColumn(name = "fk_dest_id")
     private Place placeDest;
+
+    @Override
+    public String toString() {
+        return airline.getName() +
+                " (" + code + ")" +
+                " On: " + date +
+                " From: " + placeSource +
+                " To: " + placeDest;
+    }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @Table(name = "passengers")
@@ -30,4 +29,11 @@ public class Passenger {
     private List<Payment> payments;
     @OneToOne(mappedBy = "passenger")
     private Booking booking;
+    @Override
+    public String toString() {
+        return firstName +
+                " " + lastName +
+                " DOB: " + dateOfBirth +
+                " Address: " + address;
+    }
 }

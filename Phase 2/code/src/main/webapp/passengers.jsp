@@ -1,6 +1,7 @@
-<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %>
 <%@ page import="java.util.List" %>
 <%@ page import="co.tz.vodacom.bujikun.flyaway.entity.User" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Airline" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Passenger" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="flights"
+                                <a class="nav-link btn  mx-2"  aria-current="page" href="flights"
                                 >Flights</a>
                             </li>
                             <li class="nav-item">
@@ -46,7 +47,7 @@
                                 >Places</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2"  aria-current="page" href="passengers"
+                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="passengers"
                                 >Passengers</a>
                             </li>
                             <li class="nav-item">
@@ -68,21 +69,17 @@
         <div class="col-md-8 col-lg-8 col-xl-8">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div class="m-2 p-2">
-                    <h4 class="text-success">Available Flights
-                       <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></h4>
+                    <h4 class="text-success"> Registered Passengers
+                       <span class="material-icons-outlined" style="font-size: 2rem;">people</span></h4>
                 </div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">
-                        <% for(Flight flight:(List<Flight>) request.getAttribute("flights")){%>
-                        <a href="passenger-registration?flight=<%= flight.getId()%>" class="list-group-item list-group-item-action" aria-current="true">
+                        <% for(Passenger passenger:(List<Passenger>) request.getAttribute("passengers")){%>
+                        <a class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-2"><%= flight.getAirline().getName()%></h5>
-                                <small><%=flight.getAirline().getCodename()%></small>
+                                <h5 class="mb-2"><%= passenger.toString()%></h5>
+<%--                                <small><%=passenger.getBooking().getFlight().toString()%></small>--%>
                             </div>
-                            <p class="mb-1">Departure: <span><%=flight.getDeparture()%></span> &nbsp;
-                                <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: <span><%=flight.getArrival()%></span></p>
-                            <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
                         <%}%>
                     </div>

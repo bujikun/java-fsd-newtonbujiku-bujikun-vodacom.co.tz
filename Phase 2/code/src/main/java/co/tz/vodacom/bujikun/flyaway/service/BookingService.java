@@ -56,9 +56,9 @@ public class BookingService implements IService<Booking> {
         return "Booking Could Not Be Deleted";
     }
 
-    public Booking createAndGetByBookingNumber(String bookingNumber) {
+    public Booking createAndGet(Booking booking) {
         try {
-            return bookingDAO.createAndGetByBookingNumber(bookingNumber);
+            return bookingDAO.createAndGet(booking);
         } catch (SQLException e) {
             e.printStackTrace();
         }

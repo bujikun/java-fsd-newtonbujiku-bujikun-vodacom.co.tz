@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @Table(name = "payments")
@@ -27,5 +26,12 @@ public class Payment {
     private Passenger passenger;
     @OneToOne(mappedBy = "payment")
     private Booking booking;
+
+    @Override
+    public String toString() {
+        return
+                "$" + amount + "" +
+                " Reference: " + codename;
+    }
 }
 

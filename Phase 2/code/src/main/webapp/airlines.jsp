@@ -1,6 +1,6 @@
-<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %>
 <%@ page import="java.util.List" %>
 <%@ page import="co.tz.vodacom.bujikun.flyaway.entity.User" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Airline" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -30,11 +30,11 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="flights"
+                                <a class="nav-link btn  mx-2"  aria-current="page" href="flights"
                                 >Flights</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2"  aria-current="page" href="airlines"
+                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="airlines"
                                 >Airlines</a>
                             </li>
                             <li class="nav-item">
@@ -68,21 +68,17 @@
         <div class="col-md-8 col-lg-8 col-xl-8">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div class="m-2 p-2">
-                    <h4 class="text-success">Available Flights
+                    <h4 class="text-success">Available Airlines
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></h4>
                 </div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">
-                        <% for(Flight flight:(List<Flight>) request.getAttribute("flights")){%>
-                        <a href="passenger-registration?flight=<%= flight.getId()%>" class="list-group-item list-group-item-action" aria-current="true">
+                        <% for(Airline airline:(List<Airline>) request.getAttribute("airlines")){%>
+                        <a class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-2"><%= flight.getAirline().getName()%></h5>
-                                <small><%=flight.getAirline().getCodename()%></small>
+                                <h5 class="mb-2"><%= airline.getName()%></h5>
+                                <small><%=airline.getCodename()%></small>
                             </div>
-                            <p class="mb-1">Departure: <span><%=flight.getDeparture()%></span> &nbsp;
-                                <span class="material-icons-outlined">flight</span>
-                                &nbsp;Arrival: <span><%=flight.getArrival()%></span></p>
-                            <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
                         <%}%>
                     </div>

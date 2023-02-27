@@ -54,8 +54,7 @@ public class BookingDAO implements IDAO<Booking> {
         session.remove(findOneById(id));
         session.getTransaction().commit();
     }
-    public Booking createAndGetByBookingNumber(String bookingNumber) throws SQLException{
-        var booking = Booking.builder().bookingNumber(bookingNumber).build();
+    public Booking createAndGet(Booking booking) throws SQLException{
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(booking);
@@ -64,4 +63,5 @@ public class BookingDAO implements IDAO<Booking> {
         System.out.println(findOneById(id));
         return findOneById(id);
     }
+
 }
