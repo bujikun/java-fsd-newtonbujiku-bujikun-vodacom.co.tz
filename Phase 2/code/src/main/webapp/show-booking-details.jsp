@@ -1,10 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: newtonbujiku
-  Date: 2/23/23
-  Time: 8:56 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Booking" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Passenger" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Flight" %>
 <%--
   Created by IntelliJ IDEA.
   User: newtonbujiku
@@ -37,30 +33,31 @@
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1">
                     <span class="d-block">BOOKING</span>
-                    <span class="d-block">Number: H2424A</span>
+                    <span class="d-block">Number: <%= ((Booking)request.getAttribute("booking")).getBookingNumber()%></span>
                 </div>
                 <div class="fa-booking details fa-form-container m-2 p-2 my-1">
                     <span class="d-block">PASSENGER</span>
-                    <small class="d-block">Name: Newton Bujiku</small>
-                    <small class="d-block">DOB: 19/01/1990</small>
-                    <small class="d-block">Address: Dar Es Salam</small>
+                    <small class="d-block">Name: <%= ((Passenger)request.getAttribute("passenger")).getFirstName()+" "
+                            +((Passenger)request.getAttribute("passenger")).getFirstName() %></small>
+                    <small class="d-block">DOB: <%= ((Passenger)request.getAttribute("passenger")).getDateOfBirth()%></small>
+                    <small class="d-block">Address: <%= ((Passenger)request.getAttribute("passenger")).getAddress()%></small>
                 </div>
 
                 <div class="fa-booking fa-form-container m-2 p-2 my-1">
                     <span class="d-block">AIRLINE</span>
-                    <small class="d-block">Name: Emirates</small>
+                    <small class="d-block">Name: <%= ((Flight)request.getAttribute("flight")).getAirline().getName()%></small>
                 </div>
-                <div class="fa-booking fa-form-container m-2 p-2 my-1">
+                <div class="fa-booking fa-form-container m-2 p-2 my-1" >
                     <span class="d-block">FLIGHT</span>
-                    <small class="d-block">From: Madrid</small>
-                    <small class="d-block">To: Moscow</small>
-                    <small class="d-block">Departure: 14:25</small>
-                    <small class="d-block">Arrival: 20:25</small>
-                    <small class="d-block">Flight Number: EK25</small>
+                    <small class="d-block">From: <%= ((Flight)request.getAttribute("flight")).getPlaceSource().getName()%></small>
+                    <small class="d-block">To: <%= ((Flight)request.getAttribute("flight")).getPlaceDest().getName()%></small>
+                    <small class="d-block">Departure: <%= ((Flight)request.getAttribute("flight")).getDeparture()%></small>
+                    <small class="d-block">Arrival: <%= ((Flight)request.getAttribute("flight")).getArrival()%></small>
+                    <small class="d-block">Flight Number: <%= ((Flight)request.getAttribute("flight")).getCode()%></small>
                 </div>
                 <div class="fa-booking fa-form-container m-2 p-2 my-1" >
                     <span class="d-block">PRICE</span>
-                    <small class="d-block">$500</small>
+                    <small class="d-block">$<%= ((Flight)request.getAttribute("flight")).getPrice()%></small>
                 </div>
                 <div class="mt-5">
                     <small class="d-block mt-5">**Remember to note down your Booking Number as you can use it to search for
