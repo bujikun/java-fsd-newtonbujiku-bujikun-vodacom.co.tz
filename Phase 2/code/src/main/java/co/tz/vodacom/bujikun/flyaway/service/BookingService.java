@@ -15,12 +15,22 @@ public class BookingService implements IService<Booking> {
 
     @Override
     public List<Booking> findAll() {
-        return bookingDAO.findAll();
+        try {
+            return bookingDAO.findAll();
+        } catch (Exception e) {
+e.printStackTrace();        }
+        return List.of();
+
     }
 
     @Override
     public Booking findOneById(Integer id) {
-        return bookingDAO.findOneById(id);
+        try {
+            return bookingDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public Booking findOneByBookingNumber(String bookingNumber) {
         try {
@@ -37,7 +47,7 @@ public class BookingService implements IService<Booking> {
         try {
             bookingDAO.create(booking);
             return "Booking Successfully Added";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Booking Could Not Be Added";
@@ -48,7 +58,7 @@ public class BookingService implements IService<Booking> {
         try {
             bookingDAO.update(id, booking);
             return "Booking Successfully Updated";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Booking Could Not Be Updated";
@@ -59,7 +69,7 @@ public class BookingService implements IService<Booking> {
         try {
             bookingDAO.delete(id);
             return "Booking Successfully Deleted";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Booking Could Not Be Deleted";
@@ -68,7 +78,7 @@ public class BookingService implements IService<Booking> {
     public Booking createAndGet(Booking booking) {
         try {
             return bookingDAO.createAndGet(booking);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

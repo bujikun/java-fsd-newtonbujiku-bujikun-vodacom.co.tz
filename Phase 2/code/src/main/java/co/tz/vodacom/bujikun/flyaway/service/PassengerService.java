@@ -15,12 +15,23 @@ public class PassengerService implements IService<Passenger> {
     }
     @Override
     public List<Passenger> findAll() {
-        return passengerDAO.findAll();
+        try {
+            return passengerDAO.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return List.of();
+
     }
 
     @Override
     public Passenger findOneById(Integer id) {
-        return passengerDAO.findOneById(id);
+        try {
+            return passengerDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -28,7 +39,7 @@ public class PassengerService implements IService<Passenger> {
         try{
             passengerDAO.create(passenger);
             return "Passenger Successfully Added";
-        }catch (SQLException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
         return "Passenger Could Not Be Added";
@@ -39,7 +50,7 @@ public class PassengerService implements IService<Passenger> {
         try{
             passengerDAO.update(id,passenger);
             return "Passenger Successfully Updated";
-        }catch (SQLException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
         return "Passenger Could Not Be Updated";
@@ -50,7 +61,7 @@ public class PassengerService implements IService<Passenger> {
         try{
             passengerDAO.delete(id);
             return "Passenger Successfully Deleted";
-        }catch (SQLException e){
+        }catch (Exception e){
             e.printStackTrace();
         }
         return "Passenger Could Not Be Deleted";
@@ -58,7 +69,7 @@ public class PassengerService implements IService<Passenger> {
     public int createAndGetId(Passenger passenger) {
         try {
             return passengerDAO.createAndGetId(passenger);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return -1;

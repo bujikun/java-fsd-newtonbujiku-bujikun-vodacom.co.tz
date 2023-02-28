@@ -15,12 +15,22 @@ public class PlaceService implements IService<Place>{
 
     @Override
     public List<Place> findAll() {
-        return placeDAO.findAll();
+        try {
+            return placeDAO.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return List.of();
     }
 
     @Override
     public Place findOneById(Integer id) {
-        return placeDAO.findOneById(id);
+        try {
+            return placeDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -28,7 +38,7 @@ public class PlaceService implements IService<Place>{
         try {
             placeDAO.create(place);
             return "Place Successfully Added";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Place Could Not Be Added";
@@ -39,7 +49,7 @@ public class PlaceService implements IService<Place>{
         try {
             placeDAO.update(id, place);
             return "Place Successfully Updated";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Place Could Not Be Updated";
@@ -50,7 +60,7 @@ public class PlaceService implements IService<Place>{
         try {
             placeDAO.delete(id);
             return "Place Successfully Deleted";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Place Could Not Be Deleted";

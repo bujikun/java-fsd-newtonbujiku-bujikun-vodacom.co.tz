@@ -51,10 +51,10 @@ public class DataInit {
                         .arrival(LocalTime.now().plusHours(6)).placeSource(PLACES.get(1)).placeDest(PLACES.get(3))
                         .price(500.99).airline(AIRLINES.get(0)).build(),
                 Flight.builder().code("AF45").date(LocalDate.now()).departure(LocalTime.now())
-                        .arrival(LocalTime.now().plusHours(4)).placeSource(PLACES.get(3)).placeDest(PLACES.get(6))
+                        .arrival(LocalTime.now().plusHours(4)).placeSource(PLACES.get(0)).placeDest(PLACES.get(1))
                         .price(499.99).airline(AIRLINES.get(1)).build(),
                 Flight.builder().code("AI98").date(LocalDate.now()).departure(LocalTime.now())
-                        .arrival(LocalTime.now().plusHours(8)).placeSource(PLACES.get(7)).placeDest(PLACES.get(2))
+                        .arrival(LocalTime.now().plusHours(8)).placeSource(PLACES.get(2)).placeDest(PLACES.get(3))
                         .price(800.59).airline(AIRLINES.get(3)).build()
         );
     }
@@ -64,11 +64,7 @@ public class DataInit {
                 Place.builder().name("Madrid").build(),
                 Place.builder().name("London").build(),
                 Place.builder().name("Tokyo").build(),
-                Place.builder().name("Toronto").build(),
-                Place.builder().name("New York").build(),
-                Place.builder().name("Paris").build(),
-                Place.builder().name("Lisbon").build(),
-                Place.builder().name("New Delhi").build()
+                Place.builder().name("Toronto").build()
         );
     }
 

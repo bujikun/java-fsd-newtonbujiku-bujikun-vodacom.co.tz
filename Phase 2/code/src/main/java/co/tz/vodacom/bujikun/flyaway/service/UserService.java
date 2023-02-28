@@ -19,12 +19,21 @@ public class UserService implements IService<User>{
 
     @Override
     public List<User> findAll() {
-        return userDAO.findAll();
+        try {
+            return userDAO.findAll();
+        } catch (Exception e) {
+e.printStackTrace();        }
+        return List.of();
     }
 
     @Override
     public User findOneById(Integer id) {
-        return userDAO.findOneById(id);
+        try {
+            return userDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -32,7 +41,7 @@ public class UserService implements IService<User>{
         try {
             userDAO.create(user);
             return "User Successfully Added";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "User Could Not Be Added";
@@ -43,7 +52,7 @@ public class UserService implements IService<User>{
         try {
             userDAO.update(id, user);
             return "User Successfully Updated";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "User Could Not Be Updated";
@@ -54,7 +63,7 @@ public class UserService implements IService<User>{
         try {
             userDAO.delete(id);
             return "User Successfully Deleted";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "User Could Not Be Deleted";

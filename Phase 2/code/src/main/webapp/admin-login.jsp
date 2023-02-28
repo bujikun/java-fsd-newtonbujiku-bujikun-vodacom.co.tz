@@ -23,9 +23,9 @@
                                 >Home</button>
                             </li>
                         </ul>
-                        <form class="d-flex" action="login" method="post">
+                        <form class="d-flex" action="show-booking-details-by-number" method="post">
                             <input class="form-control me-2" type="search" placeholder="Booking Number"
-                                   aria-label="Search">
+                                   aria-label="Search" name="booking-number">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>

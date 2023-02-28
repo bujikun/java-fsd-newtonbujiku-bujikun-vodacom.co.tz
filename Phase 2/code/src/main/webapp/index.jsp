@@ -3,6 +3,8 @@
 <%@ page import="co.tz.vodacom.bujikun.flyaway.service.FlightService" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.entity.Place" %>
+<%@ page import="co.tz.vodacom.bujikun.flyaway.service.PlaceService" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -43,18 +45,19 @@
 
         </div>
         <div class="col-md-8 col-lg-8 col-xl-8">
+            <% if(session.getAttribute("search-failed")!= null && session.getAttribute("search-failed").equals("1") ){%>
+            <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+                <span>Invalid booking number! Please try again using a different number.</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <%}%>
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div class="m-2 p-2">
                     <span class="display-6 text-success">Welcome to FlyAway
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
                 </div>
                 <div class="fa-form-container m-2 p-4">
-                    <% if(session.getAttribute("search-failed")!= null && session.getAttribute("search-failed").equals("1") ){%>
-                    <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
-                        <span>Invalid booking number! Please try again using a different number.</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <%}%>
+
                     <h5 class="h5 my-2 my-2">Book a Flight Today</h5>
                     <form action="show-flights" method="post" class="p-2">
                         <div class="mb-3">
@@ -68,11 +71,11 @@
                             <label for="source" class="form-label">Source</label>&nbsp;<span
                                 class="material-icons-outlined">
                             flight_takeoff</span>
-                            <%! List<Flight> flights = new FlightService().findAll();%>
+                            <%! List<Place> places = new PlaceService().findAll();%>
                             <select class="form-select" id="source" name="source" required>
-                                <% for(int i=0; i<flights.size();i++){%>
-                                <option value="<%= flights.get(i).getPlaceSource().getId()%>">
-                                    <%= flights.get(i).getPlaceSource().getName()%>
+                                <% for(int i=0; i<places.size();i++){%>
+                                <option value="<%= places.get(i).getId()%>">
+                                    <%= places.get(i).getName()%>
                                 </option>
                                 <%}%>
                             </select>
@@ -81,9 +84,9 @@
                             <label for="destination" class="form-label">Destination</label>&nbsp;<span
                                 class="material-icons-outlined">flight_land</span>
                             <select class="form-select" id="destination" name="destination" required>
-                                <% for(int i=0; i<flights.size();i++){%>
-                                <option value="<%= flights.get(i).getPlaceSource().getId()%>">
-                                    <%= flights.get(i).getPlaceSource().getName()%>
+                                <% for(int i=0; i<places.size();i++){%>
+                                <option value="<%= places.get(i).getId()%>">
+                                    <%= places.get(i).getName()%>
                                 </option>
                                 <%}%>
                             </select>

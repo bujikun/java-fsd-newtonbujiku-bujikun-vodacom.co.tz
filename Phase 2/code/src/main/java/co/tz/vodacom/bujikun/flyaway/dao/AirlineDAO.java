@@ -5,7 +5,6 @@ import co.tz.vodacom.bujikun.flyaway.entity.Airline;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class AirlineDAO implements IDAO<Airline> {
@@ -16,14 +15,14 @@ public class AirlineDAO implements IDAO<Airline> {
     }
 
     @Override
-    public List<Airline> findAll() {
+    public List<Airline> findAll() throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Airline> query = session.createQuery("SELECT a FROM Airline a", Airline.class);
         return query.getResultList();
     }
 
     @Override
-    public Airline findOneById(Integer id) {
+    public Airline findOneById(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Airline> query = session.createQuery("SELECT a FROM Airline a WHERE a.id=:id", Airline.class);
         query.setParameter("id", id);
@@ -31,7 +30,7 @@ public class AirlineDAO implements IDAO<Airline> {
     }
 
     @Override
-    public void create(Airline airline) throws SQLException {
+    public void create(Airline airline) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(airline);
@@ -39,7 +38,7 @@ public class AirlineDAO implements IDAO<Airline> {
     }
 
     @Override
-    public void update(Integer id, Airline airline) throws SQLException {
+    public void update(Integer id, Airline airline) throws Exception {
         airline.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -48,7 +47,7 @@ public class AirlineDAO implements IDAO<Airline> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.remove(findOneById(id));

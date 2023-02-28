@@ -16,14 +16,14 @@ public class PlaceDAO implements IDAO<Place> {
     }
 
     @Override
-    public List<Place> findAll() {
+    public List<Place> findAll() throws Exception{
         var session = sessionFactory.openSession();
         TypedQuery<Place> query = session.createQuery("SELECT p FROM Place p", Place.class);
         return query.getResultList();
     }
 
     @Override
-    public Place findOneById(Integer id) {
+    public Place findOneById(Integer id) throws Exception{
         var session = sessionFactory.openSession();
         TypedQuery<Place> query = session.createQuery("SELECT p FROM Place p WHERE p.id=:id", Place.class);
         query.setParameter("id", id);
@@ -31,7 +31,7 @@ public class PlaceDAO implements IDAO<Place> {
     }
 
     @Override
-    public void create(Place place) throws SQLException {
+    public void create(Place place)  throws Exception{
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(place);
@@ -39,7 +39,7 @@ public class PlaceDAO implements IDAO<Place> {
     }
 
     @Override
-    public void update(Integer id, Place place) throws SQLException {
+    public void update(Integer id, Place place) throws Exception {
         place.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -48,7 +48,7 @@ public class PlaceDAO implements IDAO<Place> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id)  throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.remove(findOneById(id));

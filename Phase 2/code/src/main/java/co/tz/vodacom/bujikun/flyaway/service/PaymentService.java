@@ -2,7 +2,6 @@ package co.tz.vodacom.bujikun.flyaway.service;
 
 import co.tz.vodacom.bujikun.flyaway.dao.PaymentDAO;
 import co.tz.vodacom.bujikun.flyaway.entity.Payment;
-import co.tz.vodacom.bujikun.flyaway.entity.Place;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,12 +15,22 @@ public class PaymentService implements IService<Payment> {
 
     @Override
     public List<Payment> findAll() {
-        return paymentDAO.findAll();
+        try {
+            return paymentDAO.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return List.of();
     }
 
     @Override
     public Payment findOneById(Integer id) {
-        return paymentDAO.findOneById(id);
+        try {
+            return paymentDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -29,7 +38,7 @@ public class PaymentService implements IService<Payment> {
         try {
             paymentDAO.create(payment);
             return "Payment Successfully Added";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Payment Could Not Be Added";
@@ -40,7 +49,7 @@ public class PaymentService implements IService<Payment> {
         try {
             paymentDAO.update(id, payment);
             return "Payment Successfully Updated";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Payment Could Not Be Updated";
@@ -51,7 +60,7 @@ public class PaymentService implements IService<Payment> {
         try {
             paymentDAO.delete(id);
             return "Payment Successfully Deleted";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Payment Could Not Be Deleted";
@@ -60,7 +69,7 @@ public class PaymentService implements IService<Payment> {
     public int createAndGetId(Payment payment) {
         try {
             return paymentDAO.createAndGetId(payment);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return -1;
@@ -69,7 +78,7 @@ public class PaymentService implements IService<Payment> {
     public Payment createAndGet(Payment payment) {
         try {
             return paymentDAO.createAndGet(payment);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

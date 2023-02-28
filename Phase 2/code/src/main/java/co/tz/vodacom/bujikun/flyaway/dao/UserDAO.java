@@ -16,14 +16,14 @@ public class UserDAO implements IDAO<User> {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() throws Exception{
         var session = sessionFactory.openSession();
         TypedQuery<User> query = session.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
     }
 
     @Override
-    public User findOneById(Integer id) {
+    public User findOneById(Integer id) throws Exception{
         var session = sessionFactory.openSession();
         TypedQuery<User> query = session.createQuery("SELECT u FROM User u WHERE u.id=:id", User.class);
         query.setParameter("id", id);
@@ -31,7 +31,7 @@ public class UserDAO implements IDAO<User> {
     }
 
     @Override
-    public void create(User user) throws SQLException {
+    public void create(User user) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(user);
@@ -39,7 +39,7 @@ public class UserDAO implements IDAO<User> {
     }
 
     @Override
-    public void update(Integer id, User user) throws SQLException {
+    public void update(Integer id, User user) throws Exception {
         user.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -48,7 +48,7 @@ public class UserDAO implements IDAO<User> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.remove(findOneById(id));

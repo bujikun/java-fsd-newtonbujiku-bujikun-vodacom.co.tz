@@ -16,12 +16,22 @@ public class AirlineService implements IService<Airline> {
 
     @Override
     public List<Airline> findAll() {
-        return airlineDAO.findAll();
+        try {
+            return airlineDAO.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return List.of();
     }
 
     @Override
     public Airline findOneById(Integer id) {
-        return airlineDAO.findOneById(id);
+        try {
+            return airlineDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -29,7 +39,7 @@ public class AirlineService implements IService<Airline> {
         try {
             airlineDAO.create(airline);
             return "Airline Successfully Added";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Airline Could Not Be Added";
@@ -40,7 +50,7 @@ public class AirlineService implements IService<Airline> {
         try {
             airlineDAO.update(id, airline);
             return "Airline Successfully Updated";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Airline Could Not Be Updated";
@@ -51,7 +61,7 @@ public class AirlineService implements IService<Airline> {
         try {
             airlineDAO.delete(id);
             return "Airline Successfully Deleted";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Airline Could Not Be Deleted";

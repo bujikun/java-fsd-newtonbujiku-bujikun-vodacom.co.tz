@@ -75,17 +75,26 @@
                     <h4 class="text-success">Available Flights
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></h4>
                 </div>
+                <div class="d-block">
+                    <a class="btn btn-success btn-lg me-2" href="add-flight"><span class="material-icons-outlined" style="font-size: 1.5rem;">add_circle_outline</span>&nbsp;Add New Flight
+                    </a>
+                </div>
                 <div class="fa-form-container m-2">
                     <div class="list-group">
                         <% for(Flight flight:(List<Flight>) request.getAttribute("flights")){%>
-                        <a href="passenger-registration?flight=<%= flight.getId()%>" class="list-group-item list-group-item-action" aria-current="true">
+                        <a class="list-group-item list-group-item-action" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-2"><%= flight.getAirline().getName()%></h5>
-                                <small><%=flight.getAirline().getCodename()%></small>
+                                <small><%=flight.getCode()%></small>
                             </div>
+                            <p class="mb-1">From: <span><%=flight.getPlaceSource()%></span> &nbsp;
+                                <span class="material-icons-outlined">double_arrow</span>
+                                &nbsp;To: <span><%=flight.getPlaceDest()%></span></p>
+
                             <p class="mb-1">Departure: <span><%=flight.getDeparture()%></span> &nbsp;
                                 <span class="material-icons-outlined">flight</span>
                                 &nbsp;Arrival: <span><%=flight.getArrival()%></span></p>
+                            <small class="d-block">On:&nbsp;<%=flight.getDate()%></small>
                             <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
                         <%}%>

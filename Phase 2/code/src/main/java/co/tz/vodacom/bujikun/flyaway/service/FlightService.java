@@ -17,17 +17,33 @@ public class FlightService implements IService<Flight> {
 
     @Override
     public List<Flight> findAll() {
-        return flightDAO.findAll();
+        try {
+            return flightDAO.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return List.of();
     }
 
     public List<Flight> findAll(LocalDate date,String source, String destination) {
 
-        return flightDAO.findAll(date,source,destination);
+        try {
+            return flightDAO.findAll(date,source,destination);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return List.of();
+
     }
 
     @Override
     public Flight findOneById(Integer id) {
-        return flightDAO.findOneById(id);
+        try {
+            return flightDAO.findOneById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -35,7 +51,7 @@ public class FlightService implements IService<Flight> {
         try {
             flightDAO.create(flight);
             return "Flight Successfully Added";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Flight Could Not Be Added";
@@ -46,7 +62,7 @@ public class FlightService implements IService<Flight> {
         try {
             flightDAO.update(id, flight);
             return "Flight Successfully Updated";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Flight Could Not Be Updated";
@@ -57,7 +73,7 @@ public class FlightService implements IService<Flight> {
         try {
             flightDAO.delete(id);
             return "Flight Successfully Deleted";
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "Flight Could Not Be Deleted";

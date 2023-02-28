@@ -12,7 +12,14 @@
 <head>
     <jsp:include page="style.jsp"></jsp:include>
     <title>Welcome to FlyAway</title>
-
+<style>
+    .fa-form-container {
+        background-color: #fff;
+        box-shadow: 0 .5rem .5rem rgba(0, 0, 0, .2);
+        width: 90%;
+        border-radius: .2rem;
+    }
+</style>
 </head>
 <body>
 <div class="container">
@@ -48,6 +55,7 @@
                             <p class="mb-1">Departure: <span><%=flight.getDeparture()%></span> &nbsp;
                                 <span class="material-icons-outlined">flight</span>
                                 &nbsp;Arrival: <span><%=flight.getArrival()%></span></p>
+                            <small class="d-block">On:&nbsp;<%=flight.getDate()%></small>
                             <small>Price : $<span><%=flight.getPrice()%></span></small>
                         </a>
                         <%}%>

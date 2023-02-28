@@ -5,7 +5,6 @@ import co.tz.vodacom.bujikun.flyaway.entity.Payment;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class PaymentDAO implements IDAO<Payment> {
@@ -16,14 +15,14 @@ public class PaymentDAO implements IDAO<Payment> {
     }
 
     @Override
-    public List<Payment> findAll() {
+    public List<Payment> findAll() throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Payment> query = session.createQuery("SELECT p FROM Payment p", Payment.class);
         return query.getResultList();
     }
 
     @Override
-    public Payment findOneById(Integer id) {
+    public Payment findOneById(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Payment> query = session.createQuery("SELECT p FROM Payment p WHERE p.id=:id", Payment.class);
         query.setParameter("id", id);
@@ -31,7 +30,7 @@ public class PaymentDAO implements IDAO<Payment> {
     }
 
     @Override
-    public void create(Payment payment) throws SQLException {
+    public void create(Payment payment) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(payment);
@@ -39,7 +38,7 @@ public class PaymentDAO implements IDAO<Payment> {
     }
 
     @Override
-    public void update(Integer id, Payment payment) throws SQLException {
+    public void update(Integer id, Payment payment) throws Exception {
         payment.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -48,21 +47,23 @@ public class PaymentDAO implements IDAO<Payment> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.remove(findOneById(id));
         session.getTransaction().commit();
     }
-    public int createAndGetId(Payment payment) throws SQLException{
+
+    public int createAndGetId(Payment payment) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
-         session.persist(payment);
-         var pmt = (Integer) session.getIdentifier(payment);
+        session.persist(payment);
+        var pmt = (Integer) session.getIdentifier(payment);
         session.getTransaction().commit();
         return pmt.intValue();
     }
-    public Payment createAndGet(Payment payment) throws SQLException{
+
+    public Payment createAndGet(Payment payment) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(payment);

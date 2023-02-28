@@ -5,7 +5,6 @@ import co.tz.vodacom.bujikun.flyaway.entity.Booking;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BookingDAO implements IDAO<Booking> {
@@ -16,19 +15,20 @@ public class BookingDAO implements IDAO<Booking> {
     }
 
     @Override
-    public List<Booking> findAll() {
+    public List<Booking> findAll() throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b", Booking.class);
         return query.getResultList();
     }
 
     @Override
-    public Booking findOneById(Integer id) {
+    public Booking findOneById(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b WHERE b.id=:id", Booking.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
+
     public Booking findOneByBookingNumber(String bookingNumber) throws Exception {
         var session = sessionFactory.openSession();
         TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b WHERE b.bookingNumber=:bookingNumber", Booking.class);
@@ -37,7 +37,7 @@ public class BookingDAO implements IDAO<Booking> {
     }
 
     @Override
-    public void create(Booking booking) throws SQLException {
+    public void create(Booking booking) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(booking);
@@ -45,7 +45,7 @@ public class BookingDAO implements IDAO<Booking> {
     }
 
     @Override
-    public void update(Integer id, Booking booking) throws SQLException {
+    public void update(Integer id, Booking booking) throws Exception {
         booking.setId(id);
         var session = sessionFactory.openSession();
         session.beginTransaction();
@@ -54,17 +54,18 @@ public class BookingDAO implements IDAO<Booking> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.remove(findOneById(id));
         session.getTransaction().commit();
     }
-    public Booking createAndGet(Booking booking) throws SQLException{
+
+    public Booking createAndGet(Booking booking) throws Exception {
         var session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(booking);
-        var id = (Integer)session.getIdentifier(booking);
+        var id = (Integer) session.getIdentifier(booking);
         session.getTransaction().commit();
         System.out.println(findOneById(id));
         return findOneById(id);

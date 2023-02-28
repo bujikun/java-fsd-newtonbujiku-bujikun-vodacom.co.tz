@@ -13,7 +13,7 @@
         .fa-form-container{
             background-color: #fff;
             box-shadow: 0 .5rem .5rem rgba(0,0,0,.2);
-            width: 100%;
+            width: 70%;
             border-radius: .2rem;
         }
     </style>
@@ -36,7 +36,7 @@
                                 >Flights</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2"  aria-current="page" href="airlines"
+                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="airlines"
                                 >Airlines</a>
                             </li>
                             <li class="nav-item">
@@ -44,7 +44,7 @@
                                 >Bookings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn  mx-2 active"  aria-current="page" href="places"
+                                <a class="nav-link btn  mx-2"  aria-current="page" href="places"
                                 >Places</a>
                             </li>
                             <li class="nav-item">
@@ -74,23 +74,25 @@
         <div class="col-md-8 col-lg-8 col-xl-8">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <div class="m-2 p-2">
-                    <h4 class="text-success">Places(Source and Destination)
-                       <span class="material-icons-outlined" style="font-size: 2rem;">place</span></h4>
+                    <h4 class="text-success">Add New Airline
+                       <span class="material-icons-outlined" style="font-size: 2rem;">airlines</span></h4>
                 </div>
-                <div class="d-block">
-                    <a class="btn btn-success btn-lg me-2" href="add-place"><span class="material-icons-outlined" style="font-size: 1.5rem;">add_circle_outline</span>&nbsp;Add New Place</a>
-                </div>
-
                 <div class="fa-form-container m-2">
-                    <div class="list-group">
-                        <% for(Place place:(List<Place>) request.getAttribute("places")){%>
-                        <a class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex flex-column w-100 justify-content-between">
-                                <h5 class="mb-2"><%= place.getName()%></h5>&nbsp;
-                            </div>
-                        </a>
-                        <%}%>
-                    </div>
+                    <form action="add-airline" method="post" class="p-2">
+                        <div class="mb-3 p-2">
+                            <label for="airline-name" class="form-label">Name</label>
+                            &nbsp;<span class="material-icons-outlined">airlines</span>
+                            <input type="text" class="form-control" id="airline-name" placeholder="Enter airline name"
+                                   name="airline-name"  required>
+                        </div>
+                        <div class="mb-3 p-2">
+                            <label for="airline-codename" class="form-label">Code Name</label>
+                            &nbsp;<span class="material-icons-outlined">airlines</span>
+                            <input type="text" class="form-control" id="airline-codename" placeholder="Enter code name e.g IA"
+                                   name="airline-codename"  required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success form-control">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
