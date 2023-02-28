@@ -8,13 +8,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @WebServlet("/flyaway")
 public class RootController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var flights = new FlightService().findAll();
-        //req.setAttribute("flights",flights);
+        //var flights = new FlightService().findAll();
+        var searchValue = req.getSession().getAttribute(("search-failed")).toString();
+        Logger.getLogger(this.getServletName()).info(searchValue);
+        if(searchValue != null){
+            req.setAttribute("search-failed",searchValue);
+        }
         req.getRequestDispatcher("index.jsp").forward(req,resp);
     }
 

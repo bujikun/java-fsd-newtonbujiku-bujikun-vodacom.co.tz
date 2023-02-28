@@ -43,6 +43,10 @@
                                 <a class="nav-link btn  mx-2 active" aria-current="page" href="change-password"
                                 >Change Password</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn  mx-2"  aria-current="page" href="logout"
+                                >Log Out</a>
+                            </li>
                         </ul>
                         <div class="d-flex" action="login" method="post">
                             <span style="color: white">Hi!,<%= ((User)session.getAttribute("user")).getUsername().toUpperCase()%></span>

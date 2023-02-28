@@ -29,9 +29,9 @@
                                 >Admin Login</button>
                             </li>
                         </ul>
-                        <form class="d-flex" action="login" method="post">
+                        <form class="d-flex" action="show-booking-details-by-number" method="post">
                             <input class="form-control me-2" type="search" placeholder="Booking Number"
-                                   aria-label="Search">
+                                   aria-label="Search" name="booking-number">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                     </div>
@@ -49,6 +49,12 @@
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
                 </div>
                 <div class="fa-form-container m-2 p-4">
+                    <% if(session.getAttribute("search-failed")!= null && session.getAttribute("search-failed").equals("1") ){%>
+                    <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+                        <span>Invalid booking number! Please try again using a different number.</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <%}%>
                     <h5 class="h5 my-2 my-2">Book a Flight Today</h5>
                     <form action="show-flights" method="post" class="p-2">
                         <div class="mb-3">

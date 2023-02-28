@@ -29,6 +29,12 @@ public class BookingDAO implements IDAO<Booking> {
         query.setParameter("id", id);
         return query.getSingleResult();
     }
+    public Booking findOneByBookingNumber(String bookingNumber) throws Exception {
+        var session = sessionFactory.openSession();
+        TypedQuery<Booking> query = session.createQuery("SELECT b FROM Booking b WHERE b.bookingNumber=:bookingNumber", Booking.class);
+        query.setParameter("bookingNumber", bookingNumber);
+        return query.getSingleResult();
+    }
 
     @Override
     public void create(Booking booking) throws SQLException {

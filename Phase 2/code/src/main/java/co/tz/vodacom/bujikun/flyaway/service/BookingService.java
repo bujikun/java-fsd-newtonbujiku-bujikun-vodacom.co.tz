@@ -22,6 +22,15 @@ public class BookingService implements IService<Booking> {
     public Booking findOneById(Integer id) {
         return bookingDAO.findOneById(id);
     }
+    public Booking findOneByBookingNumber(String bookingNumber) {
+        try {
+            return bookingDAO.findOneByBookingNumber(bookingNumber);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public String create(Booking booking) {

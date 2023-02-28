@@ -54,6 +54,10 @@
                                 <a class="nav-link btn  mx-2"  aria-current="page" href="change-password"
                                 >Change Password</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn  mx-2"  aria-current="page" href="logout"
+                                >Log Out</a>
+                            </li>
                         </ul>
                         <div class="d-flex" action="login" method="post">
                             <span style="color: white">Hi!,<%= ((User)session.getAttribute("user")).getUsername().toUpperCase()%></span>
@@ -76,9 +80,10 @@
                     <div class="list-group">
                         <% for(Passenger passenger:(List<Passenger>) request.getAttribute("passengers")){%>
                         <a class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-2"><%= passenger.toString()%></h5>
-<%--                                <small><%=passenger.getBooking().getFlight().toString()%></small>--%>
+                            <div class="d-flex flex-column w-100 justify-content-between">
+                                <h5 class="mb-2"><%= passenger.getFirstName() +" "+passenger.getLastName()%></h5>
+                                <small class="d-block">DOB: <%=passenger.getDateOfBirth()%></small>
+                                <small class="d-block">Address: <%=passenger.getAddress()%></small>
                             </div>
                         </a>
                         <%}%>
