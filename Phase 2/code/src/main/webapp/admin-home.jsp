@@ -76,7 +76,7 @@
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></h4>
                 </div>
                 <div class="d-block">
-                    <a class="btn btn-success btn-lg me-2" href="add-flight"><span class="material-icons-outlined" style="font-size: 1.5rem;">add_circle_outline</span>&nbsp;Add New Flight
+                    <a class="btn btn-outline-success btn-lg me-2" href="add-flight"><span class="material-icons-outlined" style="font-size: 1.5rem;">add_circle_outline</span>&nbsp;Add New Flight
                     </a>
                 </div>
                 <div class="fa-form-container m-2">

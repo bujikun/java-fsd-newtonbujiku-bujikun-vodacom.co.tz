@@ -42,48 +42,37 @@ public class DataInit {
         new UserService().create(User.builder().username("admin")
                 .password(BCrypt.hashpw("password", BCrypt.gensalt(10)))
                 .role("admin").build());
+        var payment = new PaymentService().createAndGet(Payment.builder().amount(387.99).codename("45FEDDRTZ").passenger(PASSENGERS.get(0)).build());
+        new BookingService().create(Booking.builder().bookingNumber("ABD242SR").flight(FLIGHTS.get(0))
+                .passenger(PASSENGERS.get(0)).payment(payment).build());
 
     }
 
     private static List<Flight> getFlights() {
         return List.of(
                 Flight.builder().code("AC23").date(LocalDate.now()).departure(LocalTime.now())
-                        .arrival(LocalTime.now().plusHours(6)).placeSource(PLACES.get(1)).placeDest(PLACES.get(3))
-                        .price(500.99).airline(AIRLINES.get(0)).build(),
-                Flight.builder().code("AF45").date(LocalDate.now()).departure(LocalTime.now())
-                        .arrival(LocalTime.now().plusHours(4)).placeSource(PLACES.get(0)).placeDest(PLACES.get(1))
-                        .price(499.99).airline(AIRLINES.get(1)).build(),
-                Flight.builder().code("AI98").date(LocalDate.now()).departure(LocalTime.now())
-                        .arrival(LocalTime.now().plusHours(8)).placeSource(PLACES.get(2)).placeDest(PLACES.get(3))
-                        .price(800.59).airline(AIRLINES.get(3)).build()
+                        .arrival(LocalTime.now().plusHours(6)).placeSource(PLACES.get(0)).placeDest(PLACES.get(1))
+                        .price(500.99).airline(AIRLINES.get(0)).build()
         );
     }
 
     private static List<Place> getPlaces() {
         return List.of(
                 Place.builder().name("Madrid").build(),
-                Place.builder().name("London").build(),
-                Place.builder().name("Tokyo").build(),
-                Place.builder().name("Toronto").build()
+                Place.builder().name("London").build()
         );
     }
 
     private static List<Passenger> getPassengers() {
         return List.of(
                 Passenger.builder().firstName("Newton").lastName("Bujiku").address("Dar Es Salaam")
-                        .dateOfBirth(LocalDate.of(2000, 02, 23)).build(),
-                Passenger.builder().firstName("Gotti").lastName("John").address("New York")
-                        .dateOfBirth(LocalDate.of(1976, 01, 20)).build()
+                        .dateOfBirth(LocalDate.of(2000, 02, 23)).build()
         );
     }
 
     private static List<Airline> getAirlineList() {
         return List.of(
-                Airline.builder().name("Air Canada").codename("AC").build(),
-                Airline.builder().name("Air France").codename("AF").build(),
-                Airline.builder().name("Egyptair").codename("MS").build(),
-                Airline.builder().name("Air India").codename("AI").build(),
-                Airline.builder().name("Japan Airlines").codename("JL").build()
+                Airline.builder().name("Air Canada").codename("AC").build()
         );
     }
 }

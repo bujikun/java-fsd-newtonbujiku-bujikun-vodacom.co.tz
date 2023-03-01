@@ -23,12 +23,9 @@ public class LogoutController extends HttpServlet {
                c.setValue("");
                c.setPath("/flyaway");
                c.setMaxAge(0);
-               Logger.getLogger(this.getServletName()).info(c.getName()+" "+c.getValue());
                resp.addCookie(c);
             });
            resp.addCookie(new Cookie("JSESSIONID",""));
-           //resp.getHeaders().forEach(h->Logger.getLogger(this.getServletName()).info(h));
-       // Logger.getLogger(this.getServletName()).info();
         req.getSession().invalidate();
         resp.sendRedirect("/flyaway");
     }
