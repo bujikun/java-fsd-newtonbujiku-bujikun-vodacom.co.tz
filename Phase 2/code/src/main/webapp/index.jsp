@@ -57,9 +57,11 @@
                        <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></span>
                 </div>
                 <div class="fa-form-container m-2 p-4">
-
                     <h5 class="h5 my-2 my-2">Book a Flight Today</h5>
-                    <form action="show-flights" method="post" class="p-2">
+                    <div id="error">
+
+                    </div>
+                    <form action="show-flights" method="post" class="p-2" name="validate-flight-form" onsubmit="return validateFlightForm()">
                         <div class="mb-3">
                             <label for="datepicker" class="form-label">Departure</label>
                             &nbsp;<span class="material-icons-outlined">calendar_month</span>
@@ -103,5 +105,7 @@
 
 </div>
 <jsp:include page="scripts.jsp"></jsp:include>
+<jsp:include page="validate-flight.jsp"></jsp:include>
+
 </body>
 </html>

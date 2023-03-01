@@ -37,10 +37,10 @@
                 <div class="px-2 mx-2">
                     <span class="h6 text-success" style="display: block;text-align: start;">From <%=request.getAttribute("source") %> to
                         <%=request.getAttribute("destination") %> on <%=request.getAttribute("date") %></span></div>
-                <div class="fa-form-container m-2">
+                <div class="fa-form-container m-2 bg-danger">
                     <% if(((List<Flight>)request.getAttribute("flights")).size()<= 0 ){%>
                     <div class="p-4">
-                        <h5 class="text-danger p-4">No Available Flights From the Selections!<br/>
+                        <h5 class="text-danger p-4 text-white">No Available Flights From the Selections!<br/>
                             Please refine your search.
                         </h5>
                     </div>

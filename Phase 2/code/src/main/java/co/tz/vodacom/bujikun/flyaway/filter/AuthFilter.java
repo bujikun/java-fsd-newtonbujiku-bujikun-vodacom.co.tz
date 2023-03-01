@@ -8,7 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 @WebFilter(urlPatterns = {
-        "/admin-home","/flights","/airlines","/bookings","/places","/passengers","/change-password"
+        "/admin-home","/flights","/airlines","/bookings","/places","/passengers","/change-password",
+        "/add-flight","/add-airline","/add-place",
 })
 /**
  * Restricts admin pages to be only after login

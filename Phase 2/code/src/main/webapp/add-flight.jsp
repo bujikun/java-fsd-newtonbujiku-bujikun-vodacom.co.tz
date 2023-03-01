@@ -80,13 +80,17 @@
                         <span class="material-icons-outlined" style="font-size: 2rem;">connecting_airports</span></h4>
                 </div>
                 <div class="fa-form-container m-2 p-3">
-                    <form action="add-flight" method="post" class="p-2">
+                    <div id="error">
+
+                    </div>
+                    <form action="add-flight" method="post" class="p-2" name="validate-flight-form"
+                          onsubmit="return validateFlightForm()">
                         <div class="mb-3">
-                            <label for="source" class="form-label">Airline</label>&nbsp;<span
+                            <label for="airline" class="form-label">Airline</label>&nbsp;<span
                                 class="material-icons-outlined">
                             airlines</span>
                             <%! List<Airline> airlines = new AirlineService().findAll();%>
-                            <select class="form-select" id="source" name="airline" required>
+                            <select class="form-select" id="airline" name="airline" required>
                                 <% for(int i=0; i<airlines.size();i++){%>
                                 <option value="<%= airlines.get(i).getId()%>">
                                     <%= airlines.get(i).getName()%>
@@ -160,5 +164,6 @@
 
 </div>
 <jsp:include page="scripts.jsp"></jsp:include>
+<jsp:include page="validate-flight.jsp"></jsp:include>
 </body>
 </html>

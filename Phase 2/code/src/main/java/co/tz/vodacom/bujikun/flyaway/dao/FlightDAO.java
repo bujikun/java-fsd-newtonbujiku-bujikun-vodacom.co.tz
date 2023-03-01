@@ -32,7 +32,7 @@ public class FlightDAO implements IDAO<Flight> {
     @Override
     public List<Flight> findAll() throws Exception {
         var session = sessionFactory.openSession();
-        TypedQuery<Flight> query = session.createQuery("SELECT f FROM Flight f", Flight.class);
+        TypedQuery<Flight> query = session.createQuery("SELECT f FROM Flight f ORDER BY f.id DESC ", Flight.class);
         query.getResultList().forEach(f -> Logger.getLogger(this.getClass().getName()).log(Level.INFO, f.toString()));
         return query.getResultList();
     }
