@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sporty_shoes?createDatabaseIfNotExist=true&useSSL=false&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: root
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      generate-ddl: true
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        globally_quoted_identifiers: true
+        dialect.storage : innodb
+        database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+    open-in-view: false
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  thymeleaf:
+    cache: false
+  sql:
+    init:
+      mode: always
+debug: false
