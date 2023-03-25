@@ -24,7 +24,7 @@ public class Product {
     private BigDecimal price;
     private String description;
     private String imageUrl;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = {@JoinColumn(name = "fk_product_id",referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "fk_category_id",referencedColumnName = "id")})
     private Set<Category> categories;

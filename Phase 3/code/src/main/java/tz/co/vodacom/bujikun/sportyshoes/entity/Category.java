@@ -22,6 +22,6 @@ public class Category {
     private Integer id;
     private String name;
     private String description;
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
     private Set<Product> products;
 }
