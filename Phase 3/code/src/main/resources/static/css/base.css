@@ -1,33 +1,40 @@
-:root{
+:root {
     --color-completed: rgba(0, 128, 0, 0.95);
     --color-not-started: rgba(227, 24, 70, 0.94);
-    --color-in-progress:rgba(255, 195, 54, 0.97);
-    --color-tm-white:rgba(255, 255, 255, 0.95);
+    --color-in-progress: rgba(255, 195, 54, 0.97);
+    --color-tm-white: rgba(255, 255, 255, 0.95);
 }
-*{
+
+* {
     font-size: 1rem;
     font-weight: 200;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     background: #e7e7e7;
     color: #333333;
 }
-.product-img{
+
+.product-img {
     min-width: 200px;
     min-height: 200px;
     margin: auto;
 }
-.product-item{
-    min-width: 200px;}
-.logo{
+
+.product-item {
+    min-width: 300px;
+}
+
+.logo {
     width: 2.5rem;
     height: 2.5rem;
 }
-.cart{
-    min-height: 200px;
+
+.cart {
+    min-height: 100px;
     min-width: 300px;
     margin: 2rem;
 }

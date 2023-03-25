@@ -31,3 +31,5 @@ spring:
     init:
       mode: always
 debug: false
+server:
+  port: 8090
