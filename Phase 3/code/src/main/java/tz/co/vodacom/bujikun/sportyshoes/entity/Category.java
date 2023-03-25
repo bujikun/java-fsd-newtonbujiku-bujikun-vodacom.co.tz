@@ -14,18 +14,14 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "products")
+@Table(name = "product_categories")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-public class Product {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private BigDecimal price;
     private String description;
-    private String imageUrl;
-    @ManyToMany
-    @JoinTable(joinColumns = {@JoinColumn(name = "fk_product_id",referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "fk_category_id",referencedColumnName = "id")})
-    private Set<Category> categories;
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products;
 }

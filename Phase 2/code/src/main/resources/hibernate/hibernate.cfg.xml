@@ -21,7 +21,5 @@
         <mapping class="co.tz.vodacom.bujikun.flyaway.entity.Passenger"/>
         <mapping class="co.tz.vodacom.bujikun.flyaway.entity.Airline"/>
         <mapping class="co.tz.vodacom.bujikun.flyaway.entity.User"/>
-
-
     </session-factory>
 </hibernate-configuration>
