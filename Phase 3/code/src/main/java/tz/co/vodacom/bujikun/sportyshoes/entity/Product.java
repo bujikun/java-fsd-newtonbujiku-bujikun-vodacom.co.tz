@@ -25,7 +25,7 @@ public class Product {
     private String description;
     private String imageUrl;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "fk_product_id",referencedColumnName = "id")},
+    @JoinTable(name = "products_categories",joinColumns = {@JoinColumn(name = "fk_product_id",referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "fk_category_id",referencedColumnName = "id")})
     private Set<Category> categories;
 }

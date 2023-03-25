@@ -54,14 +54,47 @@ public class AppConfig {
                     .name("Specialized S-Works")
                     .price(new BigDecimal(150.55))
                     .description("Nike Air 2020 Model")
-                    .imageUrl("/img/s-works.png")
+                    .imageUrl("/img/s-works.jpg")
                     .categories(Set.of(cat1,cat5))
                     .build();
-            for (int i=0;i<5; i++){
-                productRepository.save(prod1);
-                productRepository.save(prod2);
+            var prod3 = Product.builder()
+                    .name("Nike Air Max")
+                    .price(new BigDecimal(123.99))
+                    .description("Nike Air 2020 Model")
+                    .imageUrl("/img/nike-air.png")
+                    .categories(Set.of(cat3,cat4,cat5))
+                    .build();
 
-            }
+            var prod4 = Product.builder()
+                    .name("Specialized S-Works")
+                    .price(new BigDecimal(150.55))
+                    .description("Nike Air 2020 Model")
+                    .imageUrl("/img/s-works.jpg")
+                    .categories(Set.of(cat1,cat5))
+                    .build();
+            var prod5 = Product.builder()
+                    .name("Nike Air Max")
+                    .price(new BigDecimal(123.99))
+                    .description("Nike Air 2020 Model")
+                    .imageUrl("/img/nike-air.png")
+                    .categories(Set.of(cat3,cat4,cat5))
+                    .build();
+
+            var prod6 = Product.builder()
+                    .name("Specialized S-Works")
+                    .price(new BigDecimal(150.55))
+                    .description("Nike Air 2020 Model")
+                    .imageUrl("/img/s-works.jpg")
+                    .categories(Set.of(cat1,cat5))
+                    .build();
+            productRepository.save(prod1);
+            productRepository.save(prod2);
+            productRepository.save(prod3);
+            productRepository.save(prod4);
+            productRepository.save(prod5);
+            productRepository.save(prod6);
+
+
         };
     }
 }
