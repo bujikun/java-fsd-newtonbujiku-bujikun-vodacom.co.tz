@@ -8,11 +8,14 @@ import tz.co.vodacom.bujikun.sportyshoes.exception.ProductNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.ProductRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ProductService implements GenericService<Product,Integer> {
+public class ProductService implements GenericService<Product, Integer> {
     private final ProductRepository productRepository;
+
     @Override
     public void createNew(Product product) {
         productRepository.save(product);
@@ -31,11 +34,17 @@ public class ProductService implements GenericService<Product,Integer> {
     @Override
     public Product findById(Integer id) {
         return productRepository.findById(id)
-                .orElseThrow(()-> new ProductNotFoundException("Product Not Found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product Not Found"));
     }
 
     @Override
     public List<Product> findAll() {
-        return productRepository.findAll();
+        var all = productRepository.findAll();
+       return all.stream()
+                .map(p -> {
+                    var categoryString = "Fit For: " + p.getCategories().stream().map(c -> c.getName()).collect(Collectors.joining(" , "));
+                    p.setCategoryString(categoryString);
+                    return p;
+                }).toList();
     }
 }

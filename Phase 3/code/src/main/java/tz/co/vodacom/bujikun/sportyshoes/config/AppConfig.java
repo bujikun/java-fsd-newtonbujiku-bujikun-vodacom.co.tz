@@ -36,7 +36,7 @@ public class AppConfig {
                     .description("Just casual sportswear")
                     .build();
             var cat5 = Category.builder()
-                    .name("All")
+                    .name("All Sports")
                     .description("Fitting for a wide range of sports")
                     .build();
 
