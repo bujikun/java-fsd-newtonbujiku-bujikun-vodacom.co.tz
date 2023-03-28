@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="collapse navbar-collapse" id="navbarSupportedContent" layout:fragment="dynamic-nav">
+    <div class="navbar-nav me-auto mb-2 mb-lg-0">
+    </div>
+<!--    <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--        <li class="nav-item mx-1">-->
+<!--            <a class="nav-link" th:href="@{/tasks}">Tasks</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item mx-1">-->
+<!--            <a class="nav-link" href="#">Users</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+    <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
+            <a type="button" class="btn btn-primary px-3 me-2" >
+                LOG IN
+            </a>
+            <a type="button" class="btn btn-secondary me-3">
+                REGISTER
+            </a>
+            <a
+                    class="px-3"
+                    href="https://github.com/mdbootstrap/mdb-ui-kit"
+                    role="button"
+            ><i class="fas fa-shopping-cart"></i
+            ></a>
+        </div>
+    </div>
+<!--    <div class="nav-item mx-1">-->
+<!--        <a class="nav-link "float-end th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i></a>-->
+<!--    </div>-->
+</div>
+<div layout:fragment="page-content" class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+            <p class="display-6">Buy Your New Sports Shoes Today!</p>
+
+
+    <div class="row g-3">
+        <div class="col product-item"  th:each="product: ${products}">
+            <div class="card">
+                <img th:src="@{${product.getImageUrl()}}" class="card-img-top product-img">
+                <div class="card-body">
+                    <span class="product-id d-none" th:text="${product.getId()}"></span>
+                    <h6 class="card-title" th:text="${product.getName()}"></h6>
+                    <p th:text="${'$ '+product.getPrice()}"></p>
+                    <small class="card-text d-block" th:text="${product.getDescription()}"></small>
+                    <small class="card-text d-block" th:text="${product.getCategoryString() }"></small>
+                    <button class="btn btn-sm btn-primary float-end mt-1 add-to-cart" onclick="addToCart(this)"> <i class="fas fa-cart-plus"></i></button>
+                    <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
