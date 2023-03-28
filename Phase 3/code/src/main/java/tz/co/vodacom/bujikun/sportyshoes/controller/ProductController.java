@@ -3,8 +3,7 @@ package tz.co.vodacom.bujikun.sportyshoes.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
 
@@ -24,4 +23,9 @@ public class ProductController {
 //                .map(c->c.getName()).collect(Collectors.joining(",")));
         return "product/index";
     }
+
+    @PostMapping
+    public  String createProduct(Model model, @RequestParam(name = "cart") String ids){
+        System.out.println(ids);
+        return "product/index";    }
 }

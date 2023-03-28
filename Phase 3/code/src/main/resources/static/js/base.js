@@ -1,6 +1,36 @@
 $(document).ready(() => {
 
 });
+const cartForm = document.getElementById("cart-form");
+const totalSpan = document.getElementById("total");
+
+let total = Number(0);
+
+cartForm.addEventListener("submit",event=>{
+    event.preventDefault();
+    const cartItems = [];
+    let ids = "";
+
+    for (let child of cartForm.children) {
+        if (child.getAttribute("class").toLowerCase().includes("cart-item")) {
+            cartItems.push(child);
+        }
+    }
+    for (let formInput of cartItems){
+        console.log(formInput);
+        ids+= formInput.children[1].getAttribute("id")+",";
+        cartForm.removeChild(formInput);
+    }
+    let combinedInput = document.createElement("input");
+    combinedInput.setAttribute("name","cart");
+    combinedInput.setAttribute("value",ids);
+    combinedInput.setAttribute("class","d-none");
+    cartForm.appendChild(combinedInput);
+    console.log(combinedInput);
+    cartForm.submit();
+
+})
+
 let itemIList = [];
 function addToCart  (child){
     let parent = child.parentNode;
@@ -41,17 +71,22 @@ function addToCart  (child){
     itemInput.setAttribute("class", "form-control");
     itemInput.setAttribute("disabled", "disabled")
     itemInput.setAttribute("id", id);
-    itemInput.setAttribute("value", name + " ---  " + price);
+    itemInput.setAttribute("value", name + " --  " + price);
     itemDiv.appendChild(itemInput);
-    const cartForm = document.getElementById("cart-form");
     //cartForm.insertBefore()
-    cartForm.appendChild(itemDiv);
+    price = price.substring(1);
+    total += Number(price);
+    console.log(total);
 
+    //total=total.toFixed(2);
+    //total.parseFtoFixed(2)
+    cartForm.appendChild(itemDiv);
+    totalSpan.textContent = "Total: $"+total.toFixed(2);
     console.log({id,name,price})
 }
 
+
 function clearCart() {
-    const cartForm = document.getElementById("cart-form");
     const cartItems = [];
 
     for (let child of cartForm.children) {
@@ -63,5 +98,10 @@ function clearCart() {
         cartForm.removeChild(child)
     }
     itemIList =[];
-};
+    total = Number(0);
+    totalSpan.textContent = "Total: $0.00";
+
+}
+
+
 

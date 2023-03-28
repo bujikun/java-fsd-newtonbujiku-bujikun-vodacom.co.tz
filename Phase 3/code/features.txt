@@ -1,0 +1,18 @@
+list products
+add items to cart
+modify cart
+checkout
+register user(log in this user/start session)
+make dummy payment, redirect to home
+isolated log in
+user can view their purchases, change password, view profile
+
+ADMIN
+can log in
+can change password
+user management(create admin, edit user,delete, view user, search users)
+reports(purchases filtered by date, by category)
+product management(add,edit,delete,view,set/change category)
+category management(add,edit,delete,view)
+
+
