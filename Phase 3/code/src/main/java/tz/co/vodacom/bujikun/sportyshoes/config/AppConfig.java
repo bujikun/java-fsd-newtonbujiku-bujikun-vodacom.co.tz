@@ -37,7 +37,7 @@ public class AppConfig {
                     .build();
             var cat5 = Category.builder()
                     .name("All Sports")
-                    .description("Fitting for a wide range of sports")
+                    .description("For a wide range of sports")
                     .build();
 
             categoryRepository.saveAll(List.of(cat1,cat2,cat3,cat4,cat5));

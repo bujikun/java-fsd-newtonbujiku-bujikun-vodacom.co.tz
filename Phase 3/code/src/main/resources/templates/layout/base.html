@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/webjars/mdb-ui-kit/6.2.0/css/mdb.min.css"/>
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.1/css/all.css"/>
     <link rel="stylesheet" href="/css/base.css"/>
-<!--    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>-->
+    <!--    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>-->
     <style>
         @font-face {
             font-family: Roboto;
@@ -24,50 +24,76 @@
 </head>
 <body>
 <div class="container">
-    <div class="row my-2">
+    <header>
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand ms-2 me-5" href="#">
-                    <img src="/img/logo/logo_black.png" alt="logo" class="logo">
+            <!-- Container wrapper -->
+            <div class="container">
+                <!-- Navbar brand -->
+                <a class="navbar-brand ms-2 me-5" th:href="@{/}">
+                    <img src="/img/logo/logo_black.png" alt="logo" class="logo" style="margin-top: -1px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+
+                <!-- Toggle button -->
+                <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarButtonsExample"
+                        aria-controls="navbarButtonsExample"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                >
+                    <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse ms-2" id="navbarSupportedContent" layout:fragment="dynamic-nav">
-<!--                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-<!--                        <li class="nav-item ">-->
-<!--                            <a class="nav-link active" aria-current="page" href="#">Home</a>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item mx-1">-->
-<!--                            <a class="nav-link" th:href="@{/tasks}">Tasks</a>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item mx-1">-->
-<!--                            <a class="nav-link" th:href="@{/users}">Users</a>-->
+
+                <!-- Collapsible wrapper -->
+                <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" href="#">Dashboard</a>-->
 <!--                        </li>-->
                     </ul>
-                </div>
-            </div>
-<!--            <div class="nav-item mx-1">-->
-<!--                <a class="nav-link float-end" th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-1x" title="logout"></i></a>-->
-<!--            </div>-->
-        </nav>
-    </div>
-    <div class="row my-3">
-        <div class="col-md-2 col-lg-1 col-xl-1"></div>
-        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8" layout:fragment="page-content">
-            <!--  Page content goes here!-->
-        </div>
-        <div class="col-md-4 col-lg-3 col-xl-3">
-            <div class="row g-4">
-                <div class="mb-5"></div>
-                <p class="mt-5 ms-3"></p>
-                <div class="card cart mt-4" layout:fragment="cart"></div>
-            </div>
+                    <!-- Left links -->
 
+                    <div class="d-flex align-items-center">
+                        <a
+                                class="px-3"
+                                role="button"
+                        ><i class="fas fa-shopping-cart"></i
+                        ></a>
+                        <div class="d-flex align-items-center">
+                            <a type="button" class="btn btn-primary px-3 me-2">
+                                LOG IN
+                            </a>
+                            <a type="button" class="btn btn-secondary me-3">
+                                REGISTER
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Collapsible wrapper -->
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+
+    <main>
+        <div class="row my-3">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" layout:fragment="page-content">
+                <!--  Page content goes here!-->
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
 </div>
 <script src="/webjars/mdb-ui-kit/6.2.0/js/mdb.min.js"></script>
 <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
@@ -77,3 +103,93 @@
 </body>
 
 </html>
+
+
+<!--&lt;!&ndash; Navbar &ndash;&gt;-->
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--    &lt;!&ndash; Container wrapper &ndash;&gt;-->
+<!--    <div class="container">-->
+<!--        &lt;!&ndash; Navbar brand &ndash;&gt;-->
+<!--        <a class="navbar-brand me-2" href="https://mdbgo.com/">-->
+<!--            <img-->
+<!--                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"-->
+<!--                    height="16"-->
+<!--                    alt="MDB Logo"-->
+<!--                    loading="lazy"-->
+<!--                    style="margin-top: -1px;"-->
+<!--            />-->
+<!--        </a>-->
+
+<!--        &lt;!&ndash; Toggle button &ndash;&gt;-->
+<!--        <button-->
+<!--                class="navbar-toggler"-->
+<!--                type="button"-->
+<!--                data-mdb-toggle="collapse"-->
+<!--                data-mdb-target="#navbarButtonsExample"-->
+<!--                aria-controls="navbarButtonsExample"-->
+<!--                aria-expanded="false"-->
+<!--                aria-label="Toggle navigation"-->
+<!--        >-->
+<!--            <i class="fas fa-bars"></i>-->
+<!--        </button>-->
+
+<!--        &lt;!&ndash; Collapsible wrapper &ndash;&gt;-->
+<!--        <div class="collapse navbar-collapse" id="navbarButtonsExample">-->
+<!--            &lt;!&ndash; Left links &ndash;&gt;-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">Dashboard</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            &lt;!&ndash; Left links &ndash;&gt;-->
+
+<!--            <div class="d-flex align-items-center">-->
+<!--                <button type="button" class="btn btn-link px-3 me-2">-->
+<!--                    Login-->
+<!--                </button>-->
+<!--                <button type="button" class="btn btn-primary me-3">-->
+<!--                    Sign up for free-->
+<!--                </button>-->
+<!--                <a-->
+<!--                        class="btn btn-dark px-3"-->
+<!--                        href="https://github.com/mdbootstrap/mdb-ui-kit"-->
+<!--                        role="button"-->
+<!--                ><i class="fab fa-github"></i-->
+<!--                ></a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Collapsible wrapper &ndash;&gt;-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Container wrapper &ndash;&gt;-->
+<!--</nav>-->
+<!--&lt;!&ndash; Navbar &ndash;&gt;-->
+
+
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand ms-2 me-5" href="#">-->
+<!--            <img src="/img/logo/logo_black.png" alt="logo" class="logo">-->
+<!--        </a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
+<!--                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
+<!--                aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse ms-2" id="navbarSupportedContent" layout:fragment="dynamic-nav">-->
+<!--            &lt;!&ndash;                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <li class="nav-item ">&ndash;&gt;-->
+<!--            &lt;!&ndash;                            <a class="nav-link active" aria-current="page" href="#">Home</a>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <li class="nav-item mx-1">&ndash;&gt;-->
+<!--            &lt;!&ndash;                            <a class="nav-link" th:href="@{/tasks}">Tasks</a>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <li class="nav-item mx-1">&ndash;&gt;-->
+<!--            &lt;!&ndash;                            <a class="nav-link" th:href="@{/users}">Users</a>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;            <div class="nav-item mx-1">&ndash;&gt;-->
+<!--    &lt;!&ndash;                <a class="nav-link float-end" th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-1x" title="logout"></i></a>&ndash;&gt;-->
+<!--    &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--</nav>-->
