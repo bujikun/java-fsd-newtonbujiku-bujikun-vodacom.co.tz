@@ -5,7 +5,7 @@
       layout:decorate="~{layout/base}">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Home</title>
 </head>
 <body>
 <div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -32,7 +32,7 @@
                     <p class="my-4" th:text="${category.getDescription()}">
 
                     </p>
-                    <a type="button" class="btn btn-secondary float-end" >Shop</a>
+                    <a type="button" class="btn btn-secondary float-end" th:href="@{/categories/{id}/products(id=${category.getId()})}">Shop</a>
                 </div>
             </div>
         </div>

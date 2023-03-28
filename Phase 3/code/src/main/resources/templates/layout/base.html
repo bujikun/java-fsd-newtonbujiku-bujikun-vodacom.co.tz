@@ -52,7 +52,7 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Home</a>
+                            <a class="nav-link active" href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Shoes</a>
@@ -96,7 +96,7 @@
         <!-- Navbar -->
     </header>
 
-    <main>
+    <main class="mb-5">
         <div class="row my-3">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" layout:fragment="page-content">
                 <!--  Page content goes here!-->
@@ -104,7 +104,7 @@
         </div>
     </main>
 
-    <footer  class="fixed-bottom">
+    <footer  class="fixed-bottom mt-5">
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
             © 2021 Newton Bujiku - bujikun@vodacom.co.tz
@@ -122,93 +122,3 @@
 </body>
 
 </html>
-
-
-<!--&lt;!&ndash; Navbar &ndash;&gt;-->
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--    &lt;!&ndash; Container wrapper &ndash;&gt;-->
-<!--    <div class="container">-->
-<!--        &lt;!&ndash; Navbar brand &ndash;&gt;-->
-<!--        <a class="navbar-brand me-2" href="https://mdbgo.com/">-->
-<!--            <img-->
-<!--                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"-->
-<!--                    height="16"-->
-<!--                    alt="MDB Logo"-->
-<!--                    loading="lazy"-->
-<!--                    style="margin-top: -1px;"-->
-<!--            />-->
-<!--        </a>-->
-
-<!--        &lt;!&ndash; Toggle button &ndash;&gt;-->
-<!--        <button-->
-<!--                class="navbar-toggler"-->
-<!--                type="button"-->
-<!--                data-mdb-toggle="collapse"-->
-<!--                data-mdb-target="#navbarButtonsExample"-->
-<!--                aria-controls="navbarButtonsExample"-->
-<!--                aria-expanded="false"-->
-<!--                aria-label="Toggle navigation"-->
-<!--        >-->
-<!--            <i class="fas fa-bars"></i>-->
-<!--        </button>-->
-
-<!--        &lt;!&ndash; Collapsible wrapper &ndash;&gt;-->
-<!--        <div class="collapse navbar-collapse" id="navbarButtonsExample">-->
-<!--            &lt;!&ndash; Left links &ndash;&gt;-->
-<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="#">Dashboard</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--            &lt;!&ndash; Left links &ndash;&gt;-->
-
-<!--            <div class="d-flex align-items-center">-->
-<!--                <button type="button" class="btn btn-link px-3 me-2">-->
-<!--                    Login-->
-<!--                </button>-->
-<!--                <button type="button" class="btn btn-primary me-3">-->
-<!--                    Sign up for free-->
-<!--                </button>-->
-<!--                <a-->
-<!--                        class="btn btn-dark px-3"-->
-<!--                        href="https://github.com/mdbootstrap/mdb-ui-kit"-->
-<!--                        role="button"-->
-<!--                ><i class="fab fa-github"></i-->
-<!--                ></a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Collapsible wrapper &ndash;&gt;-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Container wrapper &ndash;&gt;-->
-<!--</nav>-->
-<!--&lt;!&ndash; Navbar &ndash;&gt;-->
-
-
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--    <div class="container">-->
-<!--        <a class="navbar-brand ms-2 me-5" href="#">-->
-<!--            <img src="/img/logo/logo_black.png" alt="logo" class="logo">-->
-<!--        </a>-->
-<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
-<!--                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
-<!--                aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-<!--        <div class="collapse navbar-collapse ms-2" id="navbarSupportedContent" layout:fragment="dynamic-nav">-->
-<!--            &lt;!&ndash;                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <li class="nav-item ">&ndash;&gt;-->
-<!--            &lt;!&ndash;                            <a class="nav-link active" aria-current="page" href="#">Home</a>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        </li>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <li class="nav-item mx-1">&ndash;&gt;-->
-<!--            &lt;!&ndash;                            <a class="nav-link" th:href="@{/tasks}">Tasks</a>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        </li>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <li class="nav-item mx-1">&ndash;&gt;-->
-<!--            &lt;!&ndash;                            <a class="nav-link" th:href="@{/users}">Users</a>&ndash;&gt;-->
-<!--            &lt;!&ndash;                        </li>&ndash;&gt;-->
-<!--            </ul>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash;            <div class="nav-item mx-1">&ndash;&gt;-->
-<!--    &lt;!&ndash;                <a class="nav-link float-end" th:href="@{/logout}"><i class="fas fa-sign-out-alt fa-1x" title="logout"></i></a>&ndash;&gt;-->
-<!--    &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--</nav>-->
