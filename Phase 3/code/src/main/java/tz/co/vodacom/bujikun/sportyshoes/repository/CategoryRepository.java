@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository  extends JpaRepository<Category,Integer> {
-    @Query("SELECT c FROM Category  c WHERE c.id = :id AND c.deleted = 0 ")
+    @Query("SELECT c FROM Category  c WHERE c.id = :id AND c.deleted = false ")
     Optional<Category> findActiveById(Integer id);
 
-    @Query("FROM Category  WHERE deleted = 0  ")
+    @Query("FROM Category  WHERE deleted = false  ")
     List<Category> findAllActive();
 }

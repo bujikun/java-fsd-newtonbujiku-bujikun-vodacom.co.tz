@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+<div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="row">
+        <div class="my-3">
+            <div class="card">
+                <div class="card-body">
+                    <span class="h5" th:text="${category.getName()} + ' Category'"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" row g-1" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-6">
+                        <form method="post" th:action="@{/categories/edit}"
+                              th:object="${category}">
+                            <div class="form-outline mb-3">
+                                <input
+                                        class="form-control"
+                                        id="id"
+                                        type="text"
+                                        th:field="*{id}"
+                                        th:value="${id}"
+                                        aria-label="id"
+                                        readonly
+                                />
+                                <label class="form-label" for="id">ID</label>
+                            </div>
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="createdOn" class="form-control" readonly th:field="*{createdOn}"
+                                       th:value="${category.getCreatedOn()}"
+                                />
+                                <label class="form-label" for="createdOn">Created On</label>
+                            </div>
+
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="updatedOn" class="form-control" readonly th:field="*{createdOn}"
+                                       th:value="${category.getUpdatedOn()}"/>
+                                <label class="form-label" for="updatedOn">Last Updated On</label>
+                            </div>
+                            <!-- Text input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="name" class="form-control" th:field="*{name}"/>
+                                <label class="form-label" for="name">Name</label>
+                            </div>
+
+                            <!-- Message input -->
+                            <div class="form-outline mb-4">
+                                <textarea class="form-control" id="description" rows="4" th:field="*{description}"></textarea>
+                                <label class="form-label" for="description">Description</label>
+                            </div>
+
+                            <!-- Checked switch -->
+                            <div class="form-check form-switch my-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="deleted" th:field="*{deleted}" />
+                                <label class="form-check-label" for="deleted">&nbsp;Deactivated</label>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-success btn-block mb-4">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-3 d-sm-none">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+<!--        <div class="col-xl-6 mb-4">-->
+<!--            <div class="card" th:with="categoryProductSize = ${category.getProducts().size()}">-->
+<!--                <div class="card-body">-->
+<!--                    <div class="d-flex justify-content-between align-items-center">-->
+<!--                        <div class="d-flex align-items-center">-->
+<!--                            <div class="ms-3">-->
+<!--                                <p class="fw-bold mb-1" th:text="'Category ID: '+${category.getId()}"></p>-->
+<!--                                <p class="text-muted mb-0"-->
+<!--                                   th:text="'Products in This Category: '+${category.getProducts().size()}"></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                        class="card-footer border-0 bg-light p-2 d-flex justify-content-around">-->
+<!--                    <div class="text-muted small"-->
+<!--                         th:text="'Created On: '+${Util.convertDateTimeToString(category.getCreatedOn())}">-->
+
+<!--                    </div>-->
+<!--                    <div class="vr"></div>-->
+<!--                    <div class="text-muted small"-->
+<!--                         th:text="'Updated On: '+${Util.convertDateTimeToString(category.getUpdatedOn())}">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-xl-6 mb-4">-->
+<!--            <div class="h4 mb-3 p-2 card"><span class="ms-3">Products</span></div>-->
+<!--            <div class="list-group list-group-light">-->
+<!--                <a th:href="@{/products/{id}(id=${product.getId()})}" th:each="product:${category.getProducts()}"-->
+<!--                   class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">-->
+<!--                    <span class="align-baseline text-dark" th:text="${product.getName()+' &#45;&#45; $'+product.getPrice()}"></span>-->
+<!--                    <span class="offset-4 badge rounded-pill badge-danger px-3 ">Out of Stock</span></a>-->
+
+
+<!--            </div>-->
+
+
+<!--        </div>-->
+
+
+    </div>
+
+</div>
+
+
+
+<div layout:fragment="scripts">
+    <script>
+        setActiveNavLink("#categories-page");
+    </script>
+</div>
+</body>
+</html>

@@ -9,6 +9,7 @@ import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
 import tz.co.vodacom.bujikun.sportyshoes.exception.CategoryNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.CategoryRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 @Transactional
@@ -18,19 +19,21 @@ public class CategoryService implements GenericService<Category,Integer> {
     private final ModelMapper modelMapper;
     @Override
     public void createNew(Category category) {
-        category.setDeleted(1);
+        category.setDeleted(false);
         categoryRepository.save(category);
     }
 
     @Override
     public void delete(Integer id) {
         var category = findById(id);
-        category.setDeleted(1);
+        category.setDeleted(false);
         categoryRepository.save(category);
     }
 
     @Override
     public void update(Category category) {
+        category.setUpdatedOn(LocalDateTime.now());
+        //var categoryFromDB = findActiveById(category.getId());
         categoryRepository.save(category);
     }
 

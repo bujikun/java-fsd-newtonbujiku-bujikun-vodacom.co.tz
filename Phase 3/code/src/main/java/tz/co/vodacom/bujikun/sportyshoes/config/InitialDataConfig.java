@@ -20,30 +20,30 @@ public class InitialDataConfig {
             var cat1 = Category.builder()
                     .name("Athletic")
                     .description("Running shoes")
-                    .deleted(0)
+                    .deleted(false)
                     .build();
             var cat2 = Category.builder()
                     .name("Boxing")
                     .description("Boxing shoes")
-                    .deleted(0)
+                    .deleted(false)
 
                     .build();
             var cat3 = Category.builder()
                     .name("Cycling")
                     .description("Cycling shoes")
-                    .deleted(0)
+                    .deleted(false)
 
                     .build();
             var cat4 = Category.builder()
                     .name("Casual")
                     .description("Just casual sportswear")
-                    .deleted(0)
+                    .deleted(false)
 
                     .build();
             var cat5 = Category.builder()
                     .name("All Sports")
                     .description("For a wide range of sports")
-                    .deleted(0)
+                    .deleted(false)
 
                     .build();
 

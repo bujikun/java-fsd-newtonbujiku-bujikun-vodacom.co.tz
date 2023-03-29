@@ -21,7 +21,8 @@
     </div>
 
     <div class="d-flex justify-content-end offset-4 mb-3">
-        <a class="btn btn-primary btn-lg my-1 mx-2" role="button"><span><i class="fa fa-edit"></i>&nbsp;</span>Edit</a>
+        <a class="btn btn-primary btn-lg my-1 mx-2" role="button"  th:href="@{/categories/edit/{id}(id=${category.getId()})}"
+        ><span><i class="fa fa-edit"></i>&nbsp;</span>Edit</a>
         <a class="btn btn-success btn-lg my-1 mx-2" role="button"><span><i class="fa fa-link"></i>&nbsp;</span>Link
             Product</a>
         <button class="btn btn-danger btn-lg my-1 mx-2" role="button" data-mdb-toggle="modal" data-mdb-target="#deleteModal"><span><i
