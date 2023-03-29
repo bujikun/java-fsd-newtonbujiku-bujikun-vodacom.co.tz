@@ -14,6 +14,8 @@ public class CategoryDTO {
     private Integer id;
     private String name;
     private String description;
-    private Set<String> categories;
-    private String 
+    private Set<String> products;
+    private String createdOn;
+    private String updatedOn;
+
 }

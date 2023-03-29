@@ -1,8 +1,10 @@
 package tz.co.vodacom.bujikun.sportyshoes.service;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tz.co.vodacom.bujikun.sportyshoes.dto.CategoryDTO;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
 import tz.co.vodacom.bujikun.sportyshoes.exception.CategoryNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.CategoryRepository;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryService implements GenericService<Category,Integer> {
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
     @Override
     public void createNew(Category category) {
         categoryRepository.save(category);

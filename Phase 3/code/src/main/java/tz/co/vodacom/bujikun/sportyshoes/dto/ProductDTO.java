@@ -16,4 +16,6 @@ public class ProductDTO {
     private String description;
     private String imageUrl;
     private Set<String> categories;
+    private String createdOn;
+    private String updatedOn;
 }
