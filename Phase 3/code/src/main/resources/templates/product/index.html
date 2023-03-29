@@ -5,65 +5,50 @@
       layout:decorate="~{layout/base}">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>All Shoes</title>
 </head>
 <body>
-<div class="collapse navbar-collapse" id="navbarSupportedContent" layout:fragment="dynamic-nav">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item ">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item mx-1">
-            <a class="nav-link" th:href="@{/tasks}">Tasks</a>
-        </li>
-        <li class="nav-item mx-1">
-            <a class="nav-link" href="#">Users</a>
-        </li>
-    </ul>
-    <div class="nav-item mx-1">
-        <a class="nav-link float-end" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i></a>
-    </div>
-</div>
-<div layout:fragment="page-content" class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-            <p class="display-6">Buy Your New Sports Shoes Today!</p>
-
-
-    <div class="row g-3">
-        <div class="col product-item"  th:each="product: ${products}">
-            <div class="card">
-                <img th:src="@{${product.getImageUrl()}}" class="card-img-top product-img">
-                <div class="card-body">
-                    <span class="product-id d-none" th:text="${product.getId()}"></span>
-                    <h6 class="card-title" th:text="${product.getName()}"></h6>
-                    <p th:text="${'$ '+product.getPrice()}"></p>
-                    <small class="card-text d-block" th:text="${product.getDescription()}"></small>
-                    <small class="card-text d-block" th:text="${product.getCategoryString() }"></small>
-                    <button class="btn btn-sm btn-primary float-end mt-1 add-to-cart" onclick="addToCart(this)"> <i class="fas fa-cart-plus"></i></button>
-                    <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="row">
+        <div class="my-3">
+            <div class="card" >
+                <div class="card-body" >
+                    <span class="h5">Shoes From All Categories</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="card cart mt-4" layout:fragment="cart" >
-    <div id="cart">
-        <h4 class="my-1 p-1">Cart Items</h4>
-        <div class="pb-2">
-            <form id="cart-form" method="post" action="/products">
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-danger" id="reset" onclick="clearCart()">Clear</button>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="product:${products}">
+            <div class="card">
+
+                <img th:src="@{${product.getImageUrl()}}" class="card-img-top p-4 product-img" th:alt="${product.getName()}"/>
+                <div class="card-body">
+                    <span class="card-title h6" th:text="${product.getName()}"></span>
+                    <small class="d-block" th:text="${product.getDescription()}">
+                    </small>
+                    <div class="row g-2">
+                        <div class="col">
+                            <span class="d-block h4" th:text="'$'+${product.getPrice()}"></span>
+
+                        </div>
+                        <div class="col"><button class="btn btn-outline-primary btn-sm px-2 btn-rounded float-end mx-2" data-mdb-ripple-color="dark" type="button"
+                                                 role="button">
+                            <i class="fa fa-cart-plus"></i>&nbsp;Add To Cart</button></div>
+
+                    </div>
                 </div>
 
-            </form>
+            </div>
         </div>
-        <span id="total" class="h4 my-2 p-2" >Total: $0.00</span>
     </div>
+
 </div>
-</body>
 <div layout:fragment="scripts">
     <script>
-        $("home-page").css("class","nav-link active");
+        setActiveNavLink("#shoes-page");
     </script>
 </div>
+</body>
 </html>

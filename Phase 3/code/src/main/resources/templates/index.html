@@ -24,15 +24,26 @@
         </div>
     </div>
 
-    <div class="row g-3">
-        <div class="col" th:each="category:${categories}" >
-            <div class="card" style="min-height: 200px">
+    <div class="row g-2">
+        <div class="col" >
+            <div class="card" style="min-height: 200px;min-width: 200px">
                 <div class="card-body">
-                    <h5 class="card-title display-6" th:text="${category.getName()}"></h5>
-                    <p class="my-4" th:text="${category.getDescription()}">
+                    <h4 class="card-title h5">All</h4>
+                    <p class="my-2">
+                        Shoes in all categories
+                    </p>
+                    <a type="button" class="btn btn-secondary float-end mt-4" th:href="@{/products}">Shop</a>
+                </div>
+            </div>
+        </div>
+        <div class="col" th:each="category:${categories}" >
+            <div class="card" style="min-height: 200px; min-width: 200px">
+                <div class="card-body">
+                    <h4 class="card-title h5" th:text="${category.getName()}"></h4>
+                    <p class="my-2" th:text="${category.getDescription()}">
 
                     </p>
-                    <a type="button" class="btn btn-secondary float-end" th:href="@{/categories/{id}/products(id=${category.getId()})}">Shop</a>
+                    <a type="button" class="btn btn-secondary float-end mt-4" th:href="@{/categories/{id}/products(id=${category.getId()})}">Shop</a>
                 </div>
             </div>
         </div>
