@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -34,4 +35,5 @@ public class Category {
     @UpdateTimestamp
     @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime updatedOn;
+
 }

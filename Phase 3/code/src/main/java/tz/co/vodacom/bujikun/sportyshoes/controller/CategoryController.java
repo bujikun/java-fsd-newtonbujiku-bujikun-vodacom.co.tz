@@ -13,6 +13,11 @@ import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+    @GetMapping
+    public String index(Model model){
+        model.addAttribute("categories",categoryService.findAll());
+        return "category/index";
+    }
 
     @GetMapping("/{id}/products")
     public String getCategoryProducts(@PathVariable("id")Integer categoryId, Model model){
