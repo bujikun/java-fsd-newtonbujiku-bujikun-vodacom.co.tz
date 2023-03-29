@@ -27,7 +27,7 @@ public class Category {
     private Integer id;
     private String name;
     private String description;
-    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.DETACH})
     private Set<Product> products;
     @CreationTimestamp
     @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
@@ -35,5 +35,6 @@ public class Category {
     @UpdateTimestamp
     @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime updatedOn;
+    private Integer deleted;
 
 }

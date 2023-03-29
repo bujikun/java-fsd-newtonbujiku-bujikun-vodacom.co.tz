@@ -15,8 +15,22 @@ public class CategoryController {
     private final CategoryService categoryService;
     @GetMapping
     public String index(Model model){
-        model.addAttribute("categories",categoryService.findAll());
+        System.out.println(categoryService.findAllActive());
+        model.addAttribute("categories",categoryService.findAllActive());
         return "category/index";
+    }
+
+    @GetMapping("/{id}")
+    public  String getOne(@PathVariable("id") Integer id, Model model){
+        var category = categoryService.findActiveById(id);
+        model.addAttribute("category",category);
+        return "category/view";
+    }
+
+    @GetMapping("delete/{id}")
+    public String deleteOne(@PathVariable("id") Integer id){
+        categoryService.delete(id);
+        return "redirect:/categories";
     }
 
     @GetMapping("/{id}/products")

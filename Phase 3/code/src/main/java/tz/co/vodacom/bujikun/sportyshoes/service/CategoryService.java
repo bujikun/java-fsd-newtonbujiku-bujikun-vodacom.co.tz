@@ -18,12 +18,15 @@ public class CategoryService implements GenericService<Category,Integer> {
     private final ModelMapper modelMapper;
     @Override
     public void createNew(Category category) {
+        category.setDeleted(1);
         categoryRepository.save(category);
     }
 
     @Override
     public void delete(Integer id) {
-        categoryRepository.delete(findById(id));
+        var category = findById(id);
+        category.setDeleted(1);
+        categoryRepository.save(category);
     }
 
     @Override
@@ -40,5 +43,14 @@ public class CategoryService implements GenericService<Category,Integer> {
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+
+    public List<Category> findAllActive(){
+        return categoryRepository.findAllActive();
+    }
+
+    public Category findActiveById(Integer id){
+        return categoryRepository.findActiveById(id)
+                .orElseThrow(()-> new CategoryNotFoundException("CategoryNotFound"));
     }
 }
