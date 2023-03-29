@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -24,4 +28,10 @@ public class Category {
     private String description;
     @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
     private Set<Product> products;
+    @CreationTimestamp
+    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
+    private LocalDateTime createdOn;
+    @UpdateTimestamp
+    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
+    private LocalDateTime updatedOn;
 }

@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -30,4 +34,10 @@ public class Product {
     @JoinTable(name = "products_categories",joinColumns = {@JoinColumn(name = "fk_product_id",referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "fk_category_id",referencedColumnName = "id")})
     private Set<Category> categories;
+    @CreationTimestamp
+    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
+    private LocalDateTime createdOn;
+    @UpdateTimestamp
+    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
+    private LocalDateTime updatedOn;
 }
