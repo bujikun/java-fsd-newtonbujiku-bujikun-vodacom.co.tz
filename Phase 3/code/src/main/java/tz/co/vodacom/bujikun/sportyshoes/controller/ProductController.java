@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class ProductController {
     private final ProductService productService;
     //private final CategoryService categoryService;
+
     @GetMapping
     public String getAll(Model model){
 
@@ -28,4 +29,17 @@ public class ProductController {
     public  String createProduct(Model model, @RequestParam(name = "cart") String ids){
         System.out.println(ids);
         return "product/index";    }
+
+    @GetMapping("/stock")
+    public String stockIndex(Model model){
+        var products = productService.findAll();
+        model.addAttribute("products",products);
+        return "product/stock";
+    }
+    @GetMapping(value = {"/view/{id}","/view/{id}/"})
+    public String view(@PathVariable("id") Integer id, Model model){
+        var product = productService.findById(id);
+        model.addAttribute("product",product);
+        return "product/view";
+    }
 }
