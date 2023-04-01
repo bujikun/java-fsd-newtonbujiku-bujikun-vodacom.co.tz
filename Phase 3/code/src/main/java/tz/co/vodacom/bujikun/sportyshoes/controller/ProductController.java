@@ -62,6 +62,19 @@ public class ProductController {
         return "redirect:/products/stock";
     }
 
+    @GetMapping("edit/{id}")
+    public String getEdit(@PathVariable("id") Integer id, Model model){
+        var product = productService.findById(id);
+        model.addAttribute("product",product);
+        return "product/edit";
+    }
+    @PostMapping("edit")
+    public String postEdit( @ModelAttribute("product") Product product, Model model){
+        productService.update(product);
+        model.addAttribute("product",product);
+        return "redirect:/products/view/"+product.getId();
+    }
+
     @GetMapping(value = {"/{id}/link-category","/{id}/link-category/"})
     public String getLinkProductCategories(@PathVariable("id")Integer productId, Model model){
         var product = productService.findById(productId);

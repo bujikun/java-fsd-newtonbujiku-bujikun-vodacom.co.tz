@@ -7,6 +7,7 @@ import tz.co.vodacom.bujikun.sportyshoes.entity.Product;
 import tz.co.vodacom.bujikun.sportyshoes.exception.ProductNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.ProductRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,13 @@ public class ProductService implements GenericService<Product, Integer> {
 
     @Override
     public void update(Product product) {
-
+        var fromDB = findById(product.getId());
+        fromDB.setUpdatedOn(LocalDateTime.now());
+        fromDB.setName(product.getName());
+        fromDB.setPrice(product.getPrice());
+        fromDB.setCount(product.getCount());
+        fromDB.setDescription(product.getDescription());
+        productRepository.save(fromDB);
     }
 
     @Override

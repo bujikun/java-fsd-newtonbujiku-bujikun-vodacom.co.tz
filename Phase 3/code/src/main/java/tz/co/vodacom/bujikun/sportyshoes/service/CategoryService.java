@@ -32,9 +32,13 @@ public class CategoryService implements GenericService<Category,Integer> {
 
     @Override
     public void update(Category category) {
-        category.setUpdatedOn(LocalDateTime.now());
-        //var categoryFromDB = findActiveById(category.getId());
-        categoryRepository.save(category);
+
+        var categoryFromDB = findActiveById(category.getId());
+        categoryFromDB.setUpdatedOn(LocalDateTime.now());
+        categoryFromDB.setDeleted(category.getDeleted());
+        categoryFromDB.setName(category.getName());
+        categoryFromDB.setDescription(category.getDescription());
+        categoryRepository.save(categoryFromDB);
     }
 
     @Override
