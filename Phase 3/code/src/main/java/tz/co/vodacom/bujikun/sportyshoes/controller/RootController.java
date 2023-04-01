@@ -12,7 +12,7 @@ public class RootController {
     private final CategoryService categoryService;
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("categories",categoryService.findAllActive());
         return "index";
     }
 }

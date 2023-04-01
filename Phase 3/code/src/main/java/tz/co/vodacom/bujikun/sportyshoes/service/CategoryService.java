@@ -26,7 +26,7 @@ public class CategoryService implements GenericService<Category,Integer> {
     @Override
     public void delete(Integer id) {
         var category = findById(id);
-        category.setDeleted(false);
+        category.setDeleted(true);
         categoryRepository.save(category);
     }
 
@@ -45,7 +45,7 @@ public class CategoryService implements GenericService<Category,Integer> {
 
     @Override
     public List<Category> findAll() {
-        return categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "createdOn"));
+        return categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "createdOn","deleted"));
     }
 
     public List<Category> findAllActive(){

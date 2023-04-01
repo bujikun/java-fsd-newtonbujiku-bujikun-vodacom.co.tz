@@ -40,4 +40,5 @@ public class Product {
     @UpdateTimestamp
     @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime updatedOn;
+    private Integer count;
 }

@@ -37,19 +37,6 @@
                                 <p class="text-muted mb-0" th:text="${category.getDescription()}"></p>
                             </div>
                         </div>
-<!--                        <span class="badge rounded-pill badge-danger"-->
-<!--                              th:if="${categoryProductSize<=0}"-->
-<!--                        >Out of Stock</span>-->
-<!--                        <span class="badge rounded-pill badge-warning"-->
-<!--                              th:if="${categoryProductSize>0 && categoryProductSize<5}">-->
-<!--                                Low Stock</span>-->
-
-<!--                        <span class="badge rounded-pill badge-info"-->
-<!--                              th:if="${categoryProductSize>5&& categoryProductSize<10}"-->
-<!--                        >Fair Stock</span>-->
-<!--                        <span class="badge rounded-pill badge-success"-->
-<!--                              th:if="${categoryProductSize>10}"-->
-<!--                        >Abundant Stock</span>-->
                         <a class="badge rounded-pill badge-primary py-2 "
 
                            th:href="@{/categories/{id}(id=${category.getId()})}"><span><i class="fa fa-eye"></i></span>
@@ -75,7 +62,7 @@
 </div>
 <div layout:fragment="scripts">
     <script>
-        setActiveNavLink("#shoes-page");
+        setActiveNavLink("#categories-page");
     </script>
 </div>
 </body>

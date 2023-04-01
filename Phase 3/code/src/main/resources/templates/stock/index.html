@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock</title>
+</head>
+<body>
+<div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="row">
+        <div class="my-3">
+            <div class="card">
+                <div class="card-body">
+                    <span class="h5">Stock Management</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end offset-10">
+        <a class="btn btn-primary btn-lg my-1" role="button" th:href="@{/products/add}"
+        ><span><i class="fa fa-plus-square"></i>&nbsp;</span>Add New Product</a>
+    </div>
+    <div class="row" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
+        <div class="list-group-item mb-2" th:each="product:${products}">
+            <div class="card" th:with="count=${product.getCount()}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded bg-secondary text-white p-3" th:text="${product.getId()}">
+
+                            </div>
+                            <div class="ms-3 me-5">
+                                <p class="fw-bold mb-1" th:text="${product.getName()}"></p>
+                                <p class="text-muted mb-0" th:text="${product.getDescription()}"></p>
+                            </div>
+                            <div th:if="${count <= 0}">
+                            <span class="badge badge-danger p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                <span class="badge badge-danger p-1">
+                            <span class="align-baseline">Out Of Stock</span></span>
+                            </div>
+                            <div th:if="${count > 0 && count<=10}">
+                            <span class="badge  badge-warning p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                <span class="badge  badge-warning p-1 ">
+                            <span class="align-baseline">Low Stock</span></span>
+                            </div>
+                            <div th:if="${count > 10 && count<=15}">
+                            <span class="badge  badge-info p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                <span class="badge  badge-info p-1 ">
+                            <span class="align-baseline">Fair Stock</span></span>
+                            </div>
+                            <div th:if="${count > 15}">
+                            <span class="badge  badge-success p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                <span class="badge  badge-success p-1">
+                            <span class="align-baseline">Abundant Stock</span></span>
+                            </div>
+                        </div>
+
+
+                        <a class="badge rounded-pill badge-primary py-2 "
+
+                           th:href="@{/products/{id}(id=${product.getId()})}"><span><i class="fa fa-eye"></i></span>
+                            <span class="align-baseline">View</span></a>
+
+                    </div>
+                </div>
+                <div class="card-footer border-0 bg-light py-2 d-flex justify-content-start">
+                    <div class="text-muted small me-2"
+                         th:text="'Created On: '+${Util.convertDateTimeToString(product.getCreatedOn())}">
+
+                    </div>
+                    <div class="vr"></div>
+                    <div class="ms-2 text-muted small"
+                         th:text="'Updated On: '+${Util.convertDateTimeToString(product.getUpdatedOn())}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div layout:fragment="scripts">
+    <script>
+        setActiveNavLink("#stock-page");
+    </script>
+</div>
+</body>
+</html>

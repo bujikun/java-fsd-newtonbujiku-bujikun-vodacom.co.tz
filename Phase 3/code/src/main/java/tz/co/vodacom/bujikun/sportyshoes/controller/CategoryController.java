@@ -18,7 +18,7 @@ public class CategoryController {
     private final ProductCategoryDAO productCategoryDAO;
     @GetMapping
     public String index(Model model){
-        model.addAttribute("categories",categoryService.findAll());
+        model.addAttribute("categories",categoryService.findAllActive());
         return "category/index";
     }
     @GetMapping(value = {"/add","/add/"})
@@ -38,7 +38,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public  String getOne(@PathVariable("id") Integer id, Model model){
-        var category = categoryService.findById(id);
+        var category = categoryService.findActiveById(id);
         model.addAttribute("category",category);
         return "category/view";
     }
@@ -50,7 +50,7 @@ public class CategoryController {
     }
     @GetMapping("edit/{id}")
     public String getEdit(@PathVariable("id") Integer id, Model model){
-        var category = categoryService.findById(id);
+        var category = categoryService.findActiveById(id);
         model.addAttribute("category",category);
         return "category/edit";
     }
@@ -64,17 +64,16 @@ public class CategoryController {
 
     @GetMapping("/{id}/products")
     public String getCategoryProducts(@PathVariable("id")Integer categoryId, Model model){
-        var category = categoryService.findById(categoryId);
+        var category = categoryService.findActiveById(categoryId);
         var products = category.getProducts();
         model.addAttribute("category",category);
         model.addAttribute("products",products);
         return "category/category-product";
     }
-    ///categories/{id}/link-products
 
     @GetMapping(value = {"/{id}/link-products","/{id}/link-products/"})
     public String getLinkCategoryProducts(@PathVariable("id")Integer categoryId, Model model){
-        var category = categoryService.findById(categoryId);
+        var category = categoryService.findActiveById(categoryId);
         var categoryProducts = category.getProducts();
         var allProducts = productService.findAll();
         model.addAttribute("category",category);

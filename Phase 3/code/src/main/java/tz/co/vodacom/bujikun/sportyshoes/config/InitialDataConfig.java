@@ -55,6 +55,7 @@ public class InitialDataConfig {
                     .description("Nike Air 2020 Model")
                     .imageUrl("/img/nike-air.png")
                     .categories(Set.of(cat3, cat4, cat5))
+                    .count(20)
                     .build();
 
             var prod2 = Product.builder()
@@ -63,6 +64,7 @@ public class InitialDataConfig {
                     .description("Nike Air 2020 Model")
                     .imageUrl("/img/s-works.jpg")
                     .categories(Set.of(cat1, cat5))
+                    .count(5)
                     .build();
             var prod3 = Product.builder()
                     .name("Nike Air Max")
@@ -70,6 +72,7 @@ public class InitialDataConfig {
                     .description("Nike Air 2020 Model")
                     .imageUrl("/img/nike-air.png")
                     .categories(Set.of(cat3, cat4, cat5))
+                    .count(0)
                     .build();
 
             var prod4 = Product.builder()
@@ -78,6 +81,7 @@ public class InitialDataConfig {
                     .description("Nike Air 2020 Model")
                     .imageUrl("/img/s-works.jpg")
                     .categories(Set.of(cat1, cat5))
+                    .count(13)
                     .build();
             var prod5 = Product.builder()
                     .name("Nike Air Max")
@@ -85,6 +89,7 @@ public class InitialDataConfig {
                     .description("Nike Air 2020 Model")
                     .imageUrl("/img/nike-air.png")
                     .categories(Set.of(cat3, cat4, cat5))
+                    .count(8)
                     .build();
 
             var prod6 = Product.builder()
@@ -93,6 +98,7 @@ public class InitialDataConfig {
                     .description("Nike Air 2020 Model")
                     .imageUrl("/img/s-works.jpg")
                     .categories(Set.of(cat1, cat5))
+                    .count(17)
                     .build();
             productRepository.save(prod1);
             productRepository.save(prod2);
