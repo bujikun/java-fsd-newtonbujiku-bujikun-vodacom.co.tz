@@ -5,7 +5,7 @@
       layout:decorate="~{layout/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>Link Categories</title>
 </head>
 <body>
 <div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -13,7 +13,7 @@
         <div class="my-3">
             <div class="card">
                 <div class="card-body">
-                    <span class="h5" th:text="${category.getName()} + ' Category'"></span>
+                    <span class="h5" th:text="${product.getName()}"></span>
                 </div>
             </div>
         </div>
@@ -29,28 +29,27 @@
                     </div>
                     <div class="col-6">
                         <div>
-                            <div class="h4 mb-3 p-2"><h4 class="ms-3">Products In This Category</h4></div>
+                            <div class="h4 mb-3 p-2"><h4 class="ms-3">Categories Linked to this Product</h4></div>
                             <div class="list-group list-group-light">
-                                <a th:href="@{/products/{id}(id=${product.getId()})}"
-                                   th:each="product:${category.getProducts()}"
+                                <a th:href="@{/categories/{id}(id=${category.getId()})}"
+                                   th:each="category:${product.getCategories()}"
                                    class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">
                                     <span class="align-baseline text-dark"
-                                          th:text="${product.getId()+'. '+product.getName()+' -- $'+product.getPrice()}"></span>
-                                    <span class="offset-4 badge rounded-pill badge-danger px-3 ">Out of Stock</span></a>
+                                          th:text="${category.getName()}"></span></a>
                             </div>
-                            <form  method="post" th:action="@{/categories/link-products}">
-                                <input class="d-none" th:value="${category.getId()}" name="categoryId">
+                            <form method="post" th:action="@{/products/link-category}">
+                                <input class="d-none" th:value="${product.getId()}" name="productId">
                                 <div class="row g-2 mt-2 mb-4">
 
                                     <div class="col ">
-                                        <select class="form-select" name="productId">
-                                            <option th:value="${product.getId()}" th:each="product:${allProducts}" >
-                                                <span th:text="${product.getId()+'. '+product.getName()+' -- $'+product.getPrice() }"></span>
+                                        <select class="form-select" name="categoryId">
+                                            <option th:value="${category.getId()}" th:each="category:${allCategories}">
+                                                <span th:text="${category.getId()+'. '+category.getName()}"></span>
                                             </option>
                                         </select>
                                     </div>
                                     <div class="col align-baseline">
-                                        <button type="submit" class="btn btn-success btn-block"><span>
+                                        <button type="submit" class="btn btn-success btn-block" role="link"><span>
                                 <i class="fa fa-link"></i></span>&nbsp;Link
                                         </button>
                                     </div>
@@ -64,19 +63,17 @@
 
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
-
 </div>
 
 
 <div layout:fragment="scripts">
     <script>
-        setActiveNavLink("#categories-page");
+        setActiveNavLink("#stock-page");
     </script>
 </div>
+
 </body>
 </html>
