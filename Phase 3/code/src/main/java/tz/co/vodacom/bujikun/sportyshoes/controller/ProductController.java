@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tz.co.vodacom.bujikun.sportyshoes.dao.ProductCategoryDAO;
+import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
+import tz.co.vodacom.bujikun.sportyshoes.entity.Product;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
 
@@ -43,6 +45,21 @@ public class ProductController {
         var product = productService.findById(id);
         model.addAttribute("product",product);
         return "product/view";
+    }
+
+    @GetMapping(value = {"/add","/add/"})
+    public String getAddProduct(Model model){
+        model.addAttribute("product", new Product());
+        return "product/add";
+    }
+
+    @PostMapping(value = {"/add","/add/"})
+    public String postAddProduct(@ModelAttribute("product") Product product,Model model){
+        if( product != null){
+            productService.createNew(product);
+        }
+        //TODO pass success message
+        return "redirect:/products/stock";
     }
 
     @GetMapping(value = {"/{id}/link-category","/{id}/link-category/"})

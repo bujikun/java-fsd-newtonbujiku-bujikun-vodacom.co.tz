@@ -26,6 +26,9 @@
         ><span><i class="fa fa-edit"></i>&nbsp;</span>Edit</a>
         <a class="btn btn-success btn-lg my-1 mx-2" role="button"
            th:href="@{/products/{id}/link-category(id=${product.getId()})}">
+            <span><i class="fa fa-link"></i>&nbsp;</span>Upload Product Image</a> <!-- -->
+        <a class="btn btn-success btn-lg my-1 mx-2" role="button"
+           th:href="@{/products/{id}/link-category(id=${product.getId()})}">
             <span><i class="fa fa-link"></i>&nbsp;</span>Link Product</a>
         <button class="btn btn-danger btn-lg my-1 mx-2" role="button" data-mdb-toggle="modal"
                 data-mdb-target="#deleteModal"><span><i
