@@ -20,7 +20,8 @@
     </div>
 
         <div class="d-flex justify-content-end offset-10">
-            <a class="btn btn-primary btn-lg my-1" role="button"><span><i class="fa fa-plus-square"></i>&nbsp;</span>Add New Category</a>
+            <a class="btn btn-primary btn-lg my-1" role="button" th:href="@{/categories/add}"
+            ><span><i class="fa fa-plus-square"></i>&nbsp;</span>Add New Category</a>
         </div>
     <div class=" row g-2" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
         <div class="col-xl-6 mb-4" th:each="category:${categories}">

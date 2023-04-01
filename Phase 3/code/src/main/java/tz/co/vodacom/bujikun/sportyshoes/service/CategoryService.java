@@ -2,6 +2,7 @@ package tz.co.vodacom.bujikun.sportyshoes.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tz.co.vodacom.bujikun.sportyshoes.dto.CategoryDTO;
@@ -16,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryService implements GenericService<Category,Integer> {
     private final CategoryRepository categoryRepository;
-    private final ModelMapper modelMapper;
     @Override
     public void createNew(Category category) {
         category.setDeleted(false);
@@ -45,7 +45,7 @@ public class CategoryService implements GenericService<Category,Integer> {
 
     @Override
     public List<Category> findAll() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "createdOn"));
     }
 
     public List<Category> findAllActive(){

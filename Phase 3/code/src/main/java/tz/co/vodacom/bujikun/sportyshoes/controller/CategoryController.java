@@ -4,18 +4,36 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tz.co.vodacom.bujikun.sportyshoes.dao.ProductCategoryDAO;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
+import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value={"/categories","/categories/"})
 public class CategoryController {
     private final CategoryService categoryService;
+    private final ProductService productService;
+    private final ProductCategoryDAO productCategoryDAO;
     @GetMapping
     public String index(Model model){
         model.addAttribute("categories",categoryService.findAll());
         return "category/index";
+    }
+    @GetMapping(value = {"/add","/add/"})
+    public String getAddCategory(Model model){
+       model.addAttribute("category", new Category());
+        return "category/add";
+    }
+
+    @PostMapping(value = {"/add","/add/"})
+    public String postAddCategory(@ModelAttribute("category") Category category,Model model){
+        if( category != null){
+            categoryService.createNew(category);
+        }
+        //TODO pass success message
+        return "redirect:/categories";
     }
 
     @GetMapping("/{id}")
@@ -51,5 +69,32 @@ public class CategoryController {
         model.addAttribute("category",category);
         model.addAttribute("products",products);
         return "category/category-product";
+    }
+    ///categories/{id}/link-products
+
+    @GetMapping(value = {"/{id}/link-products","/{id}/link-products/"})
+    public String getLinkCategoryProducts(@PathVariable("id")Integer categoryId, Model model){
+        var category = categoryService.findById(categoryId);
+        var categoryProducts = category.getProducts();
+        var allProducts = productService.findAll();
+        model.addAttribute("category",category);
+        model.addAttribute("categoryProducts",categoryProducts);
+        model.addAttribute("allProducts",allProducts);
+        return "category/link-product";
+    }
+
+    @PostMapping(value = {"/link-products","/link-products/"})
+    public String postLinkCategoryProducts(@RequestParam(name = "categoryId") Integer categoryId,
+                                           @RequestParam(name = "productId") Integer productId,
+                                           Model model){
+        //TODO could generate exception, handle for error
+        productCategoryDAO.linkProductCategory(productId,categoryId);
+        var category = categoryService.findById(categoryId);
+        var categoryProducts = category.getProducts();
+        var allProducts = productService.findAll();
+        model.addAttribute("category",category);
+        model.addAttribute("categoryProducts",categoryProducts);
+        model.addAttribute("allProducts",allProducts);
+        return "category/link-product";
     }
 }

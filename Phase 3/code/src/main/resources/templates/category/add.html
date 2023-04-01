@@ -5,7 +5,7 @@
       layout:decorate="~{layout/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Category</title>
+    <title>Add Category</title>
 </head>
 <body>
 <div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -13,13 +13,13 @@
         <div class="my-3">
             <div class="card">
                 <div class="card-body">
-                    <span class="h5" th:text="${category.getName()} + ' Category'"></span>
+                    <span class="h5" th:text="${'Add New Category'}"></span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class=" row g-1" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
+    <div class=" row g-1">
 
         <div class="card">
             <div class="card-body">
@@ -28,34 +28,8 @@
 
                     </div>
                     <div class="col-6">
-                        <form method="post" th:action="@{/categories/edit}"
+                        <form method="post" th:action="@{/categories/add}"
                               th:object="${category}">
-                            <div class="form-outline mb-3">
-                                <input
-                                        class="form-control"
-                                        id="id"
-                                        type="text"
-                                        th:field="*{id}"
-                                        th:value="${id}"
-                                        aria-label="id"
-                                        readonly
-                                />
-                                <label class="form-label" for="id">ID</label>
-                            </div>
-                            <!-- Text input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" id="createdOn" class="form-control" readonly th:field="*{createdOn}"
-                                       th:value="${category.getCreatedOn()}"
-                                />
-                                <label class="form-label" for="createdOn">Created On</label>
-                            </div>
-
-                            <!-- Text input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" id="updatedOn" class="form-control" readonly th:field="*{createdOn}"
-                                       th:value="${category.getUpdatedOn()}"/>
-                                <label class="form-label" for="updatedOn">Last Updated On</label>
-                            </div>
                             <!-- Text input -->
                             <div class="form-outline mb-4">
                                 <input type="text" id="name" class="form-control" th:field="*{name}" required/>
@@ -67,10 +41,9 @@
                                 <textarea class="form-control" id="description" rows="4" th:field="*{description}" required></textarea>
                                 <label class="form-label" for="description">Description</label>
                             </div>
-
                             <!-- Checked switch -->
                             <div class="form-check form-switch my-3">
-                                <input class="form-check-input" type="checkbox" role="switch" id="deleted" th:field="*{deleted}" />
+                                <input class="form-check-input" type="checkbox" role="switch" id="deleted" th:field="*{deleted}" required/>
                                 <label class="form-check-label" for="deleted">&nbsp;Deactivated</label>
                             </div>
                             <!-- Submit button -->

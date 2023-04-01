@@ -27,7 +27,7 @@ public class Category {
     private Integer id;
     private String name;
     private String description;
-    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.DETACH})
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
     private Set<Product> products;
     @CreationTimestamp
     @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
