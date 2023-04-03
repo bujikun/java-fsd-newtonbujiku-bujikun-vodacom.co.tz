@@ -11,11 +11,7 @@ import java.util.Set;
 @Builder
 public class ProductDTO {
     private Integer id;
-    private String name;
+    private Integer count;
     private BigDecimal price;
-    private String description;
-    private String imageUrl;
-    private Set<String> categories;
-    private String createdOn;
-    private String updatedOn;
+    private String name;
 }

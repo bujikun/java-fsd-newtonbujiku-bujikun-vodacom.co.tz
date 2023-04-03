@@ -73,12 +73,16 @@
                     <!-- Left links -->
 
                     <div class="d-flex align-items-center">
-                        <a
-                                class="px-3"
-                                role="button"
-                        ><i class="fas fa-shopping-cart fa-2x"></i>
-                            <span class="badge rounded-pill badge-notification bg-danger" id="cartNotification">0</span>
-                        </a>
+                        <form action="/cart" method="post">
+                            <input class="d-none" id="cart-input" name="cart">
+                            <a
+                                    class="px-3"
+                                    role="button"
+                                    id="submitCart"
+                            ><i class="fas fa-shopping-cart fa-2x"></i>
+                                <span class="badge rounded-pill badge-notification bg-danger" id="cartNotification">0</span>
+                            </a>
+                        </form>
                         <div class="d-flex align-items-center">
                             <a type="button" class="btn btn-primary px-3 me-2">
                                 LOG IN
