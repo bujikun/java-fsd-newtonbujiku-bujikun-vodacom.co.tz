@@ -1,15 +1,27 @@
 package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import lombok.RequiredArgsConstructor;
+//import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tz.co.vodacom.bujikun.sportyshoes.dao.ProductCategoryDAO;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Product;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
 
+import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -20,42 +32,66 @@ public class ProductController {
     private final CategoryService categoryService;
     private final ProductCategoryDAO productCategoryDAO;
 
-    @GetMapping
-    public String getAll(Model model){
+    private static String saveUploadedFile(MultipartFile file) {
+        String fileName;
+        fileName = UUID.randomUUID() + file.getOriginalFilename();
+        //write file to system
+        var imgPath = FileSystems.getDefault().getPath("").resolve("imgs");
+        try {
+            Path newFilePath = Files.createFile(imgPath.resolve(fileName));
+            FileUtils.copyInputStreamToFile(file.getInputStream(), newFilePath.toFile());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileName;
+    }
 
-        model.addAttribute("products",productService.findAll());
+    @GetMapping
+    public String getAll(Model model) {
+
+        model.addAttribute("products", productService.findAll());
 //        model.addAttribute("categories", categoryService.findAll().stream()
 //                .map(c->c.getName()).collect(Collectors.joining(",")));
         return "product/index";
     }
 
     @PostMapping
-    public  String createProduct(Model model, @RequestParam(name = "cart") String ids){
+    public String createProduct(Model model, @RequestParam(name = "cart") String ids) {
         System.out.println(ids);
-        return "product/index";    }
+        return "product/index";
+    }
 
     @GetMapping("/stock")
-    public String stockIndex(Model model){
+    public String stockIndex(Model model) {
         var products = productService.findAll();
-        model.addAttribute("products",products);
+        model.addAttribute("products", products);
         return "product/stock";
     }
-    @GetMapping(value = {"/view/{id}","/view/{id}/"})
-    public String view(@PathVariable("id") Integer id, Model model){
+
+    @GetMapping(value = {"/view/{id}", "/view/{id}/"})
+    public String view(@PathVariable("id") Integer id, Model model) {
         var product = productService.findById(id);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return "product/view";
     }
 
-    @GetMapping(value = {"/add","/add/"})
-    public String getAddProduct(Model model){
+    @GetMapping(value = {"/add", "/add/"})
+    public String getAddProduct(Model model) {
         model.addAttribute("product", new Product());
         return "product/add";
     }
 
-    @PostMapping(value = {"/add","/add/"})
-    public String postAddProduct(@ModelAttribute("product") Product product,Model model){
-        if( product != null){
+    @PostMapping(value = {"/add", "/add/"})
+    public String postAddProduct(@ModelAttribute("product") Product product,
+                                 @RequestParam("image") MultipartFile file
+    ) {
+        String fileName = null;
+
+        if (file != null) {
+            fileName = saveUploadedFile(file);
+        }
+        if (product != null) {
+            product.setImageUrl("/imgs/" + fileName);
             productService.createNew(product);
         }
         //TODO pass success message
@@ -63,41 +99,49 @@ public class ProductController {
     }
 
     @GetMapping("edit/{id}")
-    public String getEdit(@PathVariable("id") Integer id, Model model){
+    public String getEdit(@PathVariable("id") Integer id, Model model) {
         var product = productService.findById(id);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
         return "product/edit";
     }
+
     @PostMapping("edit")
-    public String postEdit( @ModelAttribute("product") Product product, Model model){
+    public String postEdit(@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile file, Model model) {
+
+        String fileName = null;
+
+        if (file != null) {
+            fileName = saveUploadedFile(file);
+            product.setImageUrl("/imgs/" + fileName);
+        }
         productService.update(product);
-        model.addAttribute("product",product);
-        return "redirect:/products/view/"+product.getId();
+        model.addAttribute("product", product);
+        return "redirect:/products/view/" + product.getId();
     }
 
-    @GetMapping(value = {"/{id}/link-category","/{id}/link-category/"})
-    public String getLinkProductCategories(@PathVariable("id")Integer productId, Model model){
+    @GetMapping(value = {"/{id}/link-category", "/{id}/link-category/"})
+    public String getLinkProductCategories(@PathVariable("id") Integer productId, Model model) {
         var product = productService.findById(productId);
         var productCategories = product.getCategories();
         var allCategories = categoryService.findAll();
-        model.addAttribute("product",product);
-        model.addAttribute("productCategories",productCategories);
-        model.addAttribute("allCategories",allCategories);
+        model.addAttribute("product", product);
+        model.addAttribute("productCategories", productCategories);
+        model.addAttribute("allCategories", allCategories);
         return "product/link-category";
     }
 
-    @PostMapping(value = {"/link-category","/link-category/"})
+    @PostMapping(value = {"/link-category", "/link-category/"})
     public String postLinkCategoryProducts(@RequestParam(name = "categoryId") Integer categoryId,
                                            @RequestParam(name = "productId") Integer productId,
-                                           Model model){
+                                           Model model) {
         //TODO could generate exception, handle for error
-        productCategoryDAO.linkProductCategory(productId,categoryId);
+        productCategoryDAO.linkProductCategory(productId, categoryId);
         var product = productService.findById(productId);
         var productCategories = product.getCategories();
         var allCategories = categoryService.findAll();
-        model.addAttribute("product",product);
-        model.addAttribute("productCategories",productCategories);
-        model.addAttribute("allCategories",allCategories);
+        model.addAttribute("product", product);
+        model.addAttribute("productCategories", productCategories);
+        model.addAttribute("allCategories", allCategories);
         return "product/link-category";
     }
 }

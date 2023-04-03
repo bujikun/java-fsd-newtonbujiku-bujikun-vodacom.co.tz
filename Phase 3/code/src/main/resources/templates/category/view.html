@@ -83,10 +83,35 @@
         <div class="col-xl-6 mb-4">
             <div class="h4 mb-3 p-2 card"><span class="ms-3">Products</span></div>
             <div class="list-group list-group-light">
-                <a th:href="@{/products/{id}(id=${product.getId()})}" th:each="product:${category.getProducts()}"
+                <a th:href="@{/products/view/{id}(id=${product.getId()})}" th:each="product:${category.getProducts()}"
                    class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">
-                    <span class="align-baseline text-dark" th:text="${product.getName()+' -- $'+product.getPrice()}"></span>
-                    <span class="offset-4 badge rounded-pill badge-danger px-3 ">Out of Stock</span></a>
+                    <span class="align-baseline text-dark" th:text="${product.getName()+' -- $'+product.getPrice()}"
+
+                    ></span>
+                    <div th:if="${product.getCount() <= 0}">
+                            <span class="badge badge-danger p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                        <span class="badge badge-danger p-1">
+                            <span class="align-baseline">Out Of Stock</span></span>
+                    </div>
+                    <div th:if="${product.getCount() > 0 && product.getCount()<=10}">
+                            <span class="badge  badge-warning p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                        <span class="badge  badge-warning p-1 ">
+                            <span class="align-baseline">Low Stock</span></span>
+                    </div>
+                    <div th:if="${product.getCount() > 10 && product.getCount()<=15}">
+                            <span class="badge  badge-info p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                        <span class="badge  badge-info p-1 ">
+                            <span class="align-baseline">Fair Stock</span></span>
+                    </div>
+                    <div th:if="${product.getCount() > 15}">
+                            <span class="badge  badge-success p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                        <span class="badge  badge-success p-1">
+                            <span class="align-baseline">Abundant Stock</span></span>
+                    </div>
 
 
             </div>

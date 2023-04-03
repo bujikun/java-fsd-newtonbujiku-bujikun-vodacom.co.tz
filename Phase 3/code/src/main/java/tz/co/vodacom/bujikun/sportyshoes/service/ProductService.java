@@ -34,6 +34,7 @@ public class ProductService implements GenericService<Product, Integer> {
         fromDB.setName(product.getName());
         fromDB.setPrice(product.getPrice());
         fromDB.setCount(product.getCount());
+        fromDB.setImageUrl(product.getImageUrl());
         fromDB.setDescription(product.getDescription());
         productRepository.save(fromDB);
     }

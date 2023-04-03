@@ -53,7 +53,7 @@ public class InitialDataConfig {
                     .name("Nike Air Max")
                     .price(new BigDecimal(123.99))
                     .description("Nike Air 2020 Model")
-                    .imageUrl("/img/nike-air.png")
+                    .imageUrl("/imgs/nike-air.png")
                     .categories(Set.of(cat3, cat4, cat5))
                     .count(20)
                     .build();
@@ -62,7 +62,7 @@ public class InitialDataConfig {
                     .name("Specialized S-Works")
                     .price(new BigDecimal(150.55))
                     .description("For Road Cycling 2023")
-                    .imageUrl("/img/s-works.jpg")
+                    .imageUrl("/imgs/s-works.jpg")
                     .categories(Set.of(cat1, cat5))
                     .count(5)
                     .build();
@@ -70,7 +70,7 @@ public class InitialDataConfig {
                     .name("Nike Air Max")
                     .price(new BigDecimal(123.99))
                     .description("Nike Air 2020 Model")
-                    .imageUrl("/img/nike-air.png")
+                    .imageUrl("/imgs/nike-air.png")
                     .categories(Set.of(cat3, cat4, cat5))
                     .count(0)
                     .build();
@@ -79,7 +79,7 @@ public class InitialDataConfig {
                     .name("Specialized S-Works")
                     .price(new BigDecimal(150.55))
                     .description("For Road Cycling 2023")
-                    .imageUrl("/img/s-works.jpg")
+                    .imageUrl("/imgs/s-works.jpg")
                     .categories(Set.of(cat1, cat5))
                     .count(13)
                     .build();
@@ -87,7 +87,7 @@ public class InitialDataConfig {
                     .name("Nike Air Max")
                     .price(new BigDecimal(123.99))
                     .description("Nike Air 2020 Model")
-                    .imageUrl("/img/nike-air.png")
+                    .imageUrl("/imgs/nike-air.png")
                     .categories(Set.of(cat3, cat4, cat5))
                     .count(8)
                     .build();
@@ -96,7 +96,7 @@ public class InitialDataConfig {
                     .name("Specialized S-Works")
                     .price(new BigDecimal(150.55))
                     .description("Specialized S-Works For Road Cycling 2023")
-                    .imageUrl("/img/s-works.jpg")
+                    .imageUrl("/imgs/s-works.jpg")
                     .categories(Set.of(cat1, cat5))
                     .count(17)
                     .build();
