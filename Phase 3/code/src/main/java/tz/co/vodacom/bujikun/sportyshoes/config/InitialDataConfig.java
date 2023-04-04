@@ -59,11 +59,19 @@ public class InitialDataConfig {
             var user = User.builder()
                     .username("user")
                     .password(passwordEncoder.encode("password"))
+                    .isEnabled(true)
+                    .isAccountLocked(false)
+                    .isCredentialsExpired(false)
+                    .isAccountExpired(false)
                     .roles(Set.of(userRole))
                     .build();
             var admin = User.builder()
                     .username("admin")
                     .password(passwordEncoder.encode("password"))
+                    .isEnabled(true)
+                    .isAccountLocked(false)
+                    .isCredentialsExpired(false)
+                    .isAccountExpired(false)
                     .roles(Set.of(userRole,adminRole))
                     .build();
             userRepository.saveAll(Set.of(user,admin));

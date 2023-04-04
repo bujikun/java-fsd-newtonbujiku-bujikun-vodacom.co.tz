@@ -58,22 +58,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/products" id="products-page">Products</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAuthority('orders:view')">
+                        <li class="nav-item" sec:authorize="hasAuthority('order:view')">
                             <a class="nav-link" href="/orders" id="orders-page">Orders</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAuthority('category:view')">
+                        <li class="nav-item" sec:authorize="hasAuthority('category:view:all')">
                             <a class="nav-link" href="/categories" id="categories-page">Categories</a>
                         </li>
                         <li class="nav-item" sec:authorize="hasAuthority('stock:view')">
                             <a class="nav-link" href="/products/stock" id="stock-page">Stock</a>
                         </li>
-                        <li class="nav-item" sec:authorize="hasAuthority('user:view')">
+                        <li class="nav-item" sec:authorize="hasAuthority('user:view:all')">
                             <a class="nav-link" href="/users" id="users-page">Users</a>
                         </li>
                     </ul>
                     <!-- Left links -->
 
                     <div class="d-flex align-items-center">
+                        <div sec:authorize="isAuthenticated()">
+                            <span>Hello,&nbsp;<span class="text-uppercase" sec:authentication="name"></span></span>
+                        </div>
                         <form action="/cart" method="post">
                             <input class="d-none" id="cart-input" name="cart">
                             <a
@@ -85,12 +88,24 @@
                             </a>
                         </form>
                         <div class="d-flex align-items-center">
-                            <a type="button" class="btn btn-primary px-3 me-2" th:href="@{/login}">
-                                LOG IN
-                            </a>
-                            <a type="button" class="btn btn-secondary me-3" th:href="@{/register}">
-                                REGISTER
-                            </a>
+                         <div sec:authorize="!isAuthenticated()">
+                             <a type="button" class="btn btn-primary px-3 me-2" th:href="@{/login}">
+                                 <i class="fas fa-sign-in-alt"></i>&nbsp;
+                                 <span class="align-baseline">LOG IN</span>
+                             </a>
+                             <a type="button" class="btn btn-secondary me-3" th:href="@{/register}">
+                                 <i class="fas fa-registered"></i>&nbsp;
+                                 <span class="align-baseline">REGISTER</span>
+                             </a>
+
+                         </div>
+                          <div sec:authorize="isAuthenticated()">
+                              <a type="button" class="btn btn-secondary me-3" th:href="@{/logout}">
+                                  <i class="fas fa-sign-out-alt"></i>
+                                  </i>&nbsp;
+                                  <span class="align-baseline">LOG OUT</span>
+                              </a>
+                          </div>
 
                         </div>
                     </div>

@@ -35,7 +35,10 @@ public class RoleService implements GenericService<Role,Integer>{
         return roleRepository.findById(id)
                 .orElseThrow(()->new RoleNotFoundException("Role Not Found"));
     }
-
+    public Role findByName(String name) {
+        return roleRepository.findByName(name)
+                .orElseThrow(()->new RoleNotFoundException("Role Not Found"));
+    }
     @Override
     public List<Role> findAll() {
         return roleRepository.findAll();

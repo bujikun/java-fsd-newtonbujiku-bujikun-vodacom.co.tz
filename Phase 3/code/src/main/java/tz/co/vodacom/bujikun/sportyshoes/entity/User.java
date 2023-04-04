@@ -23,7 +23,7 @@ public class User {
     private String username;
     private String password;
     private Boolean isEnabled;
-    private Boolean isLocked;
+    private Boolean isAccountLocked;
     private Boolean isCredentialsExpired;
     private Boolean isAccountExpired;
 

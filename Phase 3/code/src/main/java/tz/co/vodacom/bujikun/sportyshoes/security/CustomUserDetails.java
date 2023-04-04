@@ -1,5 +1,8 @@
 package tz.co.vodacom.bujikun.sportyshoes.security;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Lombok;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +13,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
     private final User user;
 
     @Override
@@ -40,7 +43,7 @@ class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !user.getIsLocked();
+        return !user.getIsAccountLocked();
     }
 
     @Override
