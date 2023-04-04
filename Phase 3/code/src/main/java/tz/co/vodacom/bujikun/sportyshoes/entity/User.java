@@ -19,8 +19,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "username",unique = true)
     private String username;
     private String password;
+    private Boolean isEnabled;
+    private Boolean isLocked;
+    private Boolean isCredentialsExpired;
+    private Boolean isAccountExpired;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "fk_user_id",referencedColumnName = "id")},

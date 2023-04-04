@@ -24,7 +24,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers("/").permitAll()
                         .requestMatchers("/products", "/products/").permitAll()
                         .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/register/**").permitAll()
+                        .requestMatchers("/favicon.co/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService);

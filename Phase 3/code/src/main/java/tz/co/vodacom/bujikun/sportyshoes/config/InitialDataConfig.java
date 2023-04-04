@@ -3,22 +3,75 @@ package tz.co.vodacom.bujikun.sportyshoes.config;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
-import tz.co.vodacom.bujikun.sportyshoes.entity.Product;
-import tz.co.vodacom.bujikun.sportyshoes.repository.CategoryRepository;
-import tz.co.vodacom.bujikun.sportyshoes.repository.ProductRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import tz.co.vodacom.bujikun.sportyshoes.entity.*;
+import tz.co.vodacom.bujikun.sportyshoes.repository.*;
+import tz.co.vodacom.bujikun.sportyshoes.util.Util;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Configuration
 public class InitialDataConfig {
 
+    @Bean
+    public CommandLineRunner securityDataRunner(PermissionRepository permissionRepository,
+                                               RoleRepository roleRepository,
+                                               UserRepository userRepository,
+                                               PasswordEncoder passwordEncoder){
+        return args -> {
+            var userPermissions = new String[]{
+                    "user:view","user:edit",
+                    "category:view",
+                    "product:view",
+                    "order:view","order:create",
+                    "cart:view"
+            };
 
+            var adminPermissions = new String[]{
+                    "user:delete","user:view:all",
+                    "category:edit","category:delete","category:link:product","category:view:all",
+                    "product:edit","product:delete","product:link:category",
+                    "stock:view"
+            };
+
+            var userPermissionSet = Arrays.stream(userPermissions)
+                    .map(pName -> Permission.builder()
+                            .name(pName)
+                            .build())
+                    .collect(Collectors.toSet());
+            var adminPermissionSet = Arrays.stream(adminPermissions)
+                    .map(pName -> Permission.builder()
+                            .name(pName)
+                            .build())
+                    .collect(Collectors.toSet());
+            permissionRepository.saveAll(userPermissionSet);
+            permissionRepository.saveAll(adminPermissionSet);
+
+            var userRole = Role.builder().name("USER").permissions(userPermissionSet).build();
+            var adminRole = Role.builder().name("ADMIN").permissions(adminPermissionSet).build();
+
+            roleRepository.saveAll(Set.of(userRole,adminRole));
+
+            var user = User.builder()
+                    .username("user")
+                    .password(passwordEncoder.encode("password"))
+                    .roles(Set.of(userRole))
+                    .build();
+            var admin = User.builder()
+                    .username("admin")
+                    .password(passwordEncoder.encode("password"))
+                    .roles(Set.of(userRole,adminRole))
+                    .build();
+            userRepository.saveAll(Set.of(user,admin));
+        };
+    }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public CommandLineRunner businessDataRunner(ProductRepository productRepository, CategoryRepository categoryRepository) {
         return args -> {
             var cat1 = Category.builder()
                     .name("Athletic")

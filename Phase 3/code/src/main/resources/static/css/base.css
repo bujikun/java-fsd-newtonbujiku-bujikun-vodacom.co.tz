@@ -37,3 +37,6 @@ body {
     font-size: 1.2rem;
 }
 
+.register-login-card{
+    min-width: 400px;
+}

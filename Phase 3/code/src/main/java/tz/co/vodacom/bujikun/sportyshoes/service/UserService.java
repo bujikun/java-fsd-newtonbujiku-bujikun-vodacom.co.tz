@@ -13,6 +13,10 @@ import java.util.List;
 @Transactional
 public class UserService implements GenericService<User,Integer>{
     private final UserRepository userRepository;
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElse(null);
+    }
     @Override
     public void createNew(User user) {
         userRepository.save(user);
