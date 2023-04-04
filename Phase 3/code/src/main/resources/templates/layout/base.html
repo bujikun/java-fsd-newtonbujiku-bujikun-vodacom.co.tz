@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"/>
@@ -57,16 +58,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/products" id="products-page">Products</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('orders:view')">
                             <a class="nav-link" href="/orders" id="orders-page">Orders</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('category:view')">
                             <a class="nav-link" href="/categories" id="categories-page">Categories</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('stock:view')">
                             <a class="nav-link" href="/products/stock" id="stock-page">Stock</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="hasAuthority('user:view')">
                             <a class="nav-link" href="/users" id="users-page">Users</a>
                         </li>
                     </ul>

@@ -14,6 +14,9 @@ import java.util.Set;
 
 @Configuration
 public class InitialDataConfig {
+
+
+
     @Bean
     public CommandLineRunner commandLineRunner(ProductRepository productRepository, CategoryRepository categoryRepository) {
         return args -> {
