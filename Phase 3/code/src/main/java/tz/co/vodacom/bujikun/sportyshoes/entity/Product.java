@@ -35,10 +35,8 @@ public class Product {
     inverseJoinColumns = {@JoinColumn(name = "fk_category_id",referencedColumnName = "id")})
     private Set<Category> categories;
     @CreationTimestamp
-    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime createdOn;
     @UpdateTimestamp
-    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime updatedOn;
     private Integer count;
 }

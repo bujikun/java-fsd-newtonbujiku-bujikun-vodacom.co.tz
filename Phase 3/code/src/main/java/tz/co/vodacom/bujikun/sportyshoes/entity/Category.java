@@ -30,10 +30,8 @@ public class Category {
     @ManyToMany(mappedBy = "categories",fetch = FetchType.EAGER)
     private Set<Product> products;
     @CreationTimestamp
-    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime createdOn;
     @UpdateTimestamp
-    @DateTimeFormat(pattern = "dd - MM - yyyy HH:mm:ss")
     private LocalDateTime updatedOn;
     @Column(nullable = false)
     private Boolean deleted;
