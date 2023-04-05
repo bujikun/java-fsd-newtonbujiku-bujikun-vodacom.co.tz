@@ -55,6 +55,7 @@ $(document).ready(function(){
             return;
         }
         $("#cart-input").val(JSON.stringify(itemArr));
+        console.log( $("#cart-input").val());
         form.submit();
     });
 });

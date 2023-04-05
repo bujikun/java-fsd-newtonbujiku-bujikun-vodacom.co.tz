@@ -41,6 +41,7 @@ public class CartController {
                 .map(p->p.getPrice())
                 .reduce(new BigDecimal(0),(big1,big2)->big1.add(big2));
         //fetch products from db
+        model.addAttribute("cartJson", jsonString);
         model.addAttribute("total", totalPrice);
         model.addAttribute("items", itemSet);
         //check if any of the counts if bigger than stock

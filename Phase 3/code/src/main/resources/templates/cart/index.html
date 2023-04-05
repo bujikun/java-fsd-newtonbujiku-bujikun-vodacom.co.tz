@@ -20,8 +20,10 @@
         </div>
     </div>
     <div class=" ms-6 mb-4 me-6">
-        <div class="alert alert-danger fade show error-alert d-flex justify-content-between" role="alert" sec:authorize="!isAuthenticated()">
-            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span >You Must Log In To Checkout This Order!</span></strong>
+        <div class="alert alert-danger fade show error-alert d-flex justify-content-between" role="alert"
+             sec:authorize="!isAuthenticated()">
+            <strong><i
+                    class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span>You Must Log In To Checkout This Order!</span></strong>
             <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
         </div>
 
@@ -30,23 +32,31 @@
                 <a class="btn btn-danger btn-lg my-1" role="button" onclick="emptyCart()"
                 ><span><i class="fas fa-trash"></i>&nbsp;</span>Empty Cart</a>
             </div>
-            <a class="btn btn-primary btn-lg my-1" role="button" th:href="@{/products/add}"
-               sec:authorize="hasAuthority('order:create')"
-            ><span><i class="fas fa-credit-card"></i>&nbsp;</span>Checkout</a>
+            <form method="post" th:action="@{/orders/payment}" sec:authorize="hasAuthority('order:create')">
+                <input class="d-none" id="cart-input" name="cart" th:value="${cartJson}">
+                <input class="d-none" id="total" name="total" th:value="${total}">
+
+                <a
+                        class="btn btn-primary btn-lg my-1" role="button"
+                        id="submitCart"
+                ><span><i class="fas fa-credit-card"></i>&nbsp;</span>Checkout</a>
+            </form>
         </div>
         <div class="list-group list-group-light">
+            <div class="list-group-item px-3 border-0 rounded-3 mb-2 list-group-item-info">
+                <span class="h2" th:text="${'Total: $'+total}"></span>
+            </div>
             <div th:each="item:${items}"
                  class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">
-                    <span class="align-baseline text-dark me-5 h5" th:text="${item.getName()+'   --   $'+item.getPrice()}"
+                    <span class="align-baseline text-dark me-5 h5"
+                          th:text="${item.getName()+'   --   $'+item.getPrice()}"
 
                     ></span>
                 <div>
                     <span class="badge  badge-success p-1" th:text="${'Items: '+item.getCount()}"></span>
                 </div>
             </div>
-            <div class="list-group-item px-3 border-0 rounded-3 mb-2 list-group-item-info">
-                <span class="h2" th:text="${'Total: $'+total}"></span>
-            </div>
+
             <div layout:fragment="scripts">
                 <script>
                 </script>

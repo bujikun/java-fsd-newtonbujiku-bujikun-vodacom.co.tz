@@ -7,8 +7,10 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,25 +18,24 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "roles")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")//prevents circular reference
-public class Role {
+@Table(name = "orders")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")//prevents circular reference
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name",unique = true)
-    private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_permissions",
-            joinColumns = {@JoinColumn(name = "fk_role_id",referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_permission_id",referencedColumnName = "id")}
+    @JoinTable(name = "orders_items",
+            joinColumns = {@JoinColumn(name = "fk_order_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_item_id", referencedColumnName = "id")}
     )
-    private Set<Permission> permissions;
+    private Set<OrderItem> orderItems;
+    @ManyToOne
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
+    private User user;
+    @Transient
+    private BigDecimal totalPrice;
     @CreationTimestamp
     private LocalDateTime createdOn;
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
 
 }

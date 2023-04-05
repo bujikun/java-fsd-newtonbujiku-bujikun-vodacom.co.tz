@@ -1,5 +1,7 @@
 package tz.co.vodacom.bujikun.sportyshoes.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +17,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")//prevents circular reference
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +39,9 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "fk_role_id",referencedColumnName = "id")}
     )
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp

@@ -1,9 +1,6 @@
 package tz.co.vodacom.bujikun.sportyshoes.security;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Lombok;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +10,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Getter
 public class CustomUserDetails implements UserDetails {
     private final User user;
 
@@ -55,4 +53,5 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.getIsEnabled();
     }
+
 }

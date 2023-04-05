@@ -7,28 +7,30 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Builder
 @Entity
-@Table(name = "permissions")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")//prevents circular reference
-public class Permission {
+@Table(name = "order_items")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name",unique = true)
-    private String name;
-    @ManyToMany(mappedBy = "permissions")
-    private Set<Role> roles;
+    private String productName;
+    private Integer lineItemCount;
+    private BigDecimal lineItemPrice;
+    private BigDecimal totalLinePrice;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-
+    @ManyToMany(mappedBy = "orderItems")
+    private Set<Order> orders;
 }

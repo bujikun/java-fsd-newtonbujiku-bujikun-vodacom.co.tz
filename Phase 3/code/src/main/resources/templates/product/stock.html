@@ -24,6 +24,11 @@
         <a class="btn btn-primary btn-lg my-1" role="button" th:href="@{/products/add}"
         ><span><i class="fa fa-plus-square"></i>&nbsp;</span>Add New Product</a>
     </div>
+    <div class="alert alert-danger fade show error-alert d-flex justify-content-between" role="alert"
+         sec:authorize="isAuthenticated()" th:if="${products.size()<=0}">
+        <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span>No products in the system!</span></strong>
+        <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="row" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
         <div class="list-group-item mb-2" th:each="product:${products}">
             <div class="card" th:with="count=${product.getCount()}">
