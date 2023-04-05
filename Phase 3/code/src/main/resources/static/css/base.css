@@ -40,3 +40,7 @@ body {
 .register-login-card, .error-alert{
     min-width: 500px;
 }
+
+.bold{
+    font-size: 1rem;
+}

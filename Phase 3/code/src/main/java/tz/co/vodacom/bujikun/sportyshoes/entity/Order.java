@@ -38,4 +38,14 @@ public class Order {
     @CreationTimestamp
     private LocalDateTime createdOn;
 
+    public BigDecimal getTotalPrice() {
+        return  this.getOrderItems().stream()
+                .map(i->i.getTotalLinePrice())
+                .reduce(new BigDecimal(0),(current, subtotal)->
+                        subtotal.add(current));
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = getTotalPrice();
+    }
 }

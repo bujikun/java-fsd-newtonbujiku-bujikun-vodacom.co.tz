@@ -45,9 +45,8 @@ public class UserService implements GenericService<User, Integer> {
          userRepository.save(user);
     }
 
-    public User registerUser(String username, String password) {
-        User user;
-      return null;
+    public List<User> search(String query){
+      return userRepository.searchUser("%"+query+"%");
     }
 
     @Override

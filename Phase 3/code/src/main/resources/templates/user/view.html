@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="row">
+        <div class="my-3">
+            <div class="card">
+                <div class="card-body">
+                    <span class="h5" th:text="${'User Details'}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" row g-2" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
+        <div class="col-xl-6 mb-4">
+            <div class="card" th:with="orderSize = ${userOrders.size()}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center flex-column">
+                            <div class="ms-3 mb-2">
+                                <h5>Personal Details</h5>
+                                <p class="mb-1" ><span>User ID: </span><strong class="bold" th:text="${user.getId()}"></strong></p>
+                                <p class="mb-1" ><span>Account Number: </span><strong class="bold" th:text="${user.getPaymentAccountNumber()}"></strong></p>
+                                <p class="mb-1" ><span>Username: </span><strong class="text-bg-success p-1 text-white rounded bold" th:text="${user.getUsername()}"></strong></p>
+                                <p class="mb-1" ><span>Email: </span><strong class="bold" th:text="${user.getEmail()}"></strong></p>
+                                <p class="mb-1" ><span>City: </span><strong class="bold" th:text="${user.getCity()}"></strong></p>
+                                <p class="mb-3" ><span>Orders: </span><strong class="bold" th:text="${orderSize}"></strong></p>
+                                <h5>Account Status</h5>
+                                <p class="badge badge-info p-1 my-2 me-2" th:text="'Account Expired: '+${user.getIsAccountExpired()}"></p>
+                                <p class="badge badge-info p-1 my-2 me-2" th:text="'Account Locked: '+${user.getIsAccountLocked()}"></p>
+                                <p class="badge badge-info p-1 my-2 me-2" th:text="'Password Expired: '+${user.getIsCredentialsExpired()}"></p>
+                                <p class="badge badge-info p-1 my-2 me-2" th:text="'Account Enabled: '+${user.isEnabled}"></p>
+                                <h5>Permissions Granted </h5>
+                                <p class="badge badge-warning p-1 my-2 me-2" th:text="${permission.toUpperCase()}" th:each="permission:${userPermissions}"></p>
+
+                            </div>
+
+                            <div class="ms-3 mb-2">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                        class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
+                    <div class="text-muted small"
+                         th:text="'Created On: '+${Util.convertDateTimeToString(user.getCreatedOn())}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 mb-4">
+            <div class="h4 mb-3 p-2 card"><span class="ms-3">Orders</span></div>
+            <div class="list-group list-group-light">
+                <a th:href="@{/orders/view/{id}(id=${order.getId()})}" th:each="order:${userOrders}"
+                   class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">
+                    <span class="align-baseline text-dark d-block" th:text="'ID: '+${order.getId()+' -- Total Price: $'+order.getTotalPrice()}"
+
+                    ></span>
+                    <span class="badge badge-danger p-1" th:text="${'Order Items: '+order.getOrderItems().size()}"></span>
+                </a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<div layout:fragment="scripts">
+    <script>
+        setActiveNavLink("#users-page");
+    </script>
+</div>
+</body>
+</html>

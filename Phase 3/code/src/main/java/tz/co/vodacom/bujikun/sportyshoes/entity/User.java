@@ -40,7 +40,7 @@ public class User {
     )
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Order> orders;
     @CreationTimestamp
     private LocalDateTime createdOn;

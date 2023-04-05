@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="row">
+        <div class="col my-3">
+            <div class="card">
+                <div class="card-body">
+                   <div class="row gx-3">
+                       <div class="col-3"></div>
+                       <div class="col-6">
+                           <form th:action="@{/users/search}" method="post">
+                               <div class="input-group">
+                                   <div class="form-outline ">
+                                       <input type="search" id="form1" class="form-control" name="search" data-mdb-placement="bottom" data-mdb-toggle="tooltip"
+                                              title="Search by username, email or city"/>
+                                       <label class="form-label" for="form1">Search</label>
+                                   </div>
+                                   <button type="submit" class="btn btn-primary">
+                                       <i class="fas fa-search"></i>
+                                   </button>
+                               </div>
+                           </form>
+                       </div>
+                       <div class="col-3"></div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    <div class="d-flex justify-content-end offset-10">-->
+<!--        <a class="btn btn-primary btn-lg my-1" role="button" th:href="@{/products/add}"-->
+<!--        ><span><i class="fa fa-plus-square"></i>&nbsp;</span>Add New Product</a>-->
+<!--    </div>-->
+
+    <div class="row" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
+        <div class="alert alert-danger fade show error-alert d-flex justify-content-between" role="alert"
+             sec:authorize="isAuthenticated()" th:if="${users.size()<=0}">
+            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span>No users found!</span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="mb-2" th:each="user:${users}">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded bg-secondary text-white p-3" th:text="${user.getId()}">
+
+                            </div>
+                            <div class="ms-3 me-5">
+                                <p class="fw-bold mb-1"><span>Username: </span><strong class="text-bg-success p-1 text-white rounded" th:text="${user.getUsername()}"></strong></p>
+                                <p class="text-muted mb-0" th:text="'Email: '+${user.getEmail()}"></p>
+                                <p class="text-muted mb-0" th:text="'City: '+${user.getCity()}"></p>
+                            </div>
+                        </div>
+
+
+                        <a class="badge rounded-pill badge-primary py-2 "
+
+                           th:href="@{/users/view/{id}(id=${user.getId()})}"><span><i class="fa fa-eye"></i></span>
+                            <span class="align-baseline">View</span></a>
+
+                    </div>
+                </div>
+                <div class="card-footer border-0 bg-light py-2 d-flex justify-content-start">
+                    <div class="text-muted small me-2"
+                         th:text="'Created On: '+${Util.convertDateTimeToString(user.getCreatedOn())}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div layout:fragment="scripts">
+    <script>
+        setActiveNavLink("#users-page");
+    </script>
+</div>
+</body>
+</html>

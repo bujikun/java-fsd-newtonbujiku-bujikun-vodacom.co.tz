@@ -3,6 +3,7 @@ package tz.co.vodacom.bujikun.sportyshoes.controller;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,30 +32,25 @@ public class OrderController {
     @GetMapping
     public String index(Model model, Authentication authentication) {
         var userId = ((CustomUserDetails) authentication.getPrincipal()).getUser().getId();
-        var myOrders = orderService.findAllOrdersByUserId(userId)
-                .stream().map(o -> {
-                    var totalPrice = o.getOrderItems().stream()
-                                    .map(i->i.getTotalLinePrice())
-                                            .reduce(new BigDecimal(0),(current,subtotal)->
-                                                    subtotal.add(current));
-
-                    o.setTotalPrice(totalPrice);
-                    return o;
-                }).collect(Collectors.toSet());
+        var myOrders = orderService.findAllOrdersByUserId(userId);
         model.addAttribute("orders", myOrders);
         return "order/index";
     }
 
     @GetMapping(value={"/view/{id}","/view/{id}/"})
     public String view(@PathVariable("id")Integer orderId, Model model, Authentication authentication) {
-        var userId = ((CustomUserDetails) authentication.getPrincipal()).getUser().getId();
-        var order = orderService.findOrderByUserIdAndOrderId(orderId,userId);
-        var orderTotal = order.getOrderItems().stream()
-                .map(i->i.getTotalLinePrice())
-                .reduce(new BigDecimal(0),(current,subtotal)->
-                        subtotal.add(current));;
+        var principal = (CustomUserDetails) authentication.getPrincipal();
+        var user = principal.getUser();
+        var userId = principal.getUser().getId();
+        var authoritiesNames = principal.getAuthorities().stream().map(a->a.getAuthority()).collect(Collectors.toSet());
+        Order order = null;
+        if(authoritiesNames.contains("order:view:all")){
+           order= orderService.findById(orderId);
+        }else{
+            order = orderService.findOrderByUserIdAndOrderId(orderId,userId);
+        }
         model.addAttribute("order", order);
-        model.addAttribute("orderTotal", orderTotal);
+        model.addAttribute("orderTotal", order.getTotalPrice());
         return "order/view";
     }
 

@@ -7,7 +7,9 @@ import tz.co.vodacom.bujikun.sportyshoes.entity.Order;
 import tz.co.vodacom.bujikun.sportyshoes.exception.OrderNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.OrderRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -48,10 +50,25 @@ public class OrderService implements GenericService<Order, Integer> {
     }
 
     public Order findOrderByUserIdAndOrderId(Integer orderId, Integer userId){
-        return orderRepository.findOrderByUserIdAndOrderId(orderId,userId)
+        var order =  orderRepository.findOrderByUserIdAndOrderId(orderId,userId)
                 .orElseThrow(()-> new OrderNotFoundException("Order Not Found"));
+//        var totalPrice = order.getOrderItems().stream()
+//                .map(i->i.getTotalLinePrice())
+//                .reduce(new BigDecimal(0),(current,subtotal)->
+//                        subtotal.add(current));
+//        order.setTotalPrice(totalPrice);
+        return order;
     }
     public List<Order> findAllOrdersByUserId(Integer id){
         return orderRepository.findAllOrdersByUserId(id);
+//                .stream().map(o -> {
+//            var totalPrice = o.getOrderItems().stream()
+//                    .map(i->i.getTotalLinePrice())
+//                    .reduce(new BigDecimal(0),(current, subtotal)->
+//                            subtotal.add(current));
+//
+//            o.setTotalPrice(totalPrice);
+//            return o;
+//        }).toList();
     }
 }

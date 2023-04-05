@@ -36,6 +36,7 @@ public class InitialDataConfig {
                     "user:delete","user:view:all",
                     "category:edit","category:delete","category:link:product","category:view:all",
                     "product:add","product:edit","product:delete","product:link:category",
+                    "order:view:all",
                     "stock:view"
             };
 
@@ -49,6 +50,8 @@ public class InitialDataConfig {
                             .name(pName)
                             .build())
                     .collect(Collectors.toSet());
+            adminPermissionSet.addAll(userPermissionSet);//admin has all that the user has
+            System.out.println(adminPermissionSet.stream().map(p->p.getName()).toList());
             permissionRepository.saveAll(userPermissionSet);
             permissionRepository.saveAll(adminPermissionSet);
 
