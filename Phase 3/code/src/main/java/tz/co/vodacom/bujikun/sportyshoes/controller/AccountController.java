@@ -16,6 +16,7 @@ import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import tz.co.vodacom.bujikun.sportyshoes.entity.User;
@@ -23,6 +24,7 @@ import tz.co.vodacom.bujikun.sportyshoes.security.CustomUserDetails;
 import tz.co.vodacom.bujikun.sportyshoes.service.UserService;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,18 +44,23 @@ public class AccountController {
     }
 
     @GetMapping("/register")
-    public String getRegister() {
+    public String getRegister(Model model) {
+        var user = new User();
+        var accountNumber = UUID.randomUUID().toString().toUpperCase();
+        user.setPaymentAccountNumber(accountNumber);
+        model.addAttribute("user",user);
+        model.addAttribute("accountNumber",accountNumber);
         return "account/register";
     }
 
     @PostMapping("/register")
     public String postRegister(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
+            @ModelAttribute("user") User user,
             HttpServletRequest request
     ) throws ServletException {
-        var user = userService.registerUser(username, password);
-        request.login(username, password);
+        var plainPassword = user.getPassword();
+        userService.createNew(user);
+        request.login(user.getUsername(),plainPassword);
         return "redirect:/";
     }
 }

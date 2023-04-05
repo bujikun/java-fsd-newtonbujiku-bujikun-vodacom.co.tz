@@ -26,7 +26,7 @@
 <body>
 <div class="container">
     <main class="mb-5">
-        <div class="row my-3 mb-8">
+        <div class="row my-1 mb-8">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" layout:fragment="page-content">
                 <div class="d-flex flex-column justify-content-center align-items-center vh-75">
                     <div class="alert alert-danger fade d-none error-alert d-flex justify-content-between" id="passwordAlert" role="alert">
@@ -37,21 +37,34 @@
                         <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span th:text="${errorMessage}"></span></strong>
                         <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <div class="card mt-5 register-login-card">
+                    <div class="card mt-1 register-login-card">
                         <div class="mx-auto mt-2">
                             <img src="/img/logo/logo_black.png" alt="logo" class="logo">
                         </div>
-                        <div class="card-body mt-2">
-                                    <form method="post" th:action="@{/register}" onsubmit ="return verifyPassword()">
+                        <div class="card-body">
+                                    <form method="post" th:action="@{/register}" onsubmit ="return verifyPassword()" th:object="${user}">
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="accountNumber" th:value="${accountNumber}" class="form-control form-control-lg" readonly th:field="*{paymentAccountNumber}"/>
+                                            <label class="form-label" for="accountNumber" >Payment Account Number</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="email"  class="form-control form-control-lg" required th:field="*{email}"/>
+                                            <label class="form-label" for="email" >Email</label>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="city"  class="form-control form-control-lg" required th:field="*{city}"/>
+                                            <label class="form-label" for="city" >City</label>
+                                        </div>
                                         <!-- Username input -->
                                         <div class="form-outline mb-4">
-                                            <input type="text" id="username" name="username" class="form-control form-control-lg" required/>
+                                            <input type="text" id="username"  class="form-control form-control-lg" required th:field="*{username}"/>
                                             <label class="form-label" for="username" >Username</label>
                                         </div>
 
                                         <!-- Password input -->
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="password" name="password" class="form-control form-control-lg"required/>
+                                            <input type="password" id="password" class="form-control form-control-lg"required th:field="*{password}"/>
                                             <label class="form-label" for="password" >Password</label>
                                         </div>
 
@@ -93,38 +106,6 @@
 <script src="/js/cart.js"></script>
 <div layout:fragment="scripts">
     <script>
-        setTimeout(()=>{
-            $(".alert-dismissible").remove();
-        },3000);
-
-        const displayError =(errorMessage)=>{
-            $("#message").html(errorMessage);
-            //document.getElementById("message").innerText=errorMessage;
-            //console.log($("#message"));
-            $("#passwordAlert").removeClass("d-none").addClass("show");
-            setTimeout(()=>{
-                $("#passwordAlert").removeClass("show").addClass("d-none")
-            },3000);
-        };
-
-        const verifyPassword =()=>{
-
-            const password = $("#password").val();
-            const rPassword = $("#repeatPassword").val();
-            if(password.length<8){
-                displayError("Password too short! Must be 8 characters or more!")
-                return false;
-            }
-            if(password !== rPassword){
-                displayError("Passwords do not match!")
-                return false;
-            }
-            return true;
-
-        };
-
-
-
     </script>
 </div>
 </body>

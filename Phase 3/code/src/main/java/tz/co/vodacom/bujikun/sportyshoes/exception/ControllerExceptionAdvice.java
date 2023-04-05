@@ -10,6 +10,7 @@ public class ControllerExceptionAdvice {
     public String registrationFailure(UsernameExiststException e, Model model){
         model.addAttribute("error",true);
         model.addAttribute("errorMessage",e.getMessage());
+        model.addAttribute("user",e.getUser());
         return "account/register";
     }
 }

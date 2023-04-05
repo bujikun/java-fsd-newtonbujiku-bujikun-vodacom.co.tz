@@ -20,9 +20,19 @@
         </div>
     </div>
     <div class=" ms-6 mb-4 me-6">
-        <div class="d-flex justify-content-end offset-10">
+        <div class="alert alert-danger fade show error-alert d-flex justify-content-between" role="alert" sec:authorize="!isAuthenticated()">
+            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span >You Must Log In To Checkout This Order!</span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="d-flex justify-content-end offset-6">
+            <div class="d-flex justify-content-end me-2">
+                <a class="btn btn-danger btn-lg my-1" role="button" onclick="emptyCart()"
+                ><span><i class="fas fa-trash"></i>&nbsp;</span>Empty Cart</a>
+            </div>
             <a class="btn btn-primary btn-lg my-1" role="button" th:href="@{/products/add}"
-            ><span><i class="fas fa-credit-card"></i>&nbsp;</span>Place Order</a>
+               sec:authorize="hasAuthority('order:create')"
+            ><span><i class="fas fa-credit-card"></i>&nbsp;</span>Checkout</a>
         </div>
         <div class="list-group list-group-light">
             <div th:each="item:${items}"
@@ -39,9 +49,10 @@
             </div>
             <div layout:fragment="scripts">
                 <script>
-                    setActiveNavLink("#categories-page");
                 </script>
             </div>
         </div>
+    </div>
+</div>
 </body>
 </html>

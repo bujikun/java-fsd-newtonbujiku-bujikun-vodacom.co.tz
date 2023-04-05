@@ -22,6 +22,9 @@ public class User {
     @Column(name = "username",unique = true)
     private String username;
     private String password;
+    private String email;
+    private String city;
+    private String paymentAccountNumber;
     private Boolean isEnabled;
     private Boolean isAccountLocked;
     private Boolean isCredentialsExpired;

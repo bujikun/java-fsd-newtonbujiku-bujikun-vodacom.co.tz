@@ -75,15 +75,15 @@
 
                     <div class="d-flex align-items-center">
                         <div sec:authorize="isAuthenticated()">
-                            <span>Hello,&nbsp;<span class="text-uppercase" sec:authentication="name"></span></span>
+                            <span>Hello,&nbsp;<strong class="text-uppercase text-success" sec:authentication="name"></strong></span>
                         </div>
-                        <form action="/cart" method="post">
+                        <form th:action="@{/cart}" method="post">
                             <input class="d-none" id="cart-input" name="cart">
                             <a
                                     class="px-3"
                                     role="button"
                                     id="submitCart"
-                            ><i class="fas fa-shopping-cart fa-2x"></i>
+                            ><i class="fas fa-shopping-cart fa-lg"></i>
                                 <span class="badge rounded-pill badge-notification bg-danger" id="cartNotification">0</span>
                             </a>
                         </form>
@@ -114,6 +114,11 @@
             </div>
             <!-- Container wrapper -->
         </nav>
+
+        <div class="alert alert-danger fade d-none error-alert d-flex justify-content-between" id="passwordAlert" role="alert">
+            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span id="message"></span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
         <!-- Navbar -->
     </header>
 

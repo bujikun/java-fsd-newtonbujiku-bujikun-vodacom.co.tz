@@ -34,8 +34,8 @@
               <span class="d-block h4" th:text="'$'+${product.getPrice()}"></span>
 
             </div>
-            <div class="col"><button class="btn btn-outline-primary btn-sm px-2 btn-rounded float-end mx-2" data-mdb-ripple-color="dark" type="button"
-                                     role="button">
+            <div class="col"><button th:id="${product.getId()}" class="btn btn-outline-primary btn-sm px-2 btn-rounded float-end mx-2" data-mdb-ripple-color="dark" type="button"
+                                     role="button" onclick="addToCart(this)">
               <i class="fa fa-cart-plus"></i>&nbsp;Add To Cart</button></div>
 
           </div>

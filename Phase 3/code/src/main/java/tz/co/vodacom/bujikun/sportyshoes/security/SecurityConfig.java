@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -43,10 +44,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers("/").permitAll()
                         .requestMatchers("/products", "/products/").permitAll()
                         .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/cart/**").permitAll()
-                        //.requestMatchers(new AntPathRequestMatcher("/categories/{id}/products")).permitAll()
+                        .requestMatchers("/cart","/cart/").permitAll()
                         .requestMatchers("/categories/{id}/products").permitAll()
-                        .requestMatchers("/register/**").permitAll()
+                        .requestMatchers("/register").permitAll()
                         .requestMatchers("/favicon.co/**").permitAll()
                         .requestMatchers("/categories","/categories/").hasAuthority("category:view:all")
                         .anyRequest().authenticated()

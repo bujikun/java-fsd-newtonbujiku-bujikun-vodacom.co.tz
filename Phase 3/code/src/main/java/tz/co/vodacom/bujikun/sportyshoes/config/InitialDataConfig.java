@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -34,7 +35,7 @@ public class InitialDataConfig {
             var adminPermissions = new String[]{
                     "user:delete","user:view:all",
                     "category:edit","category:delete","category:link:product","category:view:all",
-                    "product:edit","product:delete","product:link:category",
+                    "product:add","product:edit","product:delete","product:link:category",
                     "stock:view"
             };
 
@@ -59,6 +60,9 @@ public class InitialDataConfig {
             var user = User.builder()
                     .username("user")
                     .password(passwordEncoder.encode("password"))
+                    .email("user@sportyshoes.com")
+                    .paymentAccountNumber(UUID.randomUUID().toString().toUpperCase())
+                    .city("Dar Es Salaam")
                     .isEnabled(true)
                     .isAccountLocked(false)
                     .isCredentialsExpired(false)
@@ -68,6 +72,9 @@ public class InitialDataConfig {
             var admin = User.builder()
                     .username("admin")
                     .password(passwordEncoder.encode("password"))
+                    .email("admin@sportyshoes.com")
+                    .paymentAccountNumber(UUID.randomUUID().toString().toUpperCase())
+                    .city("Dodoma")
                     .isEnabled(true)
                     .isAccountLocked(false)
                     .isCredentialsExpired(false)

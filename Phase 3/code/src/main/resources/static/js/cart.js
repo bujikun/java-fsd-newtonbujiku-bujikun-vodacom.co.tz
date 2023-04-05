@@ -51,6 +51,7 @@ $(document).ready(function(){
         }
         if(itemArr.length <= 0){
             //show error
+            displayError("Empty Cart! Please add some items first!")
             return;
         }
         $("#cart-input").val(JSON.stringify(itemArr));
@@ -58,8 +59,8 @@ $(document).ready(function(){
     });
 });
 
-// onbeforeunload = event=>{
-//     window.localStorage.setItem("cart",JSON.stringify(cart));
-//     console.log("STRINGIFIED: "+JSON.stringify(cart));
-//     //window.localStorage.clear();
-// }
+
+const emptyCart = ()=>{
+    window.localStorage.clear();
+    window.location.href="/";
+};

@@ -28,30 +28,26 @@ public class UserService implements GenericService<User, Integer> {
 
     @Override
     public void createNew(User user) {
-
+        //check if user exists
+        try{
+            findByUsername(user.getUsername());
+            //user exists, fail
+            throw new UsernameExiststException("Username already in use!",user);
+        }catch (UserNotFoundException e){
+            //user exists, do nothing but proceed with registration
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setIsAccountExpired(false);
+        user.setIsAccountLocked(false);
+        user.setIsCredentialsExpired(false);
+        user.setIsEnabled(true);
+        user.setRoles(Set.of(roleService.findByName("USER")));
+         userRepository.save(user);
     }
 
     public User registerUser(String username, String password) {
         User user;
-        //check if user exists
-        try{
-            user  = findByUsername(username);
-            //user exists, fail
-            throw new UsernameExiststException("Username already in use!");
-        }catch (UserNotFoundException e){
-            //user exists, do nothing but proceed with registration
-        }
-
-        user = User.builder()
-                .username(username)
-                .password(passwordEncoder.encode(password))
-                .isEnabled(true)
-                .isAccountLocked(false)
-                .isCredentialsExpired(false)
-                .isAccountExpired(false)
-                .roles(Set.of(roleService.findByName("USER")))
-                .build();
-        return userRepository.save(user);
+      return null;
     }
 
     @Override
