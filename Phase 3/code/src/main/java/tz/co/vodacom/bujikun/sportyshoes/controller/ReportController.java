@@ -13,14 +13,12 @@ import tz.co.vodacom.bujikun.sportyshoes.dto.ReportDTO;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.OrderService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/reports")
 public class ReportController {
-    private final OrderService orderService;
     private final CategoryService categoryService;
     private final ReportDAO reportDAO;
     @GetMapping

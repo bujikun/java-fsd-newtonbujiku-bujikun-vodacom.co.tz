@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tz.co.vodacom.bujikun.sportyshoes.entity.User;
 import tz.co.vodacom.bujikun.sportyshoes.exception.UserNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.exception.UsernameExiststException;
-import tz.co.vodacom.bujikun.sportyshoes.repository.RoleRepository;
 import tz.co.vodacom.bujikun.sportyshoes.repository.UserRepository;
 
 import java.util.List;

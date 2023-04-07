@@ -1,7 +1,6 @@
 package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import tz.co.vodacom.bujikun.sportyshoes.dao.ProductCategoryDAO;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
-import tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName;
 
 
 @Controller
@@ -21,7 +19,6 @@ public class CategoryController {
     private final ProductService productService;
     private final ProductCategoryDAO productCategoryDAO;
 
-    //private  PermissionName;
     @GetMapping
     @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).CATEGORY_VIEW_ALL.value)")
     public String index(Model model){

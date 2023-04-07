@@ -11,13 +11,10 @@ public class Util {
     public static String convertDateToString(LocalDate localDate){
         return  localDate.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"));
     }
-    public static LocalDate convertStringToDate(String dateString){
-        //return LocalDate.parse(dateString,DateTimeFormatter.ofPattern("uuuu-M-d"));
-        return LocalDate.parse(dateString,DateTimeFormatter.ofPattern("d-M-uuuu"));
-
-    }
-
-//    public static LocalDate formatDate(LocalDate localDate){
-//        return
+//    public static LocalDate convertStringToDate(String dateString){
+//        //return LocalDate.parse(dateString,DateTimeFormatter.ofPattern("uuuu-M-d"));
+//        return LocalDate.parse(dateString,DateTimeFormatter.ofPattern("d-M-uuuu"));
+//
 //    }
+
 }

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Permission;
 import tz.co.vodacom.bujikun.sportyshoes.exception.PermissionNotFoundException;
-import tz.co.vodacom.bujikun.sportyshoes.exception.UserNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.PermissionRepository;
 
 import java.util.List;

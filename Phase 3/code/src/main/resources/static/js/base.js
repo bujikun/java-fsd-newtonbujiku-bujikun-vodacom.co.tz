@@ -12,8 +12,6 @@ setTimeout(()=>{
 
 const displayError =(errorMessage)=>{
     $("#message").html(errorMessage);
-    //document.getElementById("message").innerText=errorMessage;
-    //console.log($("#message"));
     $("#passwordAlert").removeClass("d-none").addClass("show");
     setTimeout(()=>{
         $("#passwordAlert").removeClass("show").addClass("d-none")

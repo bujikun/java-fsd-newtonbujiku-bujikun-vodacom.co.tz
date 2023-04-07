@@ -66,7 +66,8 @@ INSERT INTO `line_items` (`id`, `created_on`, `line_item_count`, `line_item_pric
 (18,	'2023-04-07 20:01:53.950045',	1,	123.99,	3,	'Adidas Predator 17.1',	123.99,	'2023-04-07 20:01:53.950070'),
 (19,	'2023-04-07 20:01:53.987023',	1,	150.55,	4,	'Nike AlphaFly Next%',	150.55,	'2023-04-07 20:01:53.987064'),
 (20,	'2023-04-07 20:01:54.026066',	1,	123.99,	5,	'Adidas Superstar 3',	123.99,	'2023-04-07 20:01:54.026093'),
-(21,	'2023-04-07 20:01:54.077746',	1,	150.55,	6,	'Nike Air Max 2023',	150.55,	'2023-04-07 20:01:54.077845')
+(21,	'2023-04-07 20:01:54.077746',	1,	150.55,	6,	'Nike Air Max 2023',	150.55,	'2023-04-07 20:01:54.077845'),
+(22,	'2023-04-07 20:31:02.938761',	2,	150.55,	6,	'Nike Air Max 2023',	301.10,	'2023-04-07 20:31:02.938813')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `created_on` = VALUES(`created_on`), `line_item_count` = VALUES(`line_item_count`), `line_item_price` = VALUES(`line_item_price`), `product_id` = VALUES(`product_id`), `product_name` = VALUES(`product_name`), `total_line_price` = VALUES(`total_line_price`), `updated_on` = VALUES(`updated_on`);
 
 DROP TABLE IF EXISTS `orders`;
@@ -80,14 +81,15 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `orders` (`id`, `created_on`, `fk_user_id`) VALUES
-(1,	'2023-04-07',	3),
-(2,	'2023-04-07',	3),
+(1,	'2023-02-07',	3),
+(2,	'2023-08-07',	3),
 (3,	'2023-04-07',	3),
-(4,	'2023-04-07',	1),
-(5,	'2023-04-07',	1),
-(6,	'2023-04-07',	1),
-(7,	'2023-04-07',	2),
-(8,	'2023-04-07',	2)
+(4,	'2023-08-07',	1),
+(5,	'2023-07-07',	1),
+(6,	'2023-06-07',	1),
+(7,	'2023-09-07',	2),
+(8,	'2023-05-07',	2),
+(9,	'2023-10-07',	1)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `created_on` = VALUES(`created_on`), `fk_user_id` = VALUES(`fk_user_id`);
 
 DROP TABLE IF EXISTS `orders_line_items`;
@@ -121,7 +123,8 @@ INSERT INTO `orders_line_items` (`fk_order_id`, `fk_item_id`) VALUES
 (8,	18),
 (8,	19),
 (8,	20),
-(8,	21)
+(8,	21),
+(9,	22)
 ON DUPLICATE KEY UPDATE `fk_order_id` = VALUES(`fk_order_id`), `fk_item_id` = VALUES(`fk_item_id`);
 
 DROP TABLE IF EXISTS `permissions`;
@@ -182,7 +185,7 @@ INSERT INTO `products` (`id`, `count`, `created_on`, `description`, `image_url`,
 (3,	16,	'2023-04-06 19:12:55.035769',	'Built to last for longer than 120 minutes on the football pitch.',	'/imgs/adidas-predator-17.1.jpg',	'Adidas Predator 17.1',	123.99,	CONV('0', 2, 10) + 0,	'2023-04-07 20:01:53.968203'),
 (4,	16,	'2023-04-06 19:12:55.043128',	'Comfort and stability all along. Be the next Kipchoge',	'/imgs/alphafly-athletic.webp',	'Nike AlphaFly Next%',	150.55,	CONV('0', 2, 10) + 0,	'2023-04-07 20:01:53.997265'),
 (5,	16,	'2023-04-06 19:12:55.049161',	'For casual wear around town.',	'/imgs/adidas-casual-sneaker.jpg',	'Adidas Superstar 3',	123.99,	CONV('0', 2, 10) + 0,	'2023-04-07 20:01:54.044176'),
-(6,	16,	'2023-04-06 19:12:55.055281',	'Can be worn for different kinds of sports',	'/imgs/airmax-variety-97.jpg',	'Nike Air Max 2023',	150.55,	CONV('0', 2, 10) + 0,	'2023-04-07 20:01:54.100741'),
+(6,	14,	'2023-04-06 19:12:55.055281',	'Can be worn for different kinds of sports',	'/imgs/airmax-variety-97.jpg',	'Nike Air Max 2023',	150.55,	CONV('0', 2, 10) + 0,	'2023-04-07 20:31:02.957787'),
 (7,	3,	'2023-04-07 19:32:51.223850',	'Non slip basketball chinese super cheap shoes',	'/imgs/f4f20fd4-4d73-456b-b839-6e35e2df3744bb.jpg',	'Chinese Basketball Shoes',	50.45,	CONV('1', 2, 10) + 0,	'2023-04-07 19:32:51.224072')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `count` = VALUES(`count`), `created_on` = VALUES(`created_on`), `description` = VALUES(`description`), `image_url` = VALUES(`image_url`), `name` = VALUES(`name`), `price` = VALUES(`price`), `deleted` = VALUES(`deleted`), `updated_on` = VALUES(`updated_on`);
 
@@ -311,4 +314,4 @@ INSERT INTO `users_roles` (`fk_user_id`, `fk_role_id`) VALUES
 (1,	3)
 ON DUPLICATE KEY UPDATE `fk_user_id` = VALUES(`fk_user_id`), `fk_role_id` = VALUES(`fk_role_id`);
 
--- 2023-04-07 17:03:26
+-- 2023-04-07 17:35:43

@@ -26,7 +26,6 @@ public class CartController {
         var itemSet = Arrays.stream(arr)
                 .map(pdto -> {
                     var product = productService.findById(pdto.getId());
-                    //filter out of stock by not showing them in index page
                     if (product.getCount() < pdto.getCount()) {
                         //cart has more items than available, force the maximum
                         //you can buy all that is available
@@ -39,8 +38,8 @@ public class CartController {
                 })
                 .collect(Collectors.toSet());
         var totalPrice = itemSet.stream()
-                .map(p->p.getPrice())
-                .reduce(new BigDecimal(0),(big1,big2)->big1.add(big2));
+                .map(p -> p.getPrice())
+                .reduce(new BigDecimal(0), (big1, big2) -> big1.add(big2));
         //fetch products from db
         model.addAttribute("cartJson", jsonString);
         model.addAttribute("total", totalPrice);

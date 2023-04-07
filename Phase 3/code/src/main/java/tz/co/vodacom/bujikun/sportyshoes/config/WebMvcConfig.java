@@ -1,6 +1,5 @@
 package tz.co.vodacom.bujikun.sportyshoes.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
@@ -17,6 +16,7 @@ import java.time.Duration;
 public class WebMvcConfig  implements WebMvcConfigurer {
     @Bean
     public void imgPath(){
+        //creates imgs directory to hold up uploaded images
         Path path = FileSystems.getDefault().getPath("");//get current dir
         Path uploadedImgsFolder = path.toAbsolutePath().resolve("imgs");
         if(!Files.exists(uploadedImgsFolder)){

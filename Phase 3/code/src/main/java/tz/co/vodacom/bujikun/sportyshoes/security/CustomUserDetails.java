@@ -1,6 +1,7 @@
 package tz.co.vodacom.bujikun.sportyshoes.security;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

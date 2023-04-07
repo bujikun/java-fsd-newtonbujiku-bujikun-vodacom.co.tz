@@ -8,14 +8,14 @@ if(cartString == null || cartString == undefined){
 }else{
     //the cart exists
     //parse it
-    console.log("cartString "+cartString);
-    console.log("cart  "+ cart);
+    // console.log("cartString "+cartString);
+    // console.log("cart  "+ cart);
     cart = JSON.parse(cartString);
-    console.log("cart  "+ cart);
+    // console.log("cart  "+ cart);
     //find total items in cart
     for(let key in cart){
         let product = cart[key];
-        console.log("prod  "+ product);
+        //console.log("prod  "+ product);
         cartItemsCount += Number(product["count"]);
     }
     let cartNotification = document.getElementById("cartNotification");
@@ -55,7 +55,7 @@ $(document).ready(function(){
             return;
         }
         $("#cart-input").val(JSON.stringify(itemArr));
-        console.log( $("#cart-input").val());
+        //console.log( $("#cart-input").val());
         form.submit();
     });
 });

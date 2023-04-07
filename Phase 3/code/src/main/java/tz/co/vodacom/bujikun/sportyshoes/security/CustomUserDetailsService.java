@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import tz.co.vodacom.bujikun.sportyshoes.exception.UserNotFoundException;
 import tz.co.vodacom.bujikun.sportyshoes.repository.UserRepository;
-import tz.co.vodacom.bujikun.sportyshoes.service.UserService;
 
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
