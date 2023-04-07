@@ -61,11 +61,14 @@
                                 <span class="badge  badge-info p-1 ">
                             <span class="align-baseline">Fair Stock</span></span>
                             </div>
-                            <div th:if="${count > 15}">
+                            <div th:if="${count > 15}" class="me-2">
                             <span class="badge  badge-success p-1">
                             <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
                                 <span class="badge  badge-success p-1">
                             <span class="align-baseline">Abundant Stock</span></span>
+                            </div>
+                            <div  class="ms-3" th:if="${product.getDeleted()}">
+                            <span class="badge  badge-danger p-1">Deactivated</span></span>
                             </div>
                         </div>
 

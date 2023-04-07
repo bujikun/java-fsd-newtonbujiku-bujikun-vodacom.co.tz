@@ -28,10 +28,10 @@
         <a class="btn btn-success btn-lg my-1 mx-2" role="button"
            th:href="@{/products/{id}/link-category(id=${product.getId()})}">
             <span><i class="fa fa-link"></i>&nbsp;</span>Link Category</a>
-        <button class="btn btn-danger btn-lg my-1 mx-2" role="button" data-mdb-toggle="modal"
-                data-mdb-target="#deleteModal"><span><i
-                class="fa fa-trash"></i>&nbsp;</span>Delete
-        </button>
+<!--        <button class="btn btn-danger btn-lg my-1 mx-2" role="button" data-mdb-toggle="modal"-->
+<!--                data-mdb-target="#deleteModal"><span><i-->
+<!--                class="fa fa-trash"></i>&nbsp;</span>Delete-->
+<!--        </button>-->
         <!-- Modal -->
         <div
                 class="modal fade"
@@ -63,18 +63,44 @@
             <div class="card" th:with="productCategorySize = ${product.getCategories().size()}">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="ms-3">
+                            <div class="mx-auto">
                                 <p class="fw-bold mb-1" th:text="'Product ID: '+${product.getId()}"></p>
                                 <p class="text-muted mb-0"
                                    th:text="'Categories Linked To: '+${product.getCategories().size()}"></p>
                                 <span class="d-block h4" th:text="'Price: $'+${product.getPrice()}"></span>
+                                <div th:if="${product.getCount() <= 0}">
+                            <span class="badge badge-danger p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                    <span class="badge badge-danger p-1">
+                            <span class="align-baseline">Out Of Stock</span></span>
+                                </div>
+                                <div th:if="${product.getCount() > 0 && product.getCount()<=10}">
+                            <span class="badge  badge-warning p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                    <span class="badge  badge-warning p-1 ">
+                            <span class="align-baseline">Low Stock</span></span>
+                                </div>
+                                <div th:if="${product.getCount() > 10 && product.getCount()<=15}">
+                            <span class="badge  badge-info p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                    <span class="badge  badge-info p-1 ">
+                            <span class="align-baseline">Fair Stock</span></span>
+                                </div>
+                                <div th:if="${product.getCount() > 15}">
+                            <span class="badge  badge-success p-1">
+                            <span class="align-baseline" th:text="${'Items: '+product.getCount()}"></span></span>
+                                    <span class="badge  badge-success p-1">
+                            <span class="align-baseline">Abundant Stock</span></span>
+                                </div>
+                                <div th:if="${product.getDeleted()}">
+                                    <span class="badge  badge-danger p-1">Deactivated</span></span>
+                                </div>
                             </div>
+                        <div class="mx-auto">
+                            <img th:src="@{${product.getImageUrl()}}" class="card-img-top product-img mt-3"/>
                         </div>
                     </div>
-                    <div>
-                        <img th:src="@{${product.getImageUrl()}}" class="card-img-top product-img mt-3"/>
-                    </div>
+
                 </div>
                 <div
                         class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
@@ -89,17 +115,19 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-6 mb-4">
+        <div class="col-xl-6 mb-4" th:if="${product.getCategories().size()<=0}">
+            <div class="alert alert-danger fade show error-alert" role="alert">
+                <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span></span>This product does not belong to any category</strong>
+            </div>
+        </div>
+        <div class="col-xl-6 mb-4" th:if="${product.getCategories().size()>0}">
             <div class="h4 mb-3 p-2 card"><span class="ms-3">Categories</span></div>
             <div class="list-group list-group-light">
-                <a th:href="@{/categories/{id}(id=${category.getId()})}" th:each="category:${product.getCategories()}"
+                <a th:href="@{/categories/view/{id}(id=${category.getId()})}" th:each="category:${product.getCategories()}"
                    class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">
                     <span class="align-baseline text-dark h5 d-block"
                           th:text="${category.getName()}"></span>
                     <small class="d-block text-muted" th:text="${category.getDescription()}"></small></a>
-
-
             </div>
 
 

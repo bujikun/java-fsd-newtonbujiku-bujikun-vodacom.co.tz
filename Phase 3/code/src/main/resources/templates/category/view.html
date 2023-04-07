@@ -22,12 +22,14 @@
     </div>
 
     <div class="d-flex justify-content-end offset-4 mb-3">
-        <a class="btn btn-primary btn-lg my-1 mx-2" role="button"  th:href="@{/categories/edit/{id}(id=${category.getId()})}"
+        <a class="btn btn-primary btn-lg my-1 mx-2" role="button"
+           th:href="@{/categories/edit/{id}(id=${category.getId()})}"
         ><span><i class="fa fa-edit"></i>&nbsp;</span>Edit</a>
-        <a class="btn btn-success btn-lg my-1 mx-2" role="button" th:href="@{/categories/{id}/link-products(id=${category.getId()})}">
+        <a class="btn btn-success btn-lg my-1 mx-2" role="button"
+           th:href="@{/categories/{id}/link-products(id=${category.getId()})}">
             <span><i class="fa fa-link"></i>&nbsp;</span>Link Product</a>
-        <button class="btn btn-danger btn-lg my-1 mx-2" role="button" data-mdb-toggle="modal" data-mdb-target="#deleteModal"><span><i
-                class="fa fa-trash"></i>&nbsp;</span>Delete</button>
+        <!--        <button class="btn btn-danger btn-lg my-1 mx-2" role="button" data-mdb-toggle="modal" data-mdb-target="#deleteModal"><span><i-->
+        <!--                class="fa fa-trash"></i>&nbsp;</span>Delete</button>-->
         <!-- Modal -->
         <div
                 class="modal fade"
@@ -47,7 +49,8 @@
                     <div class="modal-body">Are you sure you want to delete this category?</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Cancel</button>
-                        <a type="button" class="btn btn-success" th:href="@{/categories/delete/{id}(id=${category.getId()})}">Confirm</a>
+                        <a type="button" class="btn btn-success"
+                           th:href="@{/categories/delete/{id}(id=${category.getId()})}">Confirm</a>
                     </div>
                 </div>
             </div>
@@ -80,8 +83,13 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-6 mb-4" th:if="${category.getProducts().size()<=0}">
+            <div class="alert alert-danger fade show error-alert" role="alert">
+                <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span></span>This category is not associated with any products</strong>
+            </div>
+        </div>
 
-        <div class="col-xl-6 mb-4">
+        <div class="col-xl-6 mb-4" th:if="${category.getProducts().size()>0}">
             <div class="h4 mb-3 p-2 card"><span class="ms-3">Products</span></div>
             <div class="list-group list-group-light">
                 <a th:href="@{/products/view/{id}(id=${product.getId()})}" th:each="product:${category.getProducts()}"
@@ -124,7 +132,6 @@
     </div>
 
 </div>
-
 
 
 <div layout:fragment="scripts">

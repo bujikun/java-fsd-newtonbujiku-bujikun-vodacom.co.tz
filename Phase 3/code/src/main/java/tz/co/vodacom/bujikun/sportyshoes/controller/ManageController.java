@@ -1,6 +1,7 @@
 package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,13 @@ import tz.co.vodacom.bujikun.sportyshoes.service.UserService;
 public class ManageController {
     private final UserService userService;
     @GetMapping
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).MANAGE_VIEW.value)")
     public String index(Model model){
         model.addAttribute("error",false);
         return "manage/index";
     }
     @PostMapping("/change-password")
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).USER_CHANGE_PASSWORD.value)")
     public String changePassword(@RequestParam("newPassword") String newPassword,
                                  @RequestParam("currentPassword") String currentPassword,
                                  Authentication authentication, Model model){

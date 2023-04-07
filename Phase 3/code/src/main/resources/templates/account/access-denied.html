@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Access Denied</title>
+    <link rel="preload" as="font" href="/font/Roboto-Regular.ttf"
+          type="font/ttf" crossorigin/>
+    <link rel="stylesheet" href="/webjars/mdb-ui-kit/6.2.0/css/mdb.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.1/css/all.css"/>
+    <link rel="stylesheet" href="/css/base.css"/>
+    <!--    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>-->
+    <style>
+        @font-face {
+            font-family: Roboto;
+            font-display: swap;
+            src: url("/font/Roboto-Regular.ttf") format("truetype");
+        }
+    </style>
+    <link rel="preload" as="font" href="/font/Roboto-Regular.ttf"
+          type="font/ttf" crossorigin/>
+</head>
+<body>
+<div class="container">
+    <main class="mb-5">
+        <div class="row my-3 mb-8">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" layout:fragment="page-content">
+                <div class="d-flex flex-column justify-content-between align-items-center">
+                    <div class="card vh-75 -p4">
+                        <div class="card-body -p4">
+                            <div class="d-flex flex-column justify-content-between align-items-center">
+                                <div>
+                                    <span class="display-6 text-danger m-3">Access Denied!</span>
+                                </div>
+                                <div>
+                                    <span><i class="fas fa-frown display-5 text-danger m-3"></i></span>
+                                </div>
+                                <div>
+                                    <span class="h4 m3 text-danger">You have no power to do that!</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between m-3">
+                            <span>Return to <a th:href="@{/}">Home</a></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer class="fixed-bottom mt-5 bg-white">
+        <!-- Copyright -->
+        <div class="text-center p-4">
+            © 2021 Newton Bujiku - bujikun@vodacom.co.tz
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+
+</div>
+<script src="/webjars/mdb-ui-kit/6.2.0/js/mdb.min.js"></script>
+<script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="/js/base.js"></script>
+<script src="/js/cart.js"></script>
+<div layout:fragment="scripts">
+    <script>
+        setTimeout(() => {
+            $(".alert-dismissible").remove();
+        }, 3000)
+
+    </script>
+</div>
+</body>
+
+</html>

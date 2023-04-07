@@ -19,13 +19,17 @@ body {
 }
 
 .product-img {
-    min-width: 150px;
-    min-height: 150px;
+    min-width: 200px;
+    min-height: 200px;
+    max-height: 250px;
+    max-width: 250px;
+
+
     margin: auto;
 }
 
 .product-item {
-    min-width: 300px;
+    min-width: 250px;
 }
 
 .logo {

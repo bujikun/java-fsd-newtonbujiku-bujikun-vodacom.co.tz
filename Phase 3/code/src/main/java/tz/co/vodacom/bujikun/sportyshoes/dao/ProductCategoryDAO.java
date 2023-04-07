@@ -17,7 +17,6 @@ public class ProductCategoryDAO {
         var params = new MapSqlParameterSource()
                 .addValue("fk_product_id",fkProductId)
                 .addValue("fk_category_id",fkCategoryId);
-
         //TODO could generate exception in case of an existing pairing, handle for error
         jdbcTemplate.update(query,params);
     }

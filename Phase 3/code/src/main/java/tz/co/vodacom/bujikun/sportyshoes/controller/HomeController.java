@@ -8,11 +8,11 @@ import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 
 @Controller
 @RequiredArgsConstructor
-public class RootController {
+public class HomeController {
     private final CategoryService categoryService;
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("categories",categoryService.findAllActive());
+        model.addAttribute("categories",categoryService.findAllActiveAndWithStockedProducts());
         return "index";
     }
 }

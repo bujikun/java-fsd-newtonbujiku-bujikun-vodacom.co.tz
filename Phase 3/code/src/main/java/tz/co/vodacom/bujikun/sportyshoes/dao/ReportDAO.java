@@ -21,13 +21,13 @@ public class ReportDAO {
         var query = """
                 SELECT orders.created_on as createdOn,orders.id as orderId,username 
                 FROM orders
-                INNER JOIN users ON orders.fk_user_id = users.id;
-                
+                INNER JOIN users ON orders.fk_user_id = users.id
+                ORDER BY orders.created_on DESC;
       """;
         return jdbcTemplate.query(query, BeanPropertyRowMapper.newInstance(ReportDTO.class));
     }
     public List<ReportDTO> queryAll(String startDate,String endDate){
-
+        //fetch all orders in the given range from all categories
         var query = """
                 SELECT orders.created_on as createdOn,orders.id as orderId,username 
                 FROM products_categories
@@ -36,7 +36,8 @@ public class ReportDAO {
                 INNER JOIN orders on orders.id= orders_line_items.fk_order_id
                 INNER JOIN users on users.id = orders.fk_user_id
                 WHERE orders.created_on  between date(:startDate) and date(:endDate)
-                GROUP BY orders.created_on,orders.id, username;
+                GROUP BY orders.created_on,orders.id, username
+                ORDER BY orders.created_on DESC;
                 """;
         var params = new MapSqlParameterSource()
                 .addValue("startDate",startDate)
@@ -45,6 +46,7 @@ public class ReportDAO {
     }
 
     public List<ReportDTO> queryPerCriteria(Integer categoryId,String startDate, String endDate){
+        //fetch all orders in the given range from specified category
         var query = """
                 SELECT orders.created_on as createdOn,orders.id as orderId,username 
                 FROM products_categories
@@ -53,7 +55,8 @@ public class ReportDAO {
                 INNER JOIN orders on orders.id= orders_line_items.fk_order_id
                 INNER JOIN users on users.id = orders.fk_user_id
                 WHERE products_categories.fk_category_id= :categoryId and orders.created_on  between date(:startDate) and date(:endDate)
-                GROUP BY orders.created_on,orders.id, username;
+                GROUP BY orders.created_on,orders.id, username
+                ORDER BY orders.created_on DESC;
                 """;
         var params = new MapSqlParameterSource()
                 .addValue("categoryId",categoryId)

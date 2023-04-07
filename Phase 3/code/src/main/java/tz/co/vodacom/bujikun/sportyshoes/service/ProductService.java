@@ -34,8 +34,10 @@ public class ProductService implements GenericService<Product, Integer> {
         fromDB.setName(product.getName());
         fromDB.setPrice(product.getPrice());
         fromDB.setCount(product.getCount());
-        fromDB.setImageUrl(product.getImageUrl());
+        // only update image url if a new image was supplied
+        fromDB.setImageUrl((product.getImageUrl() != null)?product.getImageUrl(): fromDB.getImageUrl());
         fromDB.setDescription(product.getDescription());
+        fromDB.setDeleted(product.getDeleted());
         productRepository.save(fromDB);
     }
 
@@ -59,5 +61,18 @@ public class ProductService implements GenericService<Product, Integer> {
                     p.setCategoryString(categoryString);
                     return p;
                 }).toList();
+    }
+
+    public List<Product> findAllToPurchase() {
+        var all = productRepository.findAll();
+        var filtered = all.stream()
+                //only get products that are in stock and not deactivated and belong to a category
+                .filter(p->p.getCount()>0 && !p.getDeleted() && p.getCategories().size() > 0)
+                .map(p -> {
+                    var categoryString = "Fit For: " + p.getCategories().stream().map(c -> c.getName()).collect(Collectors.joining(" , "));
+                    p.setCategoryString(categoryString);
+                    return p;
+                }).toList();
+        return filtered;
     }
 }

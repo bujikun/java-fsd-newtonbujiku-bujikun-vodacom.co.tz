@@ -19,11 +19,19 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-end offset-10" th:if="${!isAdmin}">
+    <div class="d-flex justify-content-end offset-10" th:if="${!isAdmin && !isSuperAdmin}" sec:authorize="hasAuthority('admin:add')">
         <form th:action="@{/users/make-admin}" method="post">
             <input class="d-none" th:value="${user.getId()}" name="userId"/>
             <button class="btn btn-success btn-lg my-1" role="button"   type="submit"
             ><span><i class="fa fa-user"></i>&nbsp;</span>Make Admin</button>
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-end offset-10" th:if="${isAdmin && !isSuperAdmin}" sec:authorize="hasAuthority('admin:revoke')">
+        <form th:action="@{/users/revoke-admin}" method="post">
+            <input class="d-none" th:value="${user.getId()}" name="userId"/>
+            <button class="btn btn-success btn-lg my-1" role="button"   type="submit"
+            ><span><i class="fa fa-user"></i>&nbsp;</span>Revoke Admin</button>
         </form>
 
     </div>
@@ -66,8 +74,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-6 mb-4">
+        <div class="col-xl-6 mb-4" th:if="${userOrders.size()<=0}">
+            <div class="alert alert-danger fade show error-alert" role="alert">
+                <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span></span>This user has not placed any orders</strong>
+            </div>
+        </div>
+        <div class="col-xl-6 mb-4" th:if="${userOrders.size()>0}">
             <div class="h4 mb-3 p-2 card"><span class="ms-3">Orders</span></div>
             <div class="list-group list-group-light">
                 <a th:href="@{/orders/view/{id}(id=${order.getId()})}" th:each="order:${userOrders}"

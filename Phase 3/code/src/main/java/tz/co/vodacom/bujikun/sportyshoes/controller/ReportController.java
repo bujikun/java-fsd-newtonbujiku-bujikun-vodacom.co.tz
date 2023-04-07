@@ -1,6 +1,7 @@
 package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class ReportController {
     private final CategoryService categoryService;
     private final ReportDAO reportDAO;
     @GetMapping
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).REPORT_VIEW.value)")
     public String index(Model model){
         model.addAttribute("orders",reportDAO.getAll());
         model.addAttribute("categories",categoryService.findAll());
@@ -31,6 +33,7 @@ public class ReportController {
     }
 
     @PostMapping("/search")
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).REPORT_VIEW.value)")
     public String filterReports(
             @RequestParam(required = false, name = "startDate") String startDate,
             @RequestParam(required = false, name = "endDate") String endDate,

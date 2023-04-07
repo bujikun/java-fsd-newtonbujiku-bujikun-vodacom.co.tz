@@ -23,11 +23,10 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" th:each="product:${products}">
       <div class="card">
-
-        <img th:src="@{${product.getImageUrl()}}" class="card-img-top p-4 product-img" th:alt="${product.getName()}"/>
+        <img th:src="@{${product.getImageUrl()}}" class="card-img-top p-1 product-img" th:alt="${product.getName()}"/>
         <div class="card-body">
           <span class="card-title h6" th:text="${product.getName()}"></span>
-          <small class="d-block" th:text="${product.getDescription()}">
+          <small class="d-block text-muted" th:text="${product.getDescription()}">
           </small>
           <div class="row g-2">
             <div class="col">

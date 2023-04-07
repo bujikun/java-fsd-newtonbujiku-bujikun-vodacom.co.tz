@@ -1,28 +1,22 @@
 package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import lombok.RequiredArgsConstructor;
-//import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tz.co.vodacom.bujikun.sportyshoes.dao.ProductCategoryDAO;
-import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Product;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/products")
@@ -48,20 +42,18 @@ public class ProductController {
 
     @GetMapping
     public String getAll(Model model) {
-
-        model.addAttribute("products", productService.findAll());
-//        model.addAttribute("categories", categoryService.findAll().stream()
-//                .map(c->c.getName()).collect(Collectors.joining(",")));
+        model.addAttribute("products", productService.findAllToPurchase());
         return "product/index";
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_ADD.value)")
     public String createProduct(Model model, @RequestParam(name = "cart") String ids) {
-        System.out.println(ids);
         return "product/index";
     }
 
     @GetMapping("/stock")
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).STOCK_VIEW.value)")
     public String stockIndex(Model model) {
         var products = productService.findAll();
         model.addAttribute("products", products);
@@ -69,6 +61,7 @@ public class ProductController {
     }
 
     @GetMapping(value = {"/view/{id}", "/view/{id}/"})
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_ADD.value)")
     public String view(@PathVariable("id") Integer id, Model model) {
         var product = productService.findById(id);
         model.addAttribute("product", product);
@@ -76,12 +69,14 @@ public class ProductController {
     }
 
     @GetMapping(value = {"/add", "/add/"})
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_ADD.value)")
     public String getAddProduct(Model model) {
         model.addAttribute("product", new Product());
         return "product/add";
     }
 
     @PostMapping(value = {"/add", "/add/"})
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_ADD.value)")
     public String postAddProduct(@ModelAttribute("product") Product product,
                                  @RequestParam("image") MultipartFile file
     ) {
@@ -99,18 +94,27 @@ public class ProductController {
     }
 
     @GetMapping("edit/{id}")
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_EDIT.value)")
     public String getEdit(@PathVariable("id") Integer id, Model model) {
         var product = productService.findById(id);
         model.addAttribute("product", product);
         return "product/edit";
     }
 
+//    @GetMapping("edit/{id}")
+//    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_DELETE.value)")
+//    public String delete(@PathVariable("id") Integer id, Model model) {
+//      productService.delete(id);
+//        return "product/index";
+//    }
+
     @PostMapping("edit")
-    public String postEdit(@ModelAttribute("product") Product product, @RequestParam("image") MultipartFile file, Model model) {
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_EDIT.value)")
+    public String postEdit(@ModelAttribute("product") Product product, @RequestParam(required = false,name = "image") MultipartFile file, Model model) {
 
         String fileName = null;
 
-        if (file != null) {
+        if (file != null && !file.isEmpty()) {
             fileName = saveUploadedFile(file);
             product.setImageUrl("/imgs/" + fileName);
         }
@@ -120,6 +124,7 @@ public class ProductController {
     }
 
     @GetMapping(value = {"/{id}/link-category", "/{id}/link-category/"})
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_LINK_CATEGORY.value)")
     public String getLinkProductCategories(@PathVariable("id") Integer productId, Model model) {
         var product = productService.findById(productId);
         var productCategories = product.getCategories();
@@ -131,6 +136,7 @@ public class ProductController {
     }
 
     @PostMapping(value = {"/link-category", "/link-category/"})
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).PRODUCT_LINK_CATEGORY.value)")
     public String postLinkCategoryProducts(@RequestParam(name = "categoryId") Integer categoryId,
                                            @RequestParam(name = "productId") Integer productId,
                                            Model model) {

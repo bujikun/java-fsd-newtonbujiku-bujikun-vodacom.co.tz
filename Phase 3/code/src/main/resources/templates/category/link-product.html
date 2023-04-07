@@ -32,12 +32,18 @@
                         <div>
                             <div class="h4 mb-3 p-2"><h4 class="ms-3">Products In This Category</h4></div>
                             <div class="list-group list-group-light">
-                                <a th:href="@{/products/{id}(id=${product.getId()})}"
+                                <a th:href="@{/products/view/{id}(id=${product.getId()})}"
                                    th:each="product:${category.getProducts()}"
                                    class="list-group-item list-group-item-action px-3 border-0 rounded-3 mb-2 list-group-item-secondary">
                                     <span class="align-baseline text-dark"
                                           th:text="${product.getId()+'. '+product.getName()+' -- $'+product.getPrice()}"></span>
-                                    <span class="offset-4 badge rounded-pill badge-danger px-3 ">Out of Stock</span></a>
+                                    <span class="offset-4 badge rounded-pill badge-danger px-3 " th:if="${product.getCount()<=0}">Out of Stock</span>
+                                <span class="offset-4 badge rounded-pill badge-warning px-3 " th:if="${product.getCount() > 0 && product.getCount()<=10}">Low Stock</span>
+                                <span class="offset-4 badge rounded-pill badge-info px-3 " th:if="${product.getCount() > 10 && product.getCount()<=15}">Fair Stock</span>
+                                <span class="offset-4 badge rounded-pill badge-success px-3 " th:if="${product.getCount() > 15}">Abundant Stock</span>
+                                </a>
+
+
                             </div>
                             <form  method="post" th:action="@{/categories/link-products}">
                                 <input class="d-none" th:value="${category.getId()}" name="categoryId">

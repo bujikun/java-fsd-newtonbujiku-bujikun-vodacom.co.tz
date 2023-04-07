@@ -39,4 +39,6 @@ public class Product {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
     private Integer count;
+    private Boolean deleted;
+
 }

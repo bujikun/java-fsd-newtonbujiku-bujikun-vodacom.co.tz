@@ -68,6 +68,7 @@ public class SecurityConfig {
                 ))
                 .logoutSuccessUrl("/")
                 .and()
+                .exceptionHandling(c->c.accessDeniedPage("/access-denied"))
                 .authenticationProvider(daoAuthenticationProvider);
 
         return httpSecurity.build();

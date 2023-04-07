@@ -79,14 +79,15 @@
                             <!-- Image input -->
                             <div class="form-outline mb-4">
                                 <input type="file" id="image" class="file-upload-wrapper form-control" accept="image/*"
-                                       data-mdb-file-upload="file-upload" name="image" required/>
+                                       data-mdb-file-upload="file-upload" name="image"/>
                                 <!--                                <label class="form-label" for="image">Product Image</label>-->
                             </div>
-                            <!--                            &lt;!&ndash; Checked switch &ndash;&gt;-->
-                            <!--                            <div class="form-check form-switch my-3">-->
-                            <!--                                <input class="form-check-input" type="checkbox" role="switch" id="deleted" th:field="*{deleted}" />-->
-                            <!--                                <label class="form-check-label" for="deleted">&nbsp;Deactivated</label>-->
-                            <!--                            </div>-->
+                            <!-- Checked switch -->
+                            <div class="form-check form-switch my-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="deleted"
+                                       th:field="*{deleted}"/>
+                                <label class="form-check-label" for="deleted">&nbsp;Deactivated</label>
+                            </div>
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-success btn-block mb-4"><span>
                                 <i class="fa fa-upload"></i></span>&nbsp;Submit
@@ -96,9 +97,9 @@
                     <div class="col-1"></div>
                     <div class="col-4">
                         <div>
-                            <span class="h5 mb-5">Product Image</span>
+                            <span class="h5 ms-3 mb-5 d-block mx-auto">Product Image</span>
+                            <span class="ms-3 mt-4 h6 d-block" th:text="${'Image URI:  '+product.getImageUrl()}"></span>
                             <img th:src="@{${product.getImageUrl()}}" class="card-img-top product-img mt-3 mb-4"/>
-                            <span class="ms-3 mt-4 h6" th:text="${'Image URI:  '+product.getImageUrl()}"></span>
                         </div>
                     </div>
                 </div>
@@ -113,7 +114,7 @@
 
 <div layout:fragment="scripts">
     <script>
-        setActiveNavLink("#categories-page");
+        setActiveNavLink("#stock-page");
     </script>
 </div>
 </body>

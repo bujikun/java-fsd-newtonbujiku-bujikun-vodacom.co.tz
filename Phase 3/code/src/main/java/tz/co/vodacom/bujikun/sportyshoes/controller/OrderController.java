@@ -2,6 +2,7 @@ package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class OrderController {
     private final OrderItemService orderItemService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).ORDER_CREATE.value)")
     public String index(Model model, Authentication authentication) {
         var userId = ((CustomUserDetails) authentication.getPrincipal()).getUser().getId();
         var myOrders = orderService.findAllOrdersByUserId(userId);
@@ -36,6 +38,7 @@ public class OrderController {
     }
 
     @GetMapping(value={"/view/{id}","/view/{id}/"})
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).ORDER_VIEW.value)")
     public String view(@PathVariable("id")Integer orderId, Model model, Authentication authentication) {
         var principal = (CustomUserDetails) authentication.getPrincipal();
         //var user = principal.getUser();
@@ -53,6 +56,7 @@ public class OrderController {
     }
 
     @PostMapping("/payment")
+    @PreAuthorize("hasAuthority(T(tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName).ORDER_CREATE.value)")
     public String payment(@RequestParam("cart") String jsonString, @RequestParam("total") String total, Authentication authentication, Model model) {
         ProductDTO[] arr = new Gson().fromJson(jsonString, ProductDTO[].class);
         var loggedInUser = ((CustomUserDetails) authentication.getPrincipal()).getUser();
@@ -67,12 +71,20 @@ public class OrderController {
                     var orderItem = new LineItem();
                     orderItem.setProductId(product.getId());
                     orderItem.setLineItemPrice(product.getPrice());
+                    //prevent purchasing more than
+                    //what is available in stock
+                    if(pdto.getCount()>product.getCount()){
+                        pdto.setCount(product.getCount());
+                    }
                     orderItem.setLineItemCount(pdto.getCount());
                     orderItem.setTotalLinePrice(product.getPrice().multiply(new BigDecimal(pdto.getCount())));
                     orderItem.setProductName(product.getName());
                     orderItemService.createNew(orderItem);
                     order.getLineItems().add(orderItem);
                     order.setUser(loggedInUser);
+                    //reduce stock
+                    product.setCount(product.getCount() - pdto.getCount());
+                    productService.updateStock(product);
                 });
         orderService.createNew(order);
         return "order/payment";

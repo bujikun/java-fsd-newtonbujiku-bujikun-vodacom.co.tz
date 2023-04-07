@@ -66,6 +66,12 @@ public class UserService implements GenericService<User, Integer> {
         user.getRoles().add(adminRole);
         userRepository.save(user);
     }
+    public void revokeAdmin(Integer userID) {
+        var user = findById(userID);
+        var adminRole = roleService.findByName("ADMIN");
+        user.getRoles().remove(adminRole);
+        userRepository.save(user);
+    }
 
     public boolean isPasswordUpdated(String currentPassword, String newPassword,
                                   Integer userId) {

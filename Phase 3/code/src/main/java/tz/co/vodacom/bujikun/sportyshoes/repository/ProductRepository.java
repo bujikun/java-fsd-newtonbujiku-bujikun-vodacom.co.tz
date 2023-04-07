@@ -7,4 +7,6 @@ import tz.co.vodacom.bujikun.sportyshoes.entity.Product;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
+    @Query("FROM Product p ORDER BY p.createdOn DESC")
+    List<Product> findAll();
 }

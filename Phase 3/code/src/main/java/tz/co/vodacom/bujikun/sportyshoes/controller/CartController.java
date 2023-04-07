@@ -33,9 +33,6 @@ public class CartController {
                         pdto.setCount(product.getCount());
                         //pdto.setPrice(product.getPrice());
                     }
-                    //reduce stock
-                    product.setCount(product.getCount()- pdto.getCount());
-                    productService.updateStock(product);
                     pdto.setName(product.getName());
                     pdto.setPrice(product.getPrice().multiply(BigDecimal.valueOf(pdto.getCount())));
                     return pdto;

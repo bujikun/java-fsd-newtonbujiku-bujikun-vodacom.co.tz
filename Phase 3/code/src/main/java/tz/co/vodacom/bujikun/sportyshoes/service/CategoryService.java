@@ -55,6 +55,15 @@ public class CategoryService implements GenericService<Category,Integer> {
     public List<Category> findAllActive(){
         return categoryRepository.findAllActive();
     }
+    public List<Category> findAllActiveAndWithStockedProducts(){
+        var  activeCat = categoryRepository.findAllActive();
+        //filter  linked out of stock products
+       var filtered=  activeCat.stream()
+                .filter(c->c.getProducts().size()>0)
+                .toList();
+       return filtered;
+    }
+
 
     public Category findActiveById(Integer id){
         return categoryRepository.findActiveById(id)

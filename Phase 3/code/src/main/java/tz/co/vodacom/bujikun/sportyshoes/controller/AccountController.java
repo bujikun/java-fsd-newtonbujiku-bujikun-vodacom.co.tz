@@ -63,4 +63,9 @@ public class AccountController {
         request.login(user.getUsername(),plainPassword);
         return "redirect:/";
     }
+
+    @GetMapping("/access-denied")
+    public String getAccessDenied() {
+        return "account/access-denied";
+    }
 }
