@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/base}">
+<body>
+
+<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12" layout:fragment="page-content">
+    <div class="d-flex flex-column justify-content-center align-items-center vh-75">
+        <div class="alert alert-danger fade d-none error-alert d-flex justify-content-between" id="passwordAlert"
+             role="alert">
+            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span id="message"></span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show error-alert" role="alert" th:if="${error}">
+            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span th:text="${errorMessage}"></span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show error-alert" role="alert" th:if="${success}">
+            <strong><i class="fas fa-check"></i>&nbsp;&nbsp;<span th:text="${successMessage}"></span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="card mt-1 register-login-card">
+            <div class="card-body">
+                <h4>Change Password</h4>
+                <form method="post" th:action="@{/manage/change-password}" onsubmit="return verifyChangePassword()">
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="currentPassword" class="form-control form-control-lg" required
+                               name="currentPassword"/>
+                        <label class="form-label" for="currentPassword">Current Password</label>
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="newPassword" class="form-control form-control-lg" required
+                               name="newPassword"/>
+                        <label class="form-label" for="newPassword">New Password</label>
+                    </div>
+
+                    <!-- Repeat Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="repeatPassword" class="form-control form-control-lg" required/>
+                        <label class="form-label" for="repeatPassword">Repeat New Password</label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Change Password</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</main>
+
+<footer class="fixed-bottom mt-5 bg-white">
+    <!-- Copyright -->
+    <div class="text-center p-4">
+        © 2021 Newton Bujiku - bujikun@vodacom.co.tz
+    </div>
+    <!-- Copyright -->
+</footer>
+
+
+</div>
+<!--<script src="/webjars/mdb-ui-kit/6.2.0/js/mdb.min.js"></script>-->
+<!--<script src="/webjars/jquery/3.0.0/jquery.min.js"></script>-->
+<!--<script src="/js/base.js"></script>-->
+<!--<script src="/js/cart.js"></script>-->
+<div layout:fragment="scripts">
+    <script>
+        setActiveNavLink("#manage-page");
+
+        const verifyChangePassword = () => {
+
+            const newPassword = $("#newPassword").val();
+            const rPassword = $("#repeatPassword").val();
+            if (password.length < 8) {
+                displayError("Password too short! Must be 8 characters or more!")
+                return false;
+            }
+            if (password !== rPassword) {
+                displayError("Passwords do not match!")
+                return false;
+            }
+            return true;
+
+        };
+    </script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports</title>
+</head>
+<body>
+<div layout:fragment="page-content" class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="row">
+        <div class="col my-3">
+            <div class="card">
+                <div class="card-body">
+                       <form th:action="@{/reports/search}" method="post" class="row gx-3">
+                               <div class="form-outline col me-1">
+                                   <input type="date" id="startDate" class="form-control datepicker" name="startDate" data-mdb-toggle="datepicker" required/>
+                                   <label class="form-label" for="startDate">Start Date</label>
+                               </div>
+                               <div class="form-outline col me-1">
+                                   <input type="date" id="endDate" class="form-control datepicker" name="endDate" data-mdb-toggle="datepicker" required/>
+                                   <label class="form-label" for="startDate">End Date</label>
+                               </div>
+                               <div class="input-group col me-1">
+                                   <div class="form-outline me-2">
+                                       <select class="form-select" name="categoryId" required>
+                                           <option th:value="'-1'" selected>
+                                               <span th:text="${'All Categories'}"></span>
+                                           </option>
+                                           <option th:value="${category.getId()}" th:each="category:${categories}" >
+                                               <span th:text="${category.getId()+'. '+category.getName()}"></span>
+                                           </option>
+                                       </select>
+                                   </div>
+                                   <button type="submit" class="btn btn-primary">
+                                       <i class="fas fa-search"></i>
+                                   </button>
+                               </div>
+                       </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
+        <div class="alert alert-danger fade show error-alert d-flex justify-content-between" role="alert"
+             sec:authorize="isAuthenticated()" th:if="${orders.size()<=0}">
+            <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span>No orders found!</span></strong>
+            <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="mb-2" sec:authorize="isAuthenticated()" th:if="${orders.size()>0}">
+            <div class="card">
+                <div class="alert alert-info fade show error-alert bold" role="alert" th:if="${searched}">
+                    <strong><i class="fas fa-check"></i>&nbsp;&nbsp;<span th:text="${message}"></span></strong>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order No:</th>
+                                <th scope="col">Made By</th>
+                                <th scope="col">Created On</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order:${orders}">
+                                <td th:text="${order.getOrderId()}"></td>
+                                <td th:text="${order.getUsername()}"></td>
+                                <td th:text="${order.getCreatedOn()}"></td>
+                                <td>
+                                    <a class="badge rounded-pill badge-primary py-2 "
+
+                                       th:href="@{/orders/view/{id}(id=${order.getOrderId()})}"><span><i class="fa fa-eye"></i></span>
+                                        <span class="align-baseline">View</span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div layout:fragment="scripts">
+    <script>
+        setActiveNavLink("#reports-page");
+    </script>
+</div>
+</body>
+</html>

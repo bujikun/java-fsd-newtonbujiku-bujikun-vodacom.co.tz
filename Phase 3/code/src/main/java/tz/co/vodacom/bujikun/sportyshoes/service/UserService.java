@@ -60,6 +60,26 @@ public class UserService implements GenericService<User, Integer> {
         //map values
     }
 
+    public void makeAdmin(Integer userID) {
+        var user = findById(userID);
+        var adminRole = roleService.findByName("ADMIN");
+        user.getRoles().add(adminRole);
+        userRepository.save(user);
+    }
+
+    public boolean isPasswordUpdated(String currentPassword, String newPassword,
+                                  Integer userId) {
+        var user = findById(userId);
+       //check if valid current password was supplied
+        //if matches the password in the db
+        if(passwordEncoder.matches(currentPassword,user.getPassword())){
+            //fine then update it
+            user.setPassword(passwordEncoder.encode(newPassword));
+            return true;
+        }
+        return false;//password change failed
+    }
+
     @Override
     public User findById(Integer id) {
         return userRepository.findById(id)

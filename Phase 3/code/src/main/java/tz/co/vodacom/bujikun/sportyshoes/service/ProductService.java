@@ -39,6 +39,11 @@ public class ProductService implements GenericService<Product, Integer> {
         productRepository.save(fromDB);
     }
 
+    public void updateStock(Product product) {
+        product.setUpdatedOn(LocalDateTime.now());
+        productRepository.save(product);
+    }
+
     @Override
     public Product findById(Integer id) {
         return productRepository.findById(id)

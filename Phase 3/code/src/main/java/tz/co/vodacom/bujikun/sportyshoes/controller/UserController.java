@@ -1,6 +1,7 @@
 package tz.co.vodacom.bujikun.sportyshoes.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,14 @@ public class UserController {
         model.addAttribute("user",user);
         model.addAttribute("userOrders",user.getOrders());
         model.addAttribute("userPermissions",permissions);
+        model.addAttribute("isAdmin",user.getRoles().stream()
+                .map(r->r.getName()).toList().contains("ADMIN"));
         return "user/view";
+    }
+
+    @PostMapping("/make-admin")
+    public String makeAdmin(@RequestParam("userId")Integer userID){
+        userService.makeAdmin(userID);
+        return "redirect:/users/view/"+userID;
     }
 }

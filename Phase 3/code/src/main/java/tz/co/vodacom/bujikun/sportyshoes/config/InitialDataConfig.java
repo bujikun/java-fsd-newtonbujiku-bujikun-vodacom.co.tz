@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Configuration
+//@Configuration
 public class InitialDataConfig {
 
     @Bean
@@ -37,7 +37,8 @@ public class InitialDataConfig {
                     "category:edit","category:delete","category:link:product","category:view:all",
                     "product:add","product:edit","product:delete","product:link:category",
                     "order:view:all",
-                    "stock:view"
+                    "stock:view",
+                    "report:view"
             };
 
             var userPermissionSet = Arrays.stream(userPermissions)
@@ -51,7 +52,6 @@ public class InitialDataConfig {
                             .build())
                     .collect(Collectors.toSet());
             adminPermissionSet.addAll(userPermissionSet);//admin has all that the user has
-            System.out.println(adminPermissionSet.stream().map(p->p.getName()).toList());
             permissionRepository.saveAll(userPermissionSet);
             permissionRepository.saveAll(adminPermissionSet);
 

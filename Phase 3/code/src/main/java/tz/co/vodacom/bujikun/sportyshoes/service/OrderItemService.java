@@ -3,24 +3,21 @@ package tz.co.vodacom.bujikun.sportyshoes.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tz.co.vodacom.bujikun.sportyshoes.entity.Order;
-import tz.co.vodacom.bujikun.sportyshoes.entity.OrderItem;
-import tz.co.vodacom.bujikun.sportyshoes.exception.OrderNotFoundException;
+import tz.co.vodacom.bujikun.sportyshoes.entity.LineItem;
 import tz.co.vodacom.bujikun.sportyshoes.repository.OrderItemRepository;
-import tz.co.vodacom.bujikun.sportyshoes.repository.OrderRepository;
 
 import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class OrderItemService implements GenericService<OrderItem, Integer> {
+public class OrderItemService implements GenericService<LineItem, Integer> {
 
     private final OrderItemRepository orderItemRepository;
 
     @Override
-    public void createNew(OrderItem orderItem) {
-        orderItemRepository.save(orderItem);
+    public void createNew(LineItem lineItem) {
+        orderItemRepository.save(lineItem);
     }
 
     @Override
@@ -29,18 +26,18 @@ public class OrderItemService implements GenericService<OrderItem, Integer> {
     }
 
     @Override
-    public void update(OrderItem orderItem) {
+    public void update(LineItem lineItem) {
 
     }
 
     @Override
-    public OrderItem findById(Integer id) {
+    public LineItem findById(Integer id) {
         return orderItemRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("Order Item Not Found"));
     }
 
     @Override
-    public List<OrderItem> findAll() {
+    public List<LineItem> findAll() {
         return orderItemRepository.findAll();
     }
 }

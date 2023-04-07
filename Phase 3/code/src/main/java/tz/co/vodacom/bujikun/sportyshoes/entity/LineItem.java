@@ -17,13 +17,14 @@ import java.util.Set;
 @Setter
 @Builder
 @Entity
-@Table(name = "order_items")
+@Table(name = "line_items")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-public class OrderItem {
+public class LineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String productName;
+    private Integer productId;
     private Integer lineItemCount;
     private BigDecimal lineItemPrice;
     private BigDecimal totalLinePrice;
@@ -31,6 +32,6 @@ public class OrderItem {
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-    @ManyToMany(mappedBy = "orderItems")
+    @ManyToMany(mappedBy = "lineItems")
     private Set<Order> orders;
 }

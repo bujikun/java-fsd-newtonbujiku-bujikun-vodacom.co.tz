@@ -26,9 +26,10 @@
             <strong><i class="fas fa-stop-circle"></i>&nbsp;&nbsp;<span>You have not placed any orders!</span></strong>
             <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
         </div>
+
         <div class=" row" th:with="Util=${T(tz.co.vodacom.bujikun.sportyshoes.util.Util)}">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-4" th:each="order:${orders}">
-                <div class="card" th:with="orderItemsSize = ${order.getOrderItems().size()}">
+                <div class="card" th:with="orderItemsSize = ${order.getLineItems().size()}">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -52,7 +53,7 @@
                     <div
                             class="card-footer border-0 bg-light p-2 d-flex justify-content-start">
                         <div class="text-muted small"
-                             th:text="'Created On: '+${Util.convertDateTimeToString(order.getCreatedOn())}">
+                             th:text="'Created On: '+${Util.convertDateToString(order.getCreatedOn())}">
 
                         </div>
                     </div>
@@ -64,8 +65,9 @@
     </div>
     <div layout:fragment="scripts">
         <script>
-            setActiveNavLink("#categories-page");
+            setActiveNavLink("#orders-page");
         </script>
     </div>
+</div>
 </body>
 </html>

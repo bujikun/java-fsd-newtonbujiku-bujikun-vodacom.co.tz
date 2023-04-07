@@ -31,7 +31,7 @@
             <!-- Container wrapper -->
             <div class="container">
                 <!-- Navbar brand -->
-                <a class="navbar-brand ms-2 me-5" th:href="@{/}">
+                <a class="navbar-brand ms-2 me-2" th:href="@{/}">
                     <img src="/img/logo/logo_black.png" alt="logo" class="logo" style="margin-top: -1px;">
                 </a>
 
@@ -69,6 +69,12 @@
                         </li>
                         <li class="nav-item" sec:authorize="hasAuthority('user:view:all')">
                             <a class="nav-link" href="/users" id="users-page">Users</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasAuthority('report:view')">
+                            <a class="nav-link" href="/reports" id="reports-page">Reports</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasAuthority('manage:view')">
+                            <a class="nav-link" href="/manage" id="manage-page">Manage</a>
                         </li>
                     </ul>
                     <!-- Left links -->

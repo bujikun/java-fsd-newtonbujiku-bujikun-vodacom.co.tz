@@ -5,12 +5,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,21 +24,21 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "orders_items",
+    @JoinTable(name = "orders_line_items",
             joinColumns = {@JoinColumn(name = "fk_order_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "fk_item_id", referencedColumnName = "id")}
     )
-    private Set<OrderItem> orderItems;
+    private Set<LineItem> lineItems;
     @ManyToOne
     @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
     private User user;
     @Transient
     private BigDecimal totalPrice;
     @CreationTimestamp
-    private LocalDateTime createdOn;
+    private LocalDate createdOn;
 
     public BigDecimal getTotalPrice() {
-        return  this.getOrderItems().stream()
+        return  this.getLineItems().stream()
                 .map(i->i.getTotalLinePrice())
                 .reduce(new BigDecimal(0),(current, subtotal)->
                         subtotal.add(current));

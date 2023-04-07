@@ -29,9 +29,13 @@ public class CartController {
                     //filter out of stock by not showing them in index page
                     if (product.getCount() < pdto.getCount()) {
                         //cart has more items than available, force the maximum
+                        //you can buy all that is available
                         pdto.setCount(product.getCount());
                         //pdto.setPrice(product.getPrice());
                     }
+                    //reduce stock
+                    product.setCount(product.getCount()- pdto.getCount());
+                    productService.updateStock(product);
                     pdto.setName(product.getName());
                     pdto.setPrice(product.getPrice().multiply(BigDecimal.valueOf(pdto.getCount())));
                     return pdto;
