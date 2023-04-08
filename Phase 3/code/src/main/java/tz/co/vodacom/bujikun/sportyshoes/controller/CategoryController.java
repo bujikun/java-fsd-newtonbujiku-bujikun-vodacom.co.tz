@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tz.co.vodacom.bujikun.sportyshoes.dao.ProductCategoryDAO;
 import tz.co.vodacom.bujikun.sportyshoes.entity.Category;
+import tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName;
 import tz.co.vodacom.bujikun.sportyshoes.service.CategoryService;
 import tz.co.vodacom.bujikun.sportyshoes.service.ProductService;
 

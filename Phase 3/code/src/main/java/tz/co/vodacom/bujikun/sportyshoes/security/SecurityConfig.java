@@ -6,7 +6,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,7 +23,15 @@ public class SecurityConfig {
                                                    DaoAuthenticationProvider daoAuthenticationProvider
     ) throws Exception {
         httpSecurity
-                .authorizeHttpRequests(req -> req.requestMatchers("/").permitAll()
+                .authorizeHttpRequests(req -> req
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
+                        .requestMatchers("/font/**").permitAll()
+                        .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/img/**").permitAll()
+                        .requestMatchers("/imgs/**").permitAll()
+                        .requestMatchers("/favicon.co").permitAll()
                         .requestMatchers("/products", "/products/").permitAll()
                         .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/cart","/cart/").permitAll()
@@ -55,14 +62,6 @@ public class SecurityConfig {
                 .authenticationProvider(daoAuthenticationProvider);
 
         return httpSecurity.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> {
-            web.ignoring().requestMatchers("/css/**", "/webjars/**", "/font/**",
-                    "/js/**", "/img/**", "/imgs/**", "/favicon.co");
-        };
     }
 
     @Bean

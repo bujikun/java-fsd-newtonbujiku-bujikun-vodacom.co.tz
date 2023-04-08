@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import tz.co.vodacom.bujikun.sportyshoes.enumeration.PermissionName;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
