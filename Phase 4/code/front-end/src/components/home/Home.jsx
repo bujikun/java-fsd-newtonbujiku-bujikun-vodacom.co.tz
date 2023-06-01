@@ -6,10 +6,12 @@ const Home = () => {
   return (
     <section className="home">
       <div className="row">
-        <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
-          <h1>Kitchen Stories</h1>
-                  <SearchBar />
-                  <FoodList/>
+        <div className="col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1">
+          <div className="header">
+            <h1>Kitchen Stories</h1>
+          </div>
+          <SearchBar />
+          <FoodList />
         </div>
       </div>
     </section>

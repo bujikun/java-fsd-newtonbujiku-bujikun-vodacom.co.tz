@@ -1,44 +1,51 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-const url = "http://localhost:8080/api/foods/search?name="
+import { addFoodItems,clearFoodItems } from "../../redux/features/foods/foodSlice";
+const url = "http://localhost:8080/api/foods/search?name=";
 const SearchBar = () => {
-    const [query, setQuery] = useState("");
-    const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get(url + query);
-                console.log(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchData();
-    }, [query])
-    
-    const handleChange = e => {
-        setQuery(e.target.value);
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+          const data = await axios.get(url + query);
+          console.log(data);
+        dispatch(addFoodItems(data.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+      if (query.trim()==="") {
+          dispatch(clearFoodItems([]));
+          return;
+      }
+      fetchData();
+  }, [query]);
 
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
 
   return (
-      <div>
-          <form onSubmit={e=>e.preventDefault()}>
-              <div className="form-group my-3">
-                  <label htmlFor="search"></label>
+    <div>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <div className="form-group my-3">
+          <label htmlFor="search"></label>
                   <input
-                      type="text"
-                      className="form-control form-control-lg"
-                      name="search"
-                      id="search"
-                      value={query}
-                      onChange={e=>handleChange(e)}
-                  />
-              </div>
-          </form>
+                      style={{"border":"2px solid green"}}
+            type="text"
+            className="form-control form-control-lg"
+            name="search"
+            id="search"
+            value={query}
+                      onChange={(e) => handleChange(e)}
+                      placeholder="Type Food Name"
+          />
+        </div>
+      </form>
     </div>
-  )
-}
-export default SearchBar
+  );
+};
+export default SearchBar;

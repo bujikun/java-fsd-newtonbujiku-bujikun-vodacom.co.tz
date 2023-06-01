@@ -4,6 +4,7 @@ import { selectAvailableFoods } from "../../redux/features/foods/foodSlice";
 
 const FoodList = () => {
     const foods = useSelector(selectAvailableFoods);
+    
   return (
     <div className="my-2">
       <ol className="list-group">

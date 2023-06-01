@@ -4,7 +4,7 @@ import Home from './components/home/Home'
 function App() {
 
   return (
-    <main className='container'>
+    <main className='container-fluid'>
       <Home/>
     </main>
   )
