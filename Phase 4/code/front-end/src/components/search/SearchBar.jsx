@@ -33,15 +33,14 @@ const SearchBar = () => {
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="form-group my-3">
           <label htmlFor="search"></label>
-                  <input
-                      style={{"border":"2px solid green"}}
+          <input
+            style={{ border: "2px solid #333" }}
             type="text"
             className="form-control form-control-lg"
             name="search"
             id="search"
             value={query}
-                      onChange={(e) => handleChange(e)}
-                      placeholder="Type Food Name"
+            onChange={(e) => handleChange(e)}
           />
         </div>
       </form>

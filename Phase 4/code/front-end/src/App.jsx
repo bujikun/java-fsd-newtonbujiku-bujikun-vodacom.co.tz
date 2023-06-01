@@ -1,13 +1,19 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Home from './components/home/Home'
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes,Route } from "react-router-dom";
+import Home from "./components/home/Home";
+import FoodItems from "./components/food_items/FoodItems";
+import NavBar from "./components/navbar/NavBar";
 function App() {
-
   return (
-    <main className='container-fluid'>
-      <Home/>
-    </main>
-  )
+    <>
+      <NavBar/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/food-items" element={<FoodItems />} />
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;

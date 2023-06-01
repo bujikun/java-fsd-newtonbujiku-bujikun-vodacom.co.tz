@@ -1,0 +1,40 @@
+.navbar-content{
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    margin: 0 0 0 .4rem;
+}
+
+.navbar-items{
+    /* vertical-align: middle; */
+    margin-left: 2rem;
+}
+.navbar-list{
+    vertical-align: middle;
+}
+.navbar-item{
+    list-style-type: none;
+    display: inline-block;
+    margin: .2rem .2rem;
+    padding: .1rem;
+}
+
+.brand{
+       margin: .2rem .4rem;
+    padding: .1rem; 
+    font-weight: 600;
+}
+
+a:link,a:visited{
+    color: #333;  
+    text-decoration: none; 
+    padding: .8rem;
+
+}
+
+a:is(:hover,:focus){
+background-color: rgb(179, 224, 179);
+color: rgb(10, 109, 10);
+font-weight: 600;
+}
+
