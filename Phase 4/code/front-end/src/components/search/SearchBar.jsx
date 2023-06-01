@@ -1,14 +1,31 @@
-import { useState } from "react"
-
+import axios from "axios";
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux";
+const url = "http://localhost:8080/api/foods/search?name="
 const SearchBar = () => {
-    const [query,setQuery] = useState("");
+    const [query, setQuery] = useState("");
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axios.get(url + query);
+                console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchData();
+    }, [query])
+    
     const handleChange = e => {
-        
+        setQuery(e.target.value);
     }
+
+
   return (
       <div>
-          <form >
+          <form onSubmit={e=>e.preventDefault()}>
               <div className="form-group my-3">
                   <label htmlFor="search"></label>
                   <input
@@ -18,7 +35,6 @@ const SearchBar = () => {
                       id="search"
                       value={query}
                       onChange={e=>handleChange(e)}
-
                   />
               </div>
           </form>
