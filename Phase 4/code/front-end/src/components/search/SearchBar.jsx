@@ -1,8 +1,8 @@
 import { useState } from "react"
 
 const SearchBar = () => {
-    const [queryText, setQueryText] = useState("");
-    
+    const [query,setQuery] = useState("");
+
     const handleChange = e => {
         
     }
@@ -16,7 +16,7 @@ const SearchBar = () => {
                       className="form-control form-control-lg"
                       name="search"
                       id="search"
-                      value={queryText}
+                      value={query}
                       onChange={e=>handleChange(e)}
 
                   />
