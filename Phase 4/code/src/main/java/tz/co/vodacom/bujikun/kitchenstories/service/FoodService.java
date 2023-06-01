@@ -27,4 +27,8 @@ public class FoodService {
     public Food findById(Integer id){
         return foodRepository.findById(id).orElse(null);
     }
+
+    public List<Food> searchByName(String name){
+        return foodRepository.findFoodsByNameContainingIgnoreCase(name);
+    }
 }
