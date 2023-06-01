@@ -1,4 +1,4 @@
-import FoodList from "../food_list/FoodList";
+import FoodList from "../food_list/SearchResultList";
 import SearchBar from "../search/SearchBar";
 import "./home.css";
 
