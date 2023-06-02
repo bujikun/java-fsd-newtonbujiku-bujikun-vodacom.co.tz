@@ -24,7 +24,7 @@ const OrderDetails = () => {
                  <CustomerDetails />
                   <OrderItems />
                   <div>
-                      <Link to={""} className="btn btn-lg btn-primary">Make Payment</Link >
+                      <Link to={"/payment"} className="btn btn-lg btn-primary">Make Payment</Link >
                   </div>
         </div>
       </section>

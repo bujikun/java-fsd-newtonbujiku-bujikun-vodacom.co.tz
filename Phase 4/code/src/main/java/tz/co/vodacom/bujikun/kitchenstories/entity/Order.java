@@ -1,5 +1,6 @@
 package tz.co.vodacom.bujikun.kitchenstories.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -26,6 +27,7 @@ public class Order {
     private String orderNumber;
     @Transient
     private BigDecimal totalPrice;
+    @JsonProperty("order_items")
     @MappedCollection(idColumn = "fk_order_id",keyColumn = "id")
     private List<OrderItem> orderItems;
     @Column("version")

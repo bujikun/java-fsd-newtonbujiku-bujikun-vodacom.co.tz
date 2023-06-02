@@ -7,6 +7,7 @@ import NavBar from "./components/navbar/NavBar";
 import Cart from "./components/cart/Cart.jsx";
 import CustomerForm from "./components/customer/CustomerForm";
 import OrderDetails from "./components/order/OrderDetails";
+import ProgressBar from "./components/progressbar/ProgressBar";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/foods/:id" element={<div>Book</div>} />
         <Route path="/register-customer" element={<CustomerForm />} />
         <Route path="/order-details" element={<OrderDetails />} />
+        <Route path="/payment" element={<ProgressBar/>} />
       </Routes>
     </>
   );

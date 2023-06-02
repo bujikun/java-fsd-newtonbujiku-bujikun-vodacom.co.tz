@@ -1,5 +1,6 @@
 package tz.co.vodacom.bujikun.kitchenstories.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -20,8 +21,10 @@ import java.time.LocalDateTime;
 public class OrderItem {
     @Id
     private Integer id;
+    @JsonProperty("food_name")
     @Column("food_name")
     private String foodName;
+    @JsonProperty("unit_price")
     @Column("unit_price")
     private BigDecimal unitPrice;
     @Column("quantity")
