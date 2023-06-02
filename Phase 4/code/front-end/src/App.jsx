@@ -5,6 +5,7 @@ import Home from "./components/home/Home";
 import FoodItems from "./components/food_items/FoodItems";
 import NavBar from "./components/navbar/NavBar";
 import Cart from "./components/cart/Cart.jsx";
+import UserForm from "./components/customer_form/CustomerForm";
 function App() {
   return (
     <>
@@ -14,7 +15,7 @@ function App() {
         <Route path="/food-items" element={<FoodItems />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/foods/:id" element={<div>Book</div>} />
-        <Route path="/register-customer" element={<div>Book</div>} />
+        <Route path="/register-customer" element={<UserForm/>} />
       </Routes>
     </>
   );

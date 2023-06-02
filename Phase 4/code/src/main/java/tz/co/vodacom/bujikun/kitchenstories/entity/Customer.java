@@ -22,8 +22,6 @@ public class Customer {
     private String firstName;
     @Column("last_name")
     private String lastName;
-    @Column("phone_number")
-    private String phoneNumber;
     @Column("email")
     private String email;
     @Column("account_number")
