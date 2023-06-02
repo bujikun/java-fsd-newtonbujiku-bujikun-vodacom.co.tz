@@ -7,7 +7,7 @@ const store = configureStore({
     reducer: {
         foods: foodReducer,
         cart: cartReducer,
-        customers:customerReducer
+        customer:customerReducer
     }
 });
 

@@ -2,16 +2,18 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { addCustomer } from "../../redux/features/customer/customerSlice";
+import { Link } from "react-router-dom";
 const initialCustomer = {
   first_name: "",
   last_name: "",
   email: "",
   account_number: uuid().slice(0, 23).toLocaleUpperCase(),
+  
 };
 const CustomerForm = () => {
   const dispatch = useDispatch();
   const [customer, setCustomer] = useState(initialCustomer);
-
+  const [isRegistered, setIsRegistered] = useState(false);
   const isValidCustomer =
     Boolean(customer.first_name) &&
     Boolean(customer.last_name) &&
@@ -31,7 +33,12 @@ const CustomerForm = () => {
       email: "",
       account_number: "",
     });
+    setIsRegistered(true);
   };
+  if (isRegistered) {
+    return <Link to={"/order-details"} type="button"
+    className="btn btn-lg btn-primary my-5">Proceed To Order Confirmation </Link>
+  }
   return (
     <main className="container">
       <section className="row">
@@ -94,7 +101,7 @@ const CustomerForm = () => {
             <div className="d-flex justify-content-end mb-3">
               <button
                 className="btn btn-lg btn-success"
-                onClick={() => handleRegisterClick}
+                onClick={handleRegisterClick}
                 disabled={!isValidCustomer}
               >
                 Register
