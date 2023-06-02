@@ -34,7 +34,6 @@ CREATE TABLE `foods`
 (
     `id`         int            NOT NULL AUTO_INCREMENT,
     `name`       varchar(255)   NOT NULL,
-    `quantity`   int            NOT NULL,
     `price`      decimal(10, 2) NOT NULL,
     `img_url`    varchar(255)   NOT NULL,
     `created_on` datetime(6) DEFAULT NULL,

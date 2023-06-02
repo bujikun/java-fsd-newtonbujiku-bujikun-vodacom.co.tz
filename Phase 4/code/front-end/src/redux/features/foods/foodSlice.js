@@ -1,21 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    foodItems: [
-        
-    ]
-}
+  foodItems: [],
+};
 const foodSlice = createSlice({
-    name: "foods",
-    initialState,
-    reducers: {
-        addFoodItems(state, action) {
-            state.foodItems = action.payload;
-        },
-        clearFoodItems(state, action) {
-            state.foodItems = action.payload;
-        }
-    } 
+  name: "foods",
+  initialState,
+  reducers: {
+    addFoodItems(state, action) {
+      state.foodItems = action.payload;
+    },
+    clearFoodItems(state, action) {
+      state.foodItems = action.payload;
+    },
+  },
 });
 
 export const { addFoodItems, clearFoodItems } = foodSlice.actions;

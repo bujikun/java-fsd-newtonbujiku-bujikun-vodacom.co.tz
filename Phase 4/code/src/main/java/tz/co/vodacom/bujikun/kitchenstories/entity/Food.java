@@ -21,8 +21,6 @@ public class Food {
     private Integer id;
     @Column("name")
     private String name;
-    @Column("quantity")
-    private Integer quantity;
     @Column("price")
     private BigDecimal price;
     @Column("img_url")

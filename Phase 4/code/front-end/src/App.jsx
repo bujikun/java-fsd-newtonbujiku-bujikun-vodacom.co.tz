@@ -4,14 +4,16 @@ import { Routes,Route } from "react-router-dom";
 import Home from "./components/home/Home";
 import FoodItems from "./components/food_items/FoodItems";
 import NavBar from "./components/navbar/NavBar";
+import Cart from "./components/cart/Cart.jsx";
 function App() {
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/food-items" element={<FoodItems />} />
-        <Route path="/foods/:id" element={ <div>Book</div> } />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/foods/:id" element={<div>Book</div>} />
       </Routes>
     </>
   );

@@ -10,9 +10,8 @@ const SearchBar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-          const data = await axios.get(url + query);
-          console.log(data);
-        dispatch(addFoodItems(data.data));
+          const {data} = await axios.get(url + query);
+        dispatch(addFoodItems(data));
       } catch (error) {
         console.error(error);
       }

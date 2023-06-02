@@ -20,19 +20,21 @@
 }
 
 .brand{
-       margin: .2rem .4rem;
+    margin: .2rem .4rem;
     padding: .1rem; 
     font-weight: 600;
 }
-
-a:link,a:visited{
+.navbar-item>a:visited{
+color: #333;  
+}
+.navbar-item>a:link{
     color: #333;  
     text-decoration: none; 
     padding: .8rem;
 
 }
 
-a:is(:hover,:focus){
+.navbar-item>a:hover,.navbar-item>a:active{
 background-color: rgb(179, 224, 179);
 color: rgb(10, 109, 10);
 font-weight: 600;

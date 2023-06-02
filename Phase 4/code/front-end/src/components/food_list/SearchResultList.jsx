@@ -1,10 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./food_list.css";
 import { selectAvailableFoods } from "../../redux/features/foods/foodSlice";
-import { Link } from "react-router-dom";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 
 const FoodList = () => {
   const foods = useSelector(selectAvailableFoods);
+  const dispatch = useDispatch();
+  const handleClick = (id) => {
+    const food = foods.find((food) => food.id === id);
+    dispatch(addToCart(food));
+  }
   const handleMouseEnter = (e) => {
     e.target.className =
       "list-group-item list-group-item-action list-group-item-success";
@@ -16,13 +21,15 @@ const FoodList = () => {
     <div className="my-2">
       <div className="list-group">
         {foods.map((food) => (
-          <Link
+          <div
             className="list-group-item list-group-item-action"
+            style={{"cursor":"pointer"}}
             key={food.id}
-            to={`/foods/${food.id}`}
+            value={food.id}
             onMouseEnter={(e) => handleMouseEnter(e)}
             onMouseLeave={(e) => handleMouseLeave(e)}
-          >{`${food.name} --- $${food.price}`}</Link>
+            onClick={() => handleClick(food.id)}
+          >{`${food.name} --- $${food.price}`}</div>
         ))}
       </div>
     </div>
