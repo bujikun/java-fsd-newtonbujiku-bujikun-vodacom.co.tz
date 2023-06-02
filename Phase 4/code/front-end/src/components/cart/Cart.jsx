@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeCartItem, selectAllCartItems } from "../../redux/features/cart/cartSlice";
+import { Link } from "react-router-dom";
+import {
+  clearCart,
+  removeCartItem,
+  selectAllCartItems,
+} from "../../redux/features/cart/cartSlice";
 const Cart = () => {
   const cartItems = useSelector(selectAllCartItems);
   const dispatch = useDispatch();
@@ -27,8 +32,13 @@ const Cart = () => {
               <span className="display-6">Cart Items</span>
             </div>
             <div className="">
-              <button className="btn btn-success me-2 my-1">Checkout</button>
-              <button className="btn btn-danger me-2">Clear Cart</button>
+              <Link className="btn btn-success me-2 my-1" type="button" to={"/register-customer"}>Checkout</Link>
+              <button
+                className="btn btn-danger me-2"
+                onClick={()=>dispatch(clearCart())}
+              >
+                Clear Cart
+              </button>
             </div>
           </div>
         </div>
@@ -76,10 +86,6 @@ const Cart = () => {
                     <span>Total: </span>{" "}
                     <span className="px-4">${totalPrice.toFixed(2)}</span>
                   </td>
-                  {/* <td colSpan={2}>
-                    <button className="btn btn-success me-2">Checkout</button>
-                    <button className="btn btn-danger me-2">Clear Cart</button>
-                  </td> */}
                 </tr>
               </tfoot>
             </table>
