@@ -3,14 +3,34 @@ import { removeCartItem, selectAllCartItems } from "../../redux/features/cart/ca
 const Cart = () => {
   const cartItems = useSelector(selectAllCartItems);
   const dispatch = useDispatch();
-  return (
+  let totalPrice = 0;
+  cartItems.forEach((item) => {
+    const itemTotal = item.quantity * item.price;
+    totalPrice += itemTotal;
+  });
+  return cartItems.length === 0 ? (
+    <div className="my-5">
+      <span className="display-6 text-danger">No items in the cart!</span>
+    </div>
+  ) : (
     <main className="container">
       <section className="row">
         <div
           className="my-4 d-flex flex-column justify-content- align-items-center"
           style={{ width: "100%" }}
         >
-          <span className="display-6">Cart Items</span>
+          <div
+            className="d-flex justify-content-between align-items-center"
+            style={{ width: "80%" }}
+          >
+            <div className="">
+              <span className="display-6">Cart Items</span>
+            </div>
+            <div className="">
+              <button className="btn btn-success me-2 my-1">Checkout</button>
+              <button className="btn btn-danger me-2">Clear Cart</button>
+            </div>
+          </div>
         </div>
         <div className="col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1">
           <div>
@@ -38,7 +58,7 @@ const Cart = () => {
                           cursor: "pointer",
                           fontWeight: "600",
                         }}
-                        onClick={()=>dispatch(removeCartItem(item.id))}
+                        onClick={() => dispatch(removeCartItem(item.id))}
                       >
                         X
                       </div>
@@ -46,7 +66,22 @@ const Cart = () => {
                   </tr>
                 ))}
               </tbody>
-              <tfoot></tfoot>
+              <tfoot>
+                <tr>
+                  <td
+                    colSpan={4}
+                    className="text-success"
+                    style={{ fontWeight: "600", fontSize: "1.5rem" }}
+                  >
+                    <span>Total: </span>{" "}
+                    <span className="px-4">${totalPrice.toFixed(2)}</span>
+                  </td>
+                  {/* <td colSpan={2}>
+                    <button className="btn btn-success me-2">Checkout</button>
+                    <button className="btn btn-danger me-2">Clear Cart</button>
+                  </td> */}
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
