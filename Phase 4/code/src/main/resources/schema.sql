@@ -65,16 +65,15 @@ CREATE TABLE `orders`
 DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE `order_items`
 (
-    `id`         int            NOT NULL AUTO_INCREMENT,
+    `id`         int            NOT NULL,
     `food_name`  varchar(255)   NOT NULL,
     `unit_price` decimal(10, 2) NOT NULL,
     `quantity`   int            NOT NULL,
-    `order_id`   int            NOT NULL,
+    `fk_order_id`   int            NOT NULL,
     `created_on` datetime(6) DEFAULT NULL,
     `updated_on` datetime(6) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `order_id` (`order_id`),
-    CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
+    KEY `order_id` (`fk_order_id`),
+    CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`fk_order_id`) REFERENCES `orders` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;

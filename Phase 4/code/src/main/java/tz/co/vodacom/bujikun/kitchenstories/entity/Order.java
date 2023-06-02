@@ -25,9 +25,10 @@ public class Order {
     private Integer id;
     @Column("order_number")
     private String orderNumber;
-    @Transient
-    private BigDecimal totalPrice;
-    @JsonProperty("order_items")
+//    @Transient
+//    private Customer customer;
+    @Column("fk_customer_id")
+    private Integer customerId;
     @MappedCollection(idColumn = "fk_order_id",keyColumn = "id")
     private List<OrderItem> orderItems;
     @Column("version")

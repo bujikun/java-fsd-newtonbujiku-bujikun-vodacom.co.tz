@@ -21,16 +21,12 @@ import java.time.LocalDateTime;
 public class OrderItem {
     @Id
     private Integer id;
-    @JsonProperty("food_name")
     @Column("food_name")
     private String foodName;
-    @JsonProperty("unit_price")
     @Column("unit_price")
     private BigDecimal unitPrice;
     @Column("quantity")
     private Integer quantity;
-    @Column("version")
-    private Integer version;
     @Transient
     private BigDecimal totalOrderItemPrice;
     @Column("created_on")
