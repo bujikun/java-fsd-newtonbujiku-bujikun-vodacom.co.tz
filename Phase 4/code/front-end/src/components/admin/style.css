@@ -25,3 +25,52 @@
     font-weight: 900;
     font-size: 1.2rem;
 }
+
+.navbar-content{
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    margin: 0 0 0 .4rem;
+}
+
+.navbar-items{
+    /* vertical-align: middle; */
+    margin-left: 2rem;
+}
+.navbar-list{
+    vertical-align: middle;
+}
+.navbar-item,.navbar-item-logout{
+    list-style-type: none;
+    display: inline-block;
+    margin: .2rem .2rem;
+    padding: .1rem;
+}
+
+.brand{
+    margin: .2rem .4rem;
+    padding: .1rem; 
+    font-weight: 600;
+}
+.navbar-item>a:visited,.navbar-item-logout>a:visited{
+color: #333;  
+}
+
+.navbar-item>a:link, .navbar-item-logout>a:link{
+    color: #333;  
+    text-decoration: none; 
+    padding: .8rem;
+
+}
+
+.navbar-item>a:hover,.navbar-item>a:active{
+background-color: rgb(179, 224, 179);
+color: rgb(10, 109, 10);
+font-weight: 600;
+}
+
+.navbar-item-logout>a:hover,.navbar-item-logout>a:active{
+background-color: rgb(199, 39, 21);
+color: rgb(253, 250, 250);
+font-weight: 600;
+}

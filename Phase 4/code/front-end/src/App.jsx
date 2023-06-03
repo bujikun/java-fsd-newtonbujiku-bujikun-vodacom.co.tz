@@ -11,6 +11,8 @@ import AdminRoutes from "./components/admin/AdminRoutes";
 import Login from "./components/admin/Login";
 import Dashboard from "./components/admin/Dashboard";
 import PublicLayout from "./components/public/PublicLayout";
+import AdminLayout from "./components/admin/AdminLayout";
+import FoodStock from "./components/admin/FoodStock";
 function App() {
   return (
     <>
@@ -25,7 +27,11 @@ function App() {
           <Route path="/payment" element={<ProgressBar />} />
         </Route>
         <Route element={<AdminRoutes />} path="/admin">
+          <Route element={<AdminLayout/>} path="">
           <Route element={<Dashboard />} index />
+          <Route element={<FoodStock />} path="food-stock" />
+
+          </Route>
         </Route>
         <Route element={<Login />} path="/login" />
       </Routes>

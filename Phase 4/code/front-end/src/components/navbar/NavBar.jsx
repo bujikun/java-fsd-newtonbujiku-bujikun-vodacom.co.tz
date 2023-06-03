@@ -24,6 +24,7 @@ const NavBar = () => {
                           Cart <span className="badge bg-danger">{ total}</span>
             </Link>
           </div>
+          
         </div>
       </div>
     </nav>
