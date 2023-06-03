@@ -1,5 +1,5 @@
 -- Adminer 4.8.1 MySQL 8.0.33 dump
-
+BEGIN ;
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
@@ -19,7 +19,7 @@ CREATE TABLE `customers`
     `last_name`      varchar(255) NOT NULL,
     `email`          varchar(100) NOT NULL,
     `account_number` varchar(100) NOT NULL,
-    `created_on`     datetime(6) DEFAULT NULL,
+    `created_on`     datetime(6) NOT NULL,
     `updated_on`     datetime(6) DEFAULT NULL,
     `version`        int         DEFAULT NULL,
     PRIMARY KEY (`id`)
@@ -35,8 +35,8 @@ CREATE TABLE `foods`
     `name`       varchar(255)   NOT NULL,
     `price`      decimal(10, 2) NOT NULL,
     `img_url`    varchar(255)   NOT NULL,
-    `created_on` datetime(6) DEFAULT NULL,
-    `updated_on` datetime(6) DEFAULT NULL,
+    `created_on`     datetime(6) NOT NULL,
+        `updated_on` datetime(6) DEFAULT NULL,
     `version`    int         DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -50,7 +50,7 @@ CREATE TABLE `orders`
     `id`           int          NOT NULL AUTO_INCREMENT,
     `order_number` varchar(255)  NOT NULL,
     `fk_customer_id`  int          NOT NULL,
-    `created_on`   datetime(6) DEFAULT NULL,
+    `created_on`     datetime(6) NOT NULL,
     `updated_on`   datetime(6) DEFAULT NULL,
     `version`      int         DEFAULT NULL,
     PRIMARY KEY (`id`),
@@ -70,7 +70,7 @@ CREATE TABLE `order_items`
     `unit_price` decimal(10, 2) NOT NULL,
     `quantity`   int            NOT NULL,
     `fk_order_id`   int            NOT NULL,
-    `created_on` datetime(6) DEFAULT NULL,
+    `created_on`     datetime(6) NOT NULL,
     `updated_on` datetime(6) DEFAULT NULL,
     KEY `order_id` (`fk_order_id`),
     CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`fk_order_id`) REFERENCES `orders` (`id`)
@@ -85,7 +85,7 @@ CREATE TABLE `permissions`
     `id`         int                                    NOT NULL AUTO_INCREMENT,
     `name`       varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
     `version`    int      DEFAULT NULL,
-    `created_on` datetime                               NOT NULL,
+    `created_on`     datetime(6) NOT NULL,
     `updated_on` datetime DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_pnvtwliis6p05pn6i3ndjrqt2` (`name`)
@@ -106,7 +106,7 @@ CREATE TABLE `users`
     `is_enabled`             bit(1)                                  NOT NULL,
     `version`                int         DEFAULT NULL,
     `updated_on`             datetime    DEFAULT NULL,
-    `created_on`             datetime(6) DEFAULT NULL,
+    `created_on`     datetime(6) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_r43af9ap4edm43mmtq01oddj6` (`username`)
 ) ENGINE = InnoDB
@@ -119,7 +119,7 @@ CREATE TABLE `users_permissions`
 (
     `fk_user_id`       int      NOT NULL,
     `fk_permission_id` int      NOT NULL,
-    `created_on`       datetime NOT NULL,
+    `created_on`     datetime(6) NOT NULL,
     `updated_on`       datetime DEFAULT NULL,
     PRIMARY KEY (`fk_user_id`, `fk_permission_id`),
     KEY `FKbvwr8podnb6u53eeiefx7agb3y6w` (`fk_permission_id`),
@@ -136,11 +136,11 @@ CREATE TABLE `tokens`
     `id`         int            NOT NULL AUTO_INCREMENT,
     `value`  varchar(255)   NOT NULL,
     `active`   bit            NOT NULL,
-    `created_on` datetime(6) DEFAULT NULL,
+    `created_on`     datetime(6) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-
+COMMIT ;
 -- 2023-05-31 17:34:44

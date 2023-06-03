@@ -21,7 +21,7 @@ public class OrderService {
         var customer = customerRepository.save(orderDTO.getCustomerDTO().toCustomer());
         var order = orderDTO.toOrder();
         order.setCustomerId(customer.getId());
-        order.setCreatedOn(LocalDateTime.now());
+        //order.setCreatedOn(LocalDateTime.now());
         order.setVersion(1);
         orderRepository.save(order);
     }
