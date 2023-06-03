@@ -5,11 +5,12 @@ import { selectCustomer } from "../../redux/features/customer/customerSlice";
 import { selectAllCartItems } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
+import { useRef } from "react";
 const ProgressBar = () => {
   const [progress, setProgress] = useState(0);
   const customer = useSelector(selectCustomer);
   const cartItems = useSelector(selectAllCartItems);
-
+  const effectRanRef = useRef(false);
   const navigate = useNavigate();
 
   const createOrder = async () => {
@@ -28,16 +29,19 @@ const ProgressBar = () => {
       ],
     };
     try {
-        const { data } = await axios.post(URL, order);
-        console.log(data);
+      const { data } = await axios.post(URL, order);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
-    useEffect(() => {
+  useEffect(() => {
+    if (!effectRanRef.current) {
       createOrder();
-    }, []);
-    
+    }
+      effectRanRef.current=true;
+  }, []);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (progress !== 100) {
