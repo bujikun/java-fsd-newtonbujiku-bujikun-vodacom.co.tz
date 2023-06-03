@@ -7,6 +7,7 @@ import tz.co.vodacom.bujikun.kitchenstories.dto.OrderDTO;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Order;
 import tz.co.vodacom.bujikun.kitchenstories.repository.CustomerRepository;
 import tz.co.vodacom.bujikun.kitchenstories.repository.OrderRepository;
+import tz.co.vodacom.bujikun.kitchenstories.util.DateUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,11 +18,12 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
+    private final DateUtil dateUtil;
     public void save(OrderDTO orderDTO){
         var customer = customerRepository.save(orderDTO.getCustomerDTO().toCustomer());
         var order = orderDTO.toOrder();
         order.setCustomerId(customer.getId());
-        //order.setCreatedOn(LocalDateTime.now());
+        order.setCreatedOn(LocalDateTime.now());
         order.setVersion(1);
         orderRepository.save(order);
     }
@@ -29,7 +31,7 @@ public class OrderService {
     public List<OrderDTO> findAll(){
        var  orders = (List<Order>) orderRepository.findAll();
       return orders.stream()
-               .map(o->OrderDTO.fromOrder(o))
+               .map(o->OrderDTO.fromOrder(o,dateUtil))
                .toList();
     }
 }

@@ -39,7 +39,8 @@ const SearchBar = () => {
             name="search"
             id="search"
             value={query}
-            onChange={(e) => handleChange(e)}
+                      onChange={(e) => handleChange(e)}
+                      placeholder="Search for  food item(s)"
           />
         </div>
       </form>

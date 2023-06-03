@@ -1,9 +1,11 @@
 package tz.co.vodacom.bujikun.kitchenstories.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Customer;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Order;
+import tz.co.vodacom.bujikun.kitchenstories.util.DateUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +19,7 @@ public class OrderDTO {
         @JsonProperty("order_number")
         private String orderNumber;
         @JsonProperty("customer")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private CustomerDTO customerDTO;
         @JsonProperty("customer_id")
         private Integer customerId;
@@ -24,6 +27,8 @@ public class OrderDTO {
         private List<OrderItemDTO> orderItemDTOs;
         @JsonProperty("total_price")
         private BigDecimal totalPrice;
+        @JsonProperty("created_on")
+        private String createdOn;
         public Order toOrder(){
                 return Order.builder()
                         .orderNumber(orderNumber)
@@ -34,7 +39,7 @@ public class OrderDTO {
                         .build();
         }
 
-        public static OrderDTO fromOrder(Order order){
+        public static OrderDTO fromOrder(Order order, DateUtil util){
 
                 var dto =  OrderDTO.builder()
                         .orderNumber(order.getOrderNumber())
@@ -44,6 +49,7 @@ public class OrderDTO {
                                 .map(OrderItemDTO::fromOrderItem)
                                 .toList()
                         )
+                        .createdOn(util.fromLocalDateTime(order.getCreatedOn()))
                         .build();
                 var total = dto.orderItemDTOs.stream()
                         .map(orderItemDTO -> orderItemDTO.getTotalOrderItemPrice())

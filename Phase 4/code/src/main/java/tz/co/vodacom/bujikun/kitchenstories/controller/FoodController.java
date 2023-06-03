@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tz.co.vodacom.bujikun.kitchenstories.dto.FoodDTO;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Food;
 import tz.co.vodacom.bujikun.kitchenstories.service.FoodService;
+import tz.co.vodacom.bujikun.kitchenstories.util.DateUtil;
 
 import java.util.List;
 
@@ -14,11 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FoodController {
     private final FoodService foodService;
+    private final DateUtil dateUtil;
     @GetMapping
-    public ResponseEntity<List<Food>> findAll(){
+    public ResponseEntity<List<FoodDTO>> findAll(){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(foodService.findAll());
+                .body(foodService.findAll().stream().map(f->FoodDTO.fromFood(f,dateUtil)).toList());
     }
 
     @GetMapping("/search")
@@ -35,8 +38,8 @@ public class FoodController {
                 .body(foodService.findById(id));
     }
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody Food food){
-        foodService.save(food);
+    public ResponseEntity<String> create(@RequestBody FoodDTO foodDTO){
+        foodService.save(foodDTO.toFood(dateUtil));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Food Item Added");
     }

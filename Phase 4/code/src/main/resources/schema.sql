@@ -70,8 +70,6 @@ CREATE TABLE `order_items`
     `unit_price` decimal(10, 2) NOT NULL,
     `quantity`   int            NOT NULL,
     `fk_order_id`   int            NOT NULL,
-    `created_on`     datetime(6) NOT NULL,
-    `updated_on` datetime(6) DEFAULT NULL,
     KEY `order_id` (`fk_order_id`),
     CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`fk_order_id`) REFERENCES `orders` (`id`)
 ) ENGINE = InnoDB

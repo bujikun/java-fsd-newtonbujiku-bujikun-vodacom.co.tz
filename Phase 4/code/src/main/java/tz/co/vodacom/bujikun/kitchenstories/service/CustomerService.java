@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     public void save(Customer customer){
-        //customer.setCreatedOn(LocalDateTime.now());
+        customer.setCreatedOn(LocalDateTime.now());
         customerRepository.save(customer);
     }
 }

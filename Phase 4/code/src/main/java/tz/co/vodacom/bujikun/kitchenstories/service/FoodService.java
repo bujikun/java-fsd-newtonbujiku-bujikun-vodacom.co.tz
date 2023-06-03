@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Food;
 import tz.co.vodacom.bujikun.kitchenstories.repository.FoodRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -13,7 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FoodService {
     private final FoodRepository foodRepository;
-    public void save(Food food){
+    public void save(Food food) {
+        //food.setCreatedOn(LocalDateTime.now());
         foodRepository.save(food);
     }
     public void delete(Integer id){

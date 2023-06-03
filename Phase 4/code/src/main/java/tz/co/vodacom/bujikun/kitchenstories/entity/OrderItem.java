@@ -29,10 +29,4 @@ public class OrderItem {
     private Integer quantity;
     @Transient
     private BigDecimal totalOrderItemPrice;
-    @Column("created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
-    @Column("updated_on")
-    @LastModifiedDate
-    private LocalDateTime updatedOn;
 }

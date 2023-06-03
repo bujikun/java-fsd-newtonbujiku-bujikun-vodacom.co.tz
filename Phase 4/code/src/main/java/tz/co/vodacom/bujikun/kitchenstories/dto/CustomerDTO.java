@@ -5,6 +5,7 @@ import lombok.*;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Customer;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +29,7 @@ public class CustomerDTO {
                         .lastName(lastName)
                         .email(email)
                         .accountNumber(accountNumber)
+                        .createdOn(LocalDateTime.now())
                         .build();
         }
 
