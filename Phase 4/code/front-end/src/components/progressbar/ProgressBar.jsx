@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectCustomer } from "../../redux/features/customer/customerSlice";
-import { selectAllCartItems } from "../../redux/features/cart/cartSlice";
+import { clearCart, selectAllCartItems } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 import { useRef } from "react";
@@ -11,7 +11,8 @@ const ProgressBar = () => {
   const customer = useSelector(selectCustomer);
   const cartItems = useSelector(selectAllCartItems);
   const effectRanRef = useRef(false);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
   const createOrder = async () => {
     const URL = "http://localhost:8080/api/orders";
@@ -48,7 +49,8 @@ const ProgressBar = () => {
         setProgress(progress + 20);
       }
       if (progress === 100) {
-        navigate("/");
+          navigate("/");
+          dispatch(clearCart());
       }
     }, 1500);
     return () => clearInterval(intervalId);

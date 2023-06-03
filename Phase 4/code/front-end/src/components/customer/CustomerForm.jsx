@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { addCustomer } from "../../redux/features/customer/customerSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const initialCustomer = {
   first_name: "",
   last_name: "",
@@ -13,7 +13,7 @@ const initialCustomer = {
 const CustomerForm = () => {
   const dispatch = useDispatch();
   const [customer, setCustomer] = useState(initialCustomer);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const navigate = useNavigate();
   const isValidCustomer =
     Boolean(customer.first_name) &&
     Boolean(customer.last_name) &&
@@ -33,12 +33,8 @@ const CustomerForm = () => {
       email: "",
       account_number: "",
     });
-    setIsRegistered(true);
+    navigate("/order-details");
   };
-  if (isRegistered) {
-    return <Link to={"/order-details"} type="button"
-    className="btn btn-lg btn-primary my-5">Proceed To Order Confirmation </Link>
-  }
   return (
     <main className="container">
       <section className="row">
