@@ -8,7 +8,7 @@ const AdminLayout = () => {
         <AdminNavBar />
       </header>
       <div className="row">
-        <div className="col-sm-12 col-md-10 col-lg-8 col-xl-8">
+        <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <Outlet />
         </div>
       </div>
