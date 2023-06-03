@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './style.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { isLoggedIn } from '../../redux/features/auth/authSlice';
 
 const URL = "http://localhost:8080/api/users/login";
 const initialUser = {
@@ -12,12 +14,13 @@ const Login = () => {
   const [user, setUser] = useState(initialUser);
   const [isValid, setIsValid] = useState(false);
   const [isLoginAttempt, setIsLoginAttempt] = useState(false);
+  const [isFailedLoginAttempt, setIsFailedLoginAttempt] = useState(false)
+  const dispatch = useDispatch();
 const navigate = useNavigate();
   useEffect(() => {
     if (isLoginAttempt) {
       doLogin();
     }
-    //didEffectRanRef.current = true;
   },[isLoginAttempt])
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: String(e.target.value).trim() });
@@ -35,20 +38,22 @@ const navigate = useNavigate();
       const { data } = await axios.post(URL, user);
       console.log(data);
       if (data) {
+        dispatch(isLoggedIn(true));
         navigate("/admin");
         return;
       }
       setIsLoginAttempt(false);
-    
+      setIsFailedLoginAttempt(true);
     } catch (error) {
       console.error(error);
     }
   }
   return (
     <main className="container">
+      {isFailedLoginAttempt && <FailedLoginAlert setIsFailedLoginAttempt={setIsFailedLoginAttempt} />}
       <div className="login">
         <div className="inner-container card">
-          <div className="bg-success p-2 login-header">
+          <div className="p-2 text-success">
             <h3>Admin Login</h3>
           </div>
           <form onSubmit={(e) => e.preventDefault()}>
@@ -90,6 +95,24 @@ const navigate = useNavigate();
         <div></div>
       </div>
     </main>
+  );
+}
+
+const FailedLoginAlert = ({setIsFailedLoginAttempt}) => {
+  return (
+    <div className="alert alert-danger" role="alert">
+      <div className="d-inline-block">
+        <strong>Holy Moly!</strong> Invalid username or password!
+      </div>
+      <div className="d-inline-block">
+        <div
+          type="button"
+          className='close-alert-btn mx-2 ms-5'
+          aria-label="Close"
+          onClick={() => setIsFailedLoginAttempt(false)}
+        >X</div>
+      </div>
+    </div>
   );
 }
 export default Login

@@ -13,6 +13,15 @@
     box-shadow: .5rem 1rem .5rem #f4f2f2;
 }
 
-.login-header{
+.close-alert-btn{
     color: white;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 2rem;
+    background-color: #990f1de3; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 1.2rem;
 }
