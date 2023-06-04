@@ -14,6 +14,8 @@ import PublicLayout from "./components/public/PublicLayout";
 import AdminLayout from "./components/admin/AdminLayout";
 import FoodStock from "./components/admin/FoodStock";
 import AddFoodItemForm from "./components/admin/AddFoodItemForm";
+import CustomerList from "./components/admin/CustomerList";
+import OrdersList from "./components/admin/OrdersList";
 function App() {
   return (
     <>
@@ -32,6 +34,8 @@ function App() {
             <Route element={<Dashboard />} index />
             <Route element={<FoodStock />} path="food-stock" />
             <Route element={<AddFoodItemForm />} path="food-stock/add" />
+            <Route element={<CustomerList />} path="customers" />
+            <Route element={<OrdersList />} path="orders" />
           </Route>
         </Route>
         <Route element={<Login />} path="/login" />

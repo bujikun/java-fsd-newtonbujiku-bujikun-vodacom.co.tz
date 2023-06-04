@@ -50,6 +50,7 @@ CREATE TABLE `orders`
     `id`           int          NOT NULL AUTO_INCREMENT,
     `order_number` varchar(255)  NOT NULL,
     `fk_customer_id`  int          NOT NULL,
+    `customer_name`  varchar(100)          NOT NULL,
     `created_on`     datetime(6) NOT NULL,
     `updated_on`   datetime(6) DEFAULT NULL,
     `version`      int         DEFAULT NULL,

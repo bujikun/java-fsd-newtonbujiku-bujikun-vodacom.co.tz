@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class CustomerDTO {
-
+        private Integer id;
         @JsonProperty("first_name")
         private  String firstName;
         @JsonProperty("last_name")
@@ -35,6 +35,7 @@ public class CustomerDTO {
 
         public static CustomerDTO fromCustomer(Customer customer){
                return CustomerDTO.builder()
+                       .id(customer.getId())
                        .firstName(customer.getFirstName())
                        .lastName(customer.getLastName())
                        .email(customer.getEmail())

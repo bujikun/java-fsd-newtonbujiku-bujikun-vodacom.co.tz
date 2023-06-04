@@ -16,6 +16,8 @@ import java.util.List;
 @Getter
 @Builder
 public class OrderDTO {
+        @JsonProperty("customer_name")
+        private String customerName;
         @JsonProperty("order_number")
         private String orderNumber;
         @JsonProperty("customer")
@@ -36,6 +38,7 @@ public class OrderDTO {
                                 .map(oid->oid.toOrderItem())
                                 .toList()
                         )
+                        .customerName(customerName)
                         .build();
         }
 
@@ -49,6 +52,7 @@ public class OrderDTO {
                                 .map(OrderItemDTO::fromOrderItem)
                                 .toList()
                         )
+                        .customerName(order.getCustomerName())
                         .createdOn(util.fromLocalDateTime(order.getCreatedOn()))
                         .build();
                 var total = dto.orderItemDTOs.stream()

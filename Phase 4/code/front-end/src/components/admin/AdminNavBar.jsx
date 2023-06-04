@@ -7,10 +7,10 @@ const AdminNavBar = () => {
         <div className="brand">Admin Console</div>
         <div className="navbar-items">
           <div className="navbar-item">
-            <Link to={"#"}>Orders</Link>
+            <Link to={"/admin/orders"}>Orders</Link>
           </div>
           <div className="navbar-item">
-            <Link to={"#"}>Customers</Link>
+            <Link to={"/admin/customers"}>Customers</Link>
           </div>
           <div className="navbar-item">
             <Link to={"/admin/food-stock"}>Food Stock</Link>

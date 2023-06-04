@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCustomer } from "../../redux/features/customer/customerSlice";
+import { clearCustomer, selectCustomer } from "../../redux/features/customer/customerSlice";
 import { clearCart, selectAllCartItems } from "../../redux/features/cart/cartSlice";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
@@ -49,8 +49,10 @@ const ProgressBar = () => {
         setProgress(progress + 20);
       }
       if (progress === 100) {
-          navigate("/");
+         
           dispatch(clearCart());
+        dispatch(clearCustomer())
+        
       }
     }, 1500);
     return () => clearInterval(intervalId);

@@ -6,16 +6,18 @@ const initialState = {
     }
 }
 const customerSlice = createSlice({
-    name: "customers",
-    initialState,
-    reducers: {
-        addCustomer(state, action) {
-            state.customer = action.payload;
-        }
-    }
-    
+  name: "customers",
+  initialState,
+  reducers: {
+    addCustomer(state, action) {
+      state.customer = action.payload;
+    },
+    clearCustomer(state, action) {
+      state.customer = {}
+    },
+  },
 });
 
-export const {addCustomer} = customerSlice.actions;
+export const {addCustomer,clearCustomer} = customerSlice.actions;
 export const customerReducer = customerSlice.reducer;
 export const selectCustomer = state=> state.customer.customer

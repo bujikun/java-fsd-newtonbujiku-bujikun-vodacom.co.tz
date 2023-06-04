@@ -25,6 +25,8 @@ public class Order {
     private Integer id;
     @Column("order_number")
     private String orderNumber;
+    @Column("customer_name")
+    private String customerName;
     @Column("fk_customer_id")
     private Integer customerId;
     @MappedCollection(idColumn = "fk_order_id",keyColumn = "id")
