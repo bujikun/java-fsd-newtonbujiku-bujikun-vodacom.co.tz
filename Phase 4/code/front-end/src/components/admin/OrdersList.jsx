@@ -48,7 +48,11 @@ const OrdersList = () => {
                       : item.food_name + " , "
                   )}
                 </td>
-                <td>{order.order_items.length}</td>
+                <td>
+                  {order.order_items.map((item) => Number(item.quantity))
+                    .reduce((total, current) => total+current)
+                  }
+                </td>
                 <td>${order.total_price}</td>
                 <td>{order.created_on}</td>
                 <td>{order.customer_name}</td>
