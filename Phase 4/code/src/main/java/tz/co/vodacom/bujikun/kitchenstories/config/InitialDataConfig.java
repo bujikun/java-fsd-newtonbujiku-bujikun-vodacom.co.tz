@@ -10,7 +10,6 @@ import tz.co.vodacom.bujikun.kitchenstories.entity.User;
 import tz.co.vodacom.bujikun.kitchenstories.repository.FoodRepository;
 import tz.co.vodacom.bujikun.kitchenstories.repository.PermissionRepository;
 import tz.co.vodacom.bujikun.kitchenstories.repository.UserRepository;
-import tz.co.vodacom.bujikun.kitchenstories.service.FoodService;
 import tz.co.vodacom.bujikun.kitchenstories.util.DateUtil;
 
 import java.math.BigDecimal;

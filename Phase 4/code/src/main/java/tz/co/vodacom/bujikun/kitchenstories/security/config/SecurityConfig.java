@@ -9,6 +9,8 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -21,7 +23,10 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
+import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -33,30 +38,53 @@ import java.util.UUID;
 @Configuration(proxyBeanMethods = false)
 public class SecurityConfig {
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity httpSecurity,
-            JwtDecoder jwtDecoder
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public SecurityFilterChain tokenSecurityFilterChain(
+            HttpSecurity httpSecurity
 
     ) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                         reqs -> reqs
-                                .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/auth/login", HttpMethod.POST.name())).authenticated()
+                                //.anyRequest().authenticated()
+                )
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                )
+                .httpBasic(Customizer.withDefaults());
+
+        return httpSecurity.build();
+    }
+
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE+1)
+    public SecurityFilterChain apiSecurityFilterChain(
+            HttpSecurity httpSecurity,
+            JwtDecoder jwtDecoder
+    ) throws Exception {
+        httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(
+                        reqs -> reqs
                                 .requestMatchers(HttpMethod.GET, "/api/foods", "/api/foods/search", "/api/foods/{id}")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/orders").permitAll()
                                 //.requestMatchers("/api/customers")
                                 .anyRequest().authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(ors -> ors
-                        .jwt(jwt ->jwt
+                        .jwt(jwt -> jwt
                                 //jwt.jwtAuthenticationConverter(null)
                                 .decoder(jwtDecoder)
                         )
-                );
+                )
+                .exceptionHandling(e -> e.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler()));
 
         return httpSecurity.build();
     }
@@ -64,11 +92,11 @@ public class SecurityConfig {
     @Bean
     public JwtDecoder jwtDecoder(ImmutableJWKSet<SecurityContext> immutableJWKSet) throws JOSEException {
         RSAKey key = immutableJWKSet.getJWKSet().getKeys().get(0).toRSAKey();
-        return  NimbusJwtDecoder.withPublicKey(key.toRSAPublicKey()).build();
+        return NimbusJwtDecoder.withPublicKey(key.toRSAPublicKey()).build();
     }
 
     @Bean
-    public JwtEncoder jwtEncoder(ImmutableJWKSet<SecurityContext> immutableJWKSet)  {
+    public JwtEncoder jwtEncoder(ImmutableJWKSet<SecurityContext> immutableJWKSet) {
         return new NimbusJwtEncoder(immutableJWKSet);
     }
 
@@ -80,7 +108,7 @@ public class SecurityConfig {
         KeyPair k = kp.generateKeyPair();
         RSAPublicKey publicKey = (RSAPublicKey) k.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) k.getPrivate();
-        JWK jwk =  new RSAKey.Builder(publicKey)
+        JWK jwk = new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
                 .keyID(UUID.randomUUID().toString())
                 .build();
@@ -88,7 +116,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -96,7 +124,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider daoAuthenticationProvider(
             PasswordEncoder passwordEncoder,
             UserDetailsService userDetailsService
-            ){
+    ) {
         var dap = new DaoAuthenticationProvider();
         dap.setPasswordEncoder(passwordEncoder);
         dap.setUserDetailsService(userDetailsService);
