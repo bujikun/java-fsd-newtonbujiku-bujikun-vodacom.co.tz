@@ -23,7 +23,7 @@ const navigate = useNavigate();
     }
   },[isLoginAttempt])
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: String(e.target.value).trim() });
+    setUser({ ...user, [e.target.name]: String(e.target.value).trimStart() });
     setIsValid(user.username.length>1&&user.password.length>1);
     console.log(isValid);
   }

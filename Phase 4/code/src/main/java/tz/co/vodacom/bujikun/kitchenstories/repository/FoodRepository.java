@@ -7,7 +7,7 @@ import tz.co.vodacom.bujikun.kitchenstories.entity.Food;
 import java.util.List;
 
 public interface FoodRepository extends BaseRepository <Food,Integer> {
-    @Query("SELECT * FROM foods")
+    @Query("SELECT * FROM foods ORDER BY created_on DESC ")
     List<Food> findAll();
     //@Query("SELECT * FROM foods  f WHERE f.name LIKE '%':name'%'")
     List<Food> findFoodsByNameContainingIgnoreCase(@Param("name") String name);

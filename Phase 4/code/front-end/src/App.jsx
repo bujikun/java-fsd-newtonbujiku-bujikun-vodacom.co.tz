@@ -13,6 +13,7 @@ import Dashboard from "./components/admin/Dashboard";
 import PublicLayout from "./components/public/PublicLayout";
 import AdminLayout from "./components/admin/AdminLayout";
 import FoodStock from "./components/admin/FoodStock";
+import AddFoodItemForm from "./components/admin/AddFoodItemForm";
 function App() {
   return (
     <>
@@ -27,10 +28,10 @@ function App() {
           <Route path="/payment" element={<ProgressBar />} />
         </Route>
         <Route element={<AdminRoutes />} path="/admin">
-          <Route element={<AdminLayout/>} path="">
-          <Route element={<Dashboard />} index />
-          <Route element={<FoodStock />} path="food-stock" />
-
+          <Route element={<AdminLayout />} path="">
+            <Route element={<Dashboard />} index />
+            <Route element={<FoodStock />} path="food-stock" />
+            <Route element={<AddFoodItemForm />} path="food-stock/add" />
           </Route>
         </Route>
         <Route element={<Login />} path="/login" />

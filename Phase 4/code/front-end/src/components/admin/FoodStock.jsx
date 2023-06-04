@@ -6,6 +6,7 @@ import {
 } from "../../redux/features/foods/foodSlice";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 const FoodStock = () => {
   const URL = "http://localhost:8080/api/foods";
     const foodStock = useSelector(selectAvailableFoods);
@@ -54,8 +55,11 @@ const FoodStock = () => {
       </div>
       <div>
         <div className="mt-5">
-          <button className="btn btn-primary me-3"> Add Food Item </button>
-          <button className="btn btn-danger"> Remove All </button>
+          <Link className="btn btn-primary me-3" to="/admin/food-stock/add">
+    
+            Add Food Item
+          </Link>
+          {/* <button className="btn btn-danger"> Remove All </button> */}
         </div>
         <table className="table table-striped table-bordeless table-hover">
           <thead>
@@ -100,7 +104,6 @@ const FoodStock = () => {
               </tr>
             ))}
           </tbody>
-     
         </table>
       </div>
     </div>
