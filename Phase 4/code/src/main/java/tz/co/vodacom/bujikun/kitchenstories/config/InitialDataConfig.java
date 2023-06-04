@@ -3,19 +3,33 @@ package tz.co.vodacom.bujikun.kitchenstories.config;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Food;
+import tz.co.vodacom.bujikun.kitchenstories.entity.Permission;
+import tz.co.vodacom.bujikun.kitchenstories.entity.User;
 import tz.co.vodacom.bujikun.kitchenstories.repository.FoodRepository;
+import tz.co.vodacom.bujikun.kitchenstories.repository.PermissionRepository;
+import tz.co.vodacom.bujikun.kitchenstories.repository.UserRepository;
 import tz.co.vodacom.bujikun.kitchenstories.service.FoodService;
+import tz.co.vodacom.bujikun.kitchenstories.util.DateUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration(proxyBeanMethods = false)
 public class InitialDataConfig {
     @Bean
-    public CommandLineRunner commandLineRunner(FoodRepository foodRepository) {
+    public CommandLineRunner commandLineRunner(FoodRepository foodRepository,
+                                               UserRepository userRepository,
+                                               PermissionRepository permissionRepository,
+                                               DateUtil dateUtil,
+                                               PasswordEncoder passwordEncoder
+                                               ) {
         return args -> {
+            try{
             foodRepository.deleteAll();
             var f1 = Food.builder()
                     .price(new BigDecimal(20.55d))
@@ -72,7 +86,34 @@ public class InitialDataConfig {
                     .createdOn(LocalDateTime.now())
                     .imageUrl("")
                     .build();
-            try{
+
+            var perm1 = Permission.builder()
+                    .name("order:view")
+                    .createdOn(dateUtil.now())
+                    .build();
+            var perm2 = Permission.builder()
+                    .name("food:delete")
+                    .createdOn(dateUtil.now())
+
+                    .build();
+                permissionRepository.saveAll(Set.of(perm1,perm2));
+
+            var user = User.builder()
+                    .username("admin")
+                    .password(passwordEncoder.encode("password"))
+                    .isEnabled(true)
+                    .isAccountExpired(false)
+                    .isAccountLocked(false)
+                    .isCredentialsExpired(false)
+                    .createdOn(dateUtil.now())
+                    .userPermissions(new HashSet<>())
+                    .build();
+
+            user.linkPermission(perm1);
+            user.linkPermission(perm2);
+
+
+                userRepository.save(user);
                 foodRepository.saveAll(List.of(f1,f2,f3,f4,f5,f6,f7,f8,f9));
             }catch (Exception e){
                 e.printStackTrace();

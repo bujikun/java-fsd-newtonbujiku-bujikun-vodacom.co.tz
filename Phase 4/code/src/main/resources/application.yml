@@ -17,4 +17,13 @@ springdoc:
     path: /api-docs
   packages-to-scan:
     - tz.co.vodacom.bujikun.kitchenstories.controller
-debug: true
+debug: false
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: TRACE
