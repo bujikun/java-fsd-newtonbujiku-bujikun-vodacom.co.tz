@@ -16,6 +16,7 @@ import FoodStock from "./components/admin/FoodStock";
 import AddFoodItemForm from "./components/admin/AddFoodItemForm";
 import CustomerList from "./components/admin/CustomerList";
 import OrdersList from "./components/admin/OrdersList";
+import ChangePasswordForm from "./components/admin/ChangePasswordForm";
 function App() {
   return (
     <>
@@ -35,6 +36,7 @@ function App() {
             <Route element={<AddFoodItemForm />} path="food-stock/add" />
             <Route element={<CustomerList />} path="customers" />
             <Route element={<OrdersList />} path="orders" />
+            <Route element={<ChangePasswordForm />} path="change-password" />
           </Route>
         </Route>
         <Route element={<Login />} path="/login" />

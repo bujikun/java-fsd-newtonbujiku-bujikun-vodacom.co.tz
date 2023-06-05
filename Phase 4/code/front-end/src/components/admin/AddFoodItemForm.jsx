@@ -96,7 +96,7 @@ const AddFoodItemForm = () => {
             </div>
             <div className="form-floating mb-3">
               <input
-                type="img_url"
+                type="text"
                 className="form-control"
                 id="img_url"
                 name="img_url"

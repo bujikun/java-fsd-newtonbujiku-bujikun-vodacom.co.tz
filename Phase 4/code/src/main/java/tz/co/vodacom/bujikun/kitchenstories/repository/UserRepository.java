@@ -8,4 +8,5 @@ import tz.co.vodacom.bujikun.kitchenstories.security.model.mapping.SecurityUserD
 import java.util.Optional;
 
 public interface UserRepository extends BaseRepository<User,Integer> {
+    Optional<User> findUserByUsername(String username);
 }

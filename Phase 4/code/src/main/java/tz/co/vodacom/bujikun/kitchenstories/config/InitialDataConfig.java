@@ -102,18 +102,38 @@ public class InitialDataConfig {
                         .build();
                 foodRepository.saveAll(List.of(f1, f2, f3, f4, f5, f6, f7, f8, f9));
 
-                var perm1 = Permission.builder()
-                        .name("order:view")
+                var perm8 = Permission.builder()
+                        .name("customer:read:all")
                         .createdOn(dateUtil.now())
                         .build();
-                var perm2 = Permission.builder()
-                        .name("food:delete")
+                var perm6 = Permission.builder()
+                        .name("food:create:one")
                         .createdOn(dateUtil.now())
-
                         .build();
-                permissionRepository.saveAll(Set.of(perm1, perm2));
 
-                var user = User.builder()
+                var perm5 = Permission.builder()
+                        .name("food:read:one")
+                        .createdOn(dateUtil.now())
+                        .build();
+
+                var perm7 = Permission.builder()
+                        .name("food:delete:one")
+                        .createdOn(dateUtil.now())
+                        .build();
+
+                var perm4 = Permission.builder()
+                        .name("order:read:all")
+                        .createdOn(dateUtil.now())
+                        .build();
+
+                var perm3 = Permission.builder()
+                        .name("user:change-password")
+                        .createdOn(dateUtil.now())
+                        .build();
+
+                permissionRepository.saveAll(Set.of(perm3,perm4,perm5,perm6,perm7,perm8));
+
+                var admin = User.builder()
                         .username("admin")
                         .password(passwordEncoder.encode("password"))
                         .isEnabled(true)
@@ -124,11 +144,22 @@ public class InitialDataConfig {
                         .userPermissions(new HashSet<>())
                         .build();
 
-                user.linkPermission(perm1);
-                user.linkPermission(perm2);
+                admin.linkPermissions(Set.of(perm3,perm4,perm5,perm6,perm7,perm8));
 
+                var manager = User.builder()
+                        .username("manager")
+                        .password(passwordEncoder.encode("password"))
+                        .isEnabled(true)
+                        .isAccountExpired(false)
+                        .isAccountLocked(false)
+                        .isCredentialsExpired(false)
+                        .createdOn(dateUtil.now())
+                        .userPermissions(new HashSet<>())
+                        .build();
+                manager.linkPermissions(Set.of(perm3,perm4));
+                userRepository.save(admin);
+                userRepository.save(manager);
 
-                userRepository.save(user);
             } catch (Exception e) {
                 e.printStackTrace();
             }

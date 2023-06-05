@@ -3,6 +3,7 @@ package tz.co.vodacom.bujikun.kitchenstories.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tz.co.vodacom.bujikun.kitchenstories.dto.FoodDTO;
 import tz.co.vodacom.bujikun.kitchenstories.entity.Food;
@@ -32,12 +33,15 @@ public class FoodController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('food:read:one')")
     public ResponseEntity <Food> findById(@PathVariable("id") Integer id){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(foodService.findById(id));
     }
     @PostMapping
+    @PreAuthorize("hasAuthority('food:create:one')")
+
     public ResponseEntity<String> create(@RequestBody FoodDTO foodDTO){
         foodService.save(foodDTO.toFood(dateUtil));
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -45,6 +49,7 @@ public class FoodController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('food:delete:one')")
     public ResponseEntity<String> delete(@PathVariable("id") Integer id){
         foodService.delete(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED)

@@ -29,8 +29,11 @@ navigate("/admin");
           <div className="navbar-item">
             <Link to={"/admin/food-stock"}>Food Stock</Link>
           </div>
+          <div className="navbar-item">
+            <Link to={"/admin/change-password"}>Change Password</Link>
+          </div>
           <div className="navbar-item-logout">
-            <Link onClick={doLogOut} >Log Out</Link>
+            <Link onClick={doLogOut}>Log Out</Link>
           </div>
         </div>
       </div>

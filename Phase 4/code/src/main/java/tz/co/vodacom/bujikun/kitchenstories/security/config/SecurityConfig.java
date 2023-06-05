@@ -13,7 +13,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -39,6 +41,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration(proxyBeanMethods = false)
+@EnableMethodSecurity
 public class SecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -64,7 +67,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    //@Order(Ordered.HIGHEST_PRECEDENCE+1)
+    @Order(Ordered.HIGHEST_PRECEDENCE+1)
     public SecurityFilterChain apiSecurityFilterChain(
             HttpSecurity httpSecurity,
             JwtDecoder jwtDecoder,
@@ -137,33 +140,6 @@ public class SecurityConfig {
         dap.setUserDetailsService(userDetailsService);
         return dap;
     }
-
-//    @Bean
-//    public UrlBasedCorsConfigurationSource apiCors() {
-//        CorsConfiguration apiCors = new CorsConfiguration();
-//
-//        apiCors.setMaxAge(1000L);
-//        apiCors.setAllowedMethods(List.of("GET", "POST", "DELETE","OPTIONS"));
-//        apiCors.setAllowedOrigins(List.of("http://localhost:3000"));
-//        apiCors.addAllowedOriginPattern("/**");
-//        //apiCors.setAllowedHeaders(List.of("*"));
-//
-//        CorsConfiguration authCors = new CorsConfiguration();
-//        authCors.setMaxAge(1000L);
-//        authCors.setAllowedMethods(List.of("POST","OPTIONS"));
-//        authCors.setAllowedOrigins(List.of("http://localhost:3000"));
-//        authCors.addAllowedOriginPattern("/**");
-//
-//        //apiCors.setAllowedHeaders(List.of("*"));
-//
-//        UrlBasedCorsConfigurationSource ubcs = new UrlBasedCorsConfigurationSource();
-//        ubcs.registerCorsConfiguration("/api/**", apiCors);
-//        ubcs.registerCorsConfiguration("/auth/**", authCors);
-//
-//        return ubcs;
-//
-//    }
-
     @Bean
     public UrlBasedCorsConfigurationSource authCors() {
         CorsConfiguration apiCors = new CorsConfiguration();
