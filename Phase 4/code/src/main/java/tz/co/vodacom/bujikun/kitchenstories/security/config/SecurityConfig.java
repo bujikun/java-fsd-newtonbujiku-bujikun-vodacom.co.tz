@@ -26,13 +26,18 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import tz.co.vodacom.bujikun.kitchenstories.security.converter.JWTAuthConverter;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 import java.util.UUID;
 
 @Configuration(proxyBeanMethods = false)
@@ -40,15 +45,15 @@ public class SecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain tokenSecurityFilterChain(
-            HttpSecurity httpSecurity
-
+            HttpSecurity httpSecurity,
+UrlBasedCorsConfigurationSource corsConfigurationSource
     ) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
+                .cors(cors->cors.configurationSource(corsConfigurationSource))
+                .securityMatcher(new AntPathRequestMatcher("/auth/login", HttpMethod.POST.name()))
                 .authorizeHttpRequests(
-                        reqs -> reqs
-                                .requestMatchers(new AntPathRequestMatcher("/auth/login", HttpMethod.POST.name())).authenticated()
-                                //.anyRequest().authenticated()
+                        reqs -> reqs.anyRequest().authenticated()
                 )
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(e -> e
@@ -61,25 +66,30 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE+1)
+    //@Order(Ordered.HIGHEST_PRECEDENCE+1)
     public SecurityFilterChain apiSecurityFilterChain(
             HttpSecurity httpSecurity,
-            JwtDecoder jwtDecoder
+            JwtDecoder jwtDecoder,
+            JWTAuthConverter jwtAuthConverter,
+            UrlBasedCorsConfigurationSource corsConfigurationSource
+
     ) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
+                .cors(cors->cors.configurationSource(corsConfigurationSource))
                 .authorizeHttpRequests(
                         reqs -> reqs
                                 .requestMatchers(HttpMethod.GET, "/api/foods", "/api/foods/search", "/api/foods/{id}")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/orders").permitAll()
                                 //.requestMatchers("/api/customers")
+                                //.anyRequest().authenticated()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(ors -> ors
                         .jwt(jwt -> jwt
-                                //jwt.jwtAuthenticationConverter(null)
+                                .jwtAuthenticationConverter(jwtAuthConverter)
                                 .decoder(jwtDecoder)
                         )
                 )
@@ -129,5 +139,18 @@ public class SecurityConfig {
         dap.setPasswordEncoder(passwordEncoder);
         dap.setUserDetailsService(userDetailsService);
         return dap;
+    }
+
+    @Bean
+    public UrlBasedCorsConfigurationSource cors(){
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setMaxAge(0L);
+        //configuration.setAllowCredentials(true);
+        configuration.setAllowedMethods(List.of("GET","POST","DELETE"));
+             configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        UrlBasedCorsConfigurationSource ubcs = new UrlBasedCorsConfigurationSource();
+        ubcs.registerCorsConfiguration("/api/**",configuration);
+        return ubcs;
+
     }
 }

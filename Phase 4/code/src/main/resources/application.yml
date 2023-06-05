@@ -23,6 +23,7 @@ logging:
   level:
     org:
       springframework:
+        security: TRACE
         jdbc:
           core:
             JdbcTemplate: DEBUG

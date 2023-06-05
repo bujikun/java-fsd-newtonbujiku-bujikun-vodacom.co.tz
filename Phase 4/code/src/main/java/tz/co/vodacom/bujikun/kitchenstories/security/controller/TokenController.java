@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tz.co.vodacom.bujikun.kitchenstories.dto.AuthDTO;
+import tz.co.vodacom.bujikun.kitchenstories.security.service.TokenService;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class TokenController {
+    private final TokenService tokenService;
     @PostMapping("/login")
-    public ResponseEntity<Boolean> create(Authentication authentication, HttpServletRequest req){
+    public ResponseEntity<String> create(Authentication authentication, HttpServletRequest req){
         System.out.println(authentication);
         return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(true);
+                .body(tokenService.generateToken(authentication));
     }
 
 }

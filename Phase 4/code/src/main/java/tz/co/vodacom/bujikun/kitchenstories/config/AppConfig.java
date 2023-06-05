@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration(proxyBeanMethods = false)
 public class AppConfig {
 
-    @Bean
+   // @Bean
     public WebMvcConfigurer webMvc(){
         return new WebMvcConfigurer() {
             @Override
