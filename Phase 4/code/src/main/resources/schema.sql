@@ -133,8 +133,10 @@ DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens`
 (
     `id`         int            NOT NULL AUTO_INCREMENT,
-    `value`  varchar(255)   NOT NULL,
-    `active`   bit            NOT NULL,
+    `value`  varchar(1000)   NOT NULL,
+    `username`   varchar(50)            NOT NULL,
+    `invalidated`   bit            NOT NULL,
+    `version`                int         DEFAULT NULL,
     `created_on`     datetime(6) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
