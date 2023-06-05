@@ -7,15 +7,18 @@ import {
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { selectAuth } from "../../redux/features/auth/authSlice";
 const FoodStock = () => {
   const URL = "http://localhost:8080/api/foods";
-    const foodStock = useSelector(selectAvailableFoods);
+  const foodStock = useSelector(selectAvailableFoods);
+  const auth = useSelector(selectAuth);
     const dispatch = useDispatch();
     const [isFoodRemove, setIsFoodRemove] = useState(false);
     const idRef = useRef(null);
   const fetchFoodItems = async () => {
     try {
-      const { data } = await axios.get(URL);
+      console.log(auth.config)
+      const { data } = await axios.get(URL,auth.config);
       dispatch(addFoodItems(data));
     } catch (error) {
       console.error(error);
@@ -24,7 +27,9 @@ const FoodStock = () => {
     const deleteFoodFromDB = async () => {
          console.log(`${URL}/${idRef.current}`);
        try {
-         const { data } = await axios.delete(`${URL}/${idRef.current}`);
+         const { data } = await axios.delete(`${URL}/${idRef.current}`,
+         auth.config
+         );
         // dispatch(addFoodItems(data));
            console.log(data);
            setIsFoodRemove(false);

@@ -5,7 +5,6 @@ import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +25,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,8 +44,8 @@ public class SecurityConfig {
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain tokenSecurityFilterChain(
             HttpSecurity httpSecurity,
-UrlBasedCorsConfigurationSource corsConfigurationSource
-    ) throws Exception {
+            UrlBasedCorsConfigurationSource corsConfigurationSource
+            ) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .cors(cors->cors.configurationSource(corsConfigurationSource))
@@ -72,8 +70,7 @@ UrlBasedCorsConfigurationSource corsConfigurationSource
             JwtDecoder jwtDecoder,
             JWTAuthConverter jwtAuthConverter,
             UrlBasedCorsConfigurationSource corsConfigurationSource
-
-    ) throws Exception {
+            ) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .cors(cors->cors.configurationSource(corsConfigurationSource))
@@ -82,7 +79,7 @@ UrlBasedCorsConfigurationSource corsConfigurationSource
                                 .requestMatchers(HttpMethod.GET, "/api/foods", "/api/foods/search", "/api/foods/{id}")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/orders").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/auth/invalidate").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/invalidate").permitAll()
                                 //.requestMatchers("/api/customers")
                                 .anyRequest().authenticated()
                 )
@@ -141,16 +138,51 @@ UrlBasedCorsConfigurationSource corsConfigurationSource
         return dap;
     }
 
+//    @Bean
+//    public UrlBasedCorsConfigurationSource apiCors() {
+//        CorsConfiguration apiCors = new CorsConfiguration();
+//
+//        apiCors.setMaxAge(1000L);
+//        apiCors.setAllowedMethods(List.of("GET", "POST", "DELETE","OPTIONS"));
+//        apiCors.setAllowedOrigins(List.of("http://localhost:3000"));
+//        apiCors.addAllowedOriginPattern("/**");
+//        //apiCors.setAllowedHeaders(List.of("*"));
+//
+//        CorsConfiguration authCors = new CorsConfiguration();
+//        authCors.setMaxAge(1000L);
+//        authCors.setAllowedMethods(List.of("POST","OPTIONS"));
+//        authCors.setAllowedOrigins(List.of("http://localhost:3000"));
+//        authCors.addAllowedOriginPattern("/**");
+//
+//        //apiCors.setAllowedHeaders(List.of("*"));
+//
+//        UrlBasedCorsConfigurationSource ubcs = new UrlBasedCorsConfigurationSource();
+//        ubcs.registerCorsConfiguration("/api/**", apiCors);
+//        ubcs.registerCorsConfiguration("/auth/**", authCors);
+//
+//        return ubcs;
+//
+//    }
+
     @Bean
-    public UrlBasedCorsConfigurationSource cors(){
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setMaxAge(0L);
-        //configuration.setAllowCredentials(true);
-        configuration.setAllowedMethods(List.of("GET","POST","DELETE"));
-             configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+    public UrlBasedCorsConfigurationSource authCors() {
+        CorsConfiguration apiCors = new CorsConfiguration();
+        apiCors.setMaxAge(0L);
+        apiCors.setAllowedMethods(List.of("GET", "POST", "DELETE"));
+        apiCors.setAllowedOrigins(List.of("http://localhost:3000"));
+        apiCors.setAllowedHeaders(List.of("*"));
+
+        CorsConfiguration authCors = new CorsConfiguration();
+        authCors.setMaxAge(0L);
+        authCors.setAllowedMethods(List.of("POST"));
+        authCors.setAllowedOrigins(List.of("http://localhost:3000"));
+        authCors.setAllowedHeaders(List.of("*"));
+
         UrlBasedCorsConfigurationSource ubcs = new UrlBasedCorsConfigurationSource();
-        ubcs.registerCorsConfiguration("/api/**",configuration);
+        ubcs.registerCorsConfiguration("/api/**", apiCors);
+        ubcs.registerCorsConfiguration("/auth/**", authCors);
         return ubcs;
 
     }
+
 }

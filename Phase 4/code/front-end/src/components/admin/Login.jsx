@@ -1,56 +1,72 @@
-import { useEffect, useState } from 'react';
-import './style.css'
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { isLoggedIn } from '../../redux/features/auth/authSlice';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  configIsCreated,
+  tokenIsReceived,
+} from "../../redux/features/auth/authSlice";
+import ActionFailedAlert from "./ActionFailedAlert";
 
-const URL = "http://localhost:8080/api/users/login";
+const URL = "http://localhost:8080/auth/login";
 const initialUser = {
   username: "",
-  password:""
-}
+  password: "",
+};
 const Login = () => {
   const [user, setUser] = useState(initialUser);
   const [isValid, setIsValid] = useState(false);
   const [isLoginAttempt, setIsLoginAttempt] = useState(false);
-  const [isFailedLoginAttempt, setIsFailedLoginAttempt] = useState(false)
+  const [isFailedLoginAttempt, setIsFailedLoginAttempt] = useState(false);
   const dispatch = useDispatch();
-const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     if (isLoginAttempt) {
       doLogin();
     }
-  },[isLoginAttempt])
+  }, [isLoginAttempt]);
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: String(e.target.value).trimStart() });
-    setIsValid(user.username.length>1&&user.password.length>1);
+    setIsValid(user.username.length > 1 && user.password.length > 1);
     console.log(isValid);
-  }
+  };
 
   const handleLogin = () => {
     setIsLoginAttempt(true);
-  }
+  };
 
   const doLogin = async () => {
     try {
       console.log(user);
-      const { data } = await axios.post(URL, user);
-      console.log(data);
-      if (data) {
-        dispatch(isLoggedIn(true));
+      const { status, data } = await axios.post(
+        URL,
+        {},
+        {
+          auth: user,
+        }
+      );
+      if (status === Number(202)) {
+        dispatch(tokenIsReceived(data));
+        dispatch(configIsCreated({
+          headers: {
+            "Authorization": `Bearer ${data}`
+          }
+        }))
         navigate("/admin");
         return;
       }
-      setIsLoginAttempt(false);
-      setIsFailedLoginAttempt(true);
     } catch (error) {
       console.error(error);
+      setIsFailedLoginAttempt(true);
+      setIsLoginAttempt(false);
     }
-  }
+  };
   return (
     <main className="container">
-      {isFailedLoginAttempt && <FailedLoginAlert setIsFailedLoginAttempt={setIsFailedLoginAttempt} />}
+      {isFailedLoginAttempt && (
+        <ActionFailedAlert message={"Invalid username or password"}
+          isShown={isFailedLoginAttempt} setIsShown={setIsFailedLoginAttempt}/>
+      )}
       <div className="login">
         <div className="inner-container card">
           <div className="p-2 text-success">
@@ -85,7 +101,7 @@ const navigate = useNavigate();
               <button
                 className="btn btn-lg btn-outline-success px-4"
                 onClick={handleLogin}
-                disabled={!isValid}
+                // disabled={!isValid}
               >
                 Login
               </button>
@@ -96,23 +112,7 @@ const navigate = useNavigate();
       </div>
     </main>
   );
-}
+};
 
-const FailedLoginAlert = ({setIsFailedLoginAttempt}) => {
-  return (
-    <div className="alert alert-danger" role="alert">
-      <div className="d-inline-block">
-        <strong>Holy Moly!</strong> Invalid username or password!
-      </div>
-      <div className="d-inline-block">
-        <div
-          type="button"
-          className='close-alert-btn mx-2 ms-5'
-          aria-label="Close"
-          onClick={() => setIsFailedLoginAttempt(false)}
-        >X</div>
-      </div>
-    </div>
-  );
-}
-export default Login
+
+export default Login;

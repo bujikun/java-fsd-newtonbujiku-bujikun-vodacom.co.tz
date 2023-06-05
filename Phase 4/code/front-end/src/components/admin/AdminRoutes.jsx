@@ -6,7 +6,7 @@ const AdminRoutes = () => {
   const auth = useSelector(selectAuth);
   console.log(auth);
   return (
-    (auth.isLoggedIn)?<Outlet/>:<Navigate to="/login" replace/>
+    (auth.token)?<Outlet/>:<Navigate to="/login" replace/>
   )
 }
 export default AdminRoutes

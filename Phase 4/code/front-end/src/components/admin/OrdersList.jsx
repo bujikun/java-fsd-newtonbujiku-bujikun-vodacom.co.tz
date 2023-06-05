@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../redux/features/auth/authSlice";
 const OrdersList = () => {
   const URL = "http://localhost:8080/api/orders";
   const [orders, setOrders] = useState([]);
+  const auth = useSelector(selectAuth);
   const effectRanRef = useRef(false);
 
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get(URL);
+      const { data } = await axios.get(URL,auth.config);
       setOrders(data);
     } catch (error) {
       console.error(error);
@@ -20,6 +22,18 @@ const OrdersList = () => {
     }
     effectRanRef.current = true;
   }, []);
+
+    if (orders.length <= 0) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          <div className="d-inline-block">
+            <strong>Holy Moly!</strong> No orders so far
+          </div>
+          <div className="d-inline-block"></div>
+        </div>
+      );
+    }
+
   return (
     <div>
       <div className="mb-5">

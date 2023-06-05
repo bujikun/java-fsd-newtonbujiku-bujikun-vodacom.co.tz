@@ -1,15 +1,20 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { selectAuth } from "../../redux/features/auth/authSlice";
+import { useSelector } from "react-redux";
+import ActionFailedAlert from "./ActionFailedAlert";
 
 
 const CustomerList = () => {
   const URL = "http://localhost:8080/api/customers";
   const [customers, setCustomers] = useState([]);
+  const auth = useSelector(selectAuth);
   const effectRanRef = useRef(false);
 
   const fetchCustomers = async () => {
     try {
-      const { data } = await axios.get(URL);
+      const { data } = await axios.get(URL, auth.config);
+      console.log(data);
       setCustomers(data);
     } catch (error) {
       console.error(error);
@@ -21,6 +26,19 @@ const CustomerList = () => {
     }
     effectRanRef.current = true;
   }, []);
+
+  if (customers.length <= 0) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        <div className="d-inline-block">
+          <strong>Holy Moly!</strong> No one has ordered anything
+        </div>
+        <div className="d-inline-block">
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="mb-5">
@@ -44,8 +62,7 @@ const CustomerList = () => {
                 <td>{customer.email}</td>
                 <td>{customer.account_number}</td>
 
-                <td>
-                </td>
+                <td></td>
               </tr>
             ))}
           </tbody>

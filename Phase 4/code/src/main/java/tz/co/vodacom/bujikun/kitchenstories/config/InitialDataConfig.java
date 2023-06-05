@@ -29,7 +29,6 @@ public class InitialDataConfig {
                                                ) {
         return args -> {
             try{
-            foodRepository.deleteAll();
             var f1 = Food.builder()
                     .price(new BigDecimal(20.55d))
                     .name("Spaghetti")

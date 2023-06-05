@@ -8,16 +8,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration(proxyBeanMethods = false)
 public class AppConfig {
 
-   // @Bean
-    public WebMvcConfigurer webMvc(){
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .maxAge(0)
-                        .allowedMethods("GET","POST","DELETE")
-                        .allowedOrigins("http://localhost:3000");
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer webMvc(){
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/api/**")
+//                        .allowedMethods("GET","POST","DELETE","OPTIONS")
+//                        .allowedOrigins("http://localhost:3000");
+//
+//                registry.addMapping("/auth/**")
+//                        .allowedMethods("POST","OPTIONS")
+//                        .allowedOrigins("http://localhost:3000");
+//            }
+//        };
+//    }
 }
