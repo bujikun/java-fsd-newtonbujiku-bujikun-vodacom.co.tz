@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addFoodItems,clearFoodItems } from "../../redux/features/foods/foodSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addFoodItems,clearFoodItems, selectAvailableFoods } from "../../redux/features/foods/foodSlice";
 const url = "http://localhost:8080/api/foods/search?name=";
 const SearchBar = () => {
   const [query, setQuery] = useState("");
+  const foods = useSelector(selectAvailableFoods);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,7 +45,19 @@ const SearchBar = () => {
           />
         </div>
       </form>
+      {query.length > 2  && !(foods.length) &&  <NoResultAlert/>}
     </div>
   );
 };
+
+const NoResultAlert = () => {
+      return (
+        <div className="alert alert-danger" role="alert">
+          <div className="d-inline-block">
+            <strong>Holy Guacamole!</strong> No food item found
+          </div>
+          <div className="d-inline-block"></div>
+        </div>
+      );
+    }
 export default SearchBar;

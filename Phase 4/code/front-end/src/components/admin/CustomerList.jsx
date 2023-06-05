@@ -14,7 +14,6 @@ const CustomerList = () => {
   const fetchCustomers = async () => {
     try {
       const { data } = await axios.get(URL, auth.config);
-      console.log(data);
       setCustomers(data);
     } catch (error) {
       console.error(error);

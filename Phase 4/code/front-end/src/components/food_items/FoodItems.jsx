@@ -21,6 +21,19 @@ const FoodItems = () => {
     fetchFoodItems();
   }, []);
 
+      if (foodItems.length <= 0) {
+        return (
+          <div className="m-5">
+          <div className="alert alert-danger" role="alert">
+            <div className="d-inline-block">
+              <strong>Holy Guacamole!</strong> Nothing in the kitchen
+            </div>
+            <div className="d-inline-block"></div>
+          </div>
+          </div>
+        );
+      }
+
   return (
     <main className="container">
       <section className="home">
@@ -38,7 +51,7 @@ const FoodItems = () => {
                     key={food.id}
                   >
                     <img
-                      src={"https://placehold.co/600x400"}
+                      src={food.img_url}
                             className="card-img-top"
                             width={300}
                             height={200}

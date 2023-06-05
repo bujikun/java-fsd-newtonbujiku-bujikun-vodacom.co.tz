@@ -17,7 +17,6 @@ const FoodStock = () => {
     const idRef = useRef(null);
   const fetchFoodItems = async () => {
     try {
-      console.log(auth.config)
       const { data } = await axios.get(URL,auth.config);
       dispatch(addFoodItems(data));
     } catch (error) {
@@ -30,8 +29,6 @@ const FoodStock = () => {
          const { data } = await axios.delete(`${URL}/${idRef.current}`,
          auth.config
          );
-        // dispatch(addFoodItems(data));
-           console.log(data);
            setIsFoodRemove(false);
        } catch (error) {
          console.error(error);
@@ -42,7 +39,6 @@ const FoodStock = () => {
   }, []);
     
     useEffect(() => {
-        console.log(Number(idRef.current));
         if (isFoodRemove && Number(idRef.current)) {
           deleteFoodFromDB();
         }
@@ -53,6 +49,17 @@ const FoodStock = () => {
         dispatch(removeFoodItem(id));
         setIsFoodRemove(true);
     }
+
+    if (foodStock.length <= 0) {
+      return (
+        <div className="alert alert-danger" role="alert">
+          <div className="d-inline-block">
+            <strong>Holy Moly!</strong> Nothing in stock
+          </div>
+          <div className="d-inline-block"></div>
+        </div>
+      );
+    }
   return (
     <div>
       <div className="mb-5">
@@ -61,7 +68,6 @@ const FoodStock = () => {
       <div>
         <div className="mt-5">
           <Link className="btn btn-primary me-3" to="/admin/food-stock/add">
-    
             Add Food Item
           </Link>
           {/* <button className="btn btn-danger"> Remove All </button> */}
@@ -69,7 +75,7 @@ const FoodStock = () => {
         <table className="table table-striped table-bordeless table-hover">
           <thead>
             <tr>
-              <th>Image</th>
+              <th></th>
               <th>Name</th>
               <th>Price</th>
               <th>Added On</th>
@@ -80,13 +86,14 @@ const FoodStock = () => {
             {foodStock.map((item) => (
               <tr key={item.id}>
                 <td>
-                  <img
-                    src={"https://placehold.co/600x400"}
-                    className="card-img-top"
-                    width={75}
-                    height={50}
-                    alt={item.name}
-                  />
+                    <img
+                      src={item.img_url}
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: "50px" }}
+                      alt={item.name}
+                    />
+                 
                 </td>
                 <td>{item.name}</td>
                 <td>${item.price}</td>

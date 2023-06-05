@@ -25,10 +25,10 @@ public class FoodController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Food>> findAllByName(@RequestParam("name") String name){
+    public ResponseEntity<List<FoodDTO>> findAllByName(@RequestParam("name") String name){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(foodService.searchByName(name));
+                .body(foodService.searchByName(name).stream().map(f->FoodDTO.fromFood(f,dateUtil)).toList());
     }
 
     @GetMapping("/{id}")

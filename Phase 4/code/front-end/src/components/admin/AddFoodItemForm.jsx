@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {  useNavigate } from "react-router-dom";
+import { selectAuth } from "../../redux/features/auth/authSlice";
 
 const URL = "http://localhost:8080/api/foods"
 
@@ -15,6 +16,7 @@ const initialFoodItem = {
 const AddFoodItemForm = () => {
   const [isAddingNewItem, setIsAddingNewItem] = useState(false);
   const [foodItem, setFoodItem] = useState(initialFoodItem);
+  const auth = useSelector(selectAuth)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isValidFoodItem =
@@ -25,7 +27,6 @@ const AddFoodItemForm = () => {
     if (isAddingNewItem) {
       createFoodItem();
     }
-    console.log("EFFECT");
   }, [isAddingNewItem]);
   
   const handleChange = (e) => {
@@ -37,9 +38,12 @@ const AddFoodItemForm = () => {
 
   const createFoodItem = async() => {
     try {
-      const {status} = await axios.post(URL, foodItem);
+      const { status } = await axios.post(URL, foodItem, {
+        ...auth.config,
+        "Content-Type": "application/json",
+      });
       if (status == 201) {
-console.log(status);      }
+     }
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +55,7 @@ console.log(status);      }
     navigate(-1);
 
   };
+
   return (
     <main className="container">
       <section className="row">
@@ -98,7 +103,7 @@ console.log(status);      }
                 value={foodItem.img_url}
                 onChange={handleChange}
               />
-              <label htmlFor="img_url">Image</label>
+              <label htmlFor="img_url">Image (absolute url)</label>
             </div>
             <div className="d-flex justify-content-end mb-3">
               <button

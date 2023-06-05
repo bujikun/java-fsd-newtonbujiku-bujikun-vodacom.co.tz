@@ -18,7 +18,8 @@ const ActionFailedAlert = ({ message, isShown, setIsShown }) => {
         </div>
       </div>
     ) : (
-      <></>
+                <>
+                </>
         )
     );
 };

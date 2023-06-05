@@ -6,11 +6,14 @@ import { clearCart, selectAllCartItems } from "../../redux/features/cart/cartSli
 import axios from "axios";
 import { v4 as uuid } from "uuid";
 import { useRef } from "react";
+import { selectAuth } from "../../redux/features/auth/authSlice";
 const ProgressBar = () => {
   const [progress, setProgress] = useState(0);
   const customer = useSelector(selectCustomer);
   const cartItems = useSelector(selectAllCartItems);
   const effectRanRef = useRef(false);
+      const auth = useSelector(selectAuth);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -30,8 +33,9 @@ const ProgressBar = () => {
       ],
     };
     try {
-      const { data } = await axios.post(URL, order);
-      console.log(data);
+      const { data } = await axios.post(URL, order, {
+        ...auth.config, "Content-Type":"application/json"
+      });
     } catch (error) {
       console.error(error);
     }
@@ -52,9 +56,9 @@ const ProgressBar = () => {
          
           dispatch(clearCart());
         dispatch(clearCustomer())
-        
+        navigate("/");
       }
-    }, 1500);
+    }, 800);
     return () => clearInterval(intervalId);
   }, [progress]);
 

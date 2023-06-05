@@ -22,6 +22,7 @@ const OrderItems = () => {
             <table className="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
+                  <th></th>
                   <th>Food Name</th>
                   <th>Quantity</th>
                 </tr>
@@ -29,6 +30,15 @@ const OrderItems = () => {
               <tbody>
                 {cartItems.map((item) => (
                   <tr key={item.id}>
+                    <td>
+                      <img
+                        src={`${item.img_url}`}
+                        width={50}
+                        height={50}
+                        alt={item.name}
+                        style={{ borderRadius: "50px" }}
+                      />
+                    </td>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
                   </tr>

@@ -4,7 +4,6 @@ import { selectAuth } from "../../redux/features/auth/authSlice";
 
 const AdminRoutes = () => {
   const auth = useSelector(selectAuth);
-  console.log(auth);
   return (
     (auth.token)?<Outlet/>:<Navigate to="/login" replace/>
   )

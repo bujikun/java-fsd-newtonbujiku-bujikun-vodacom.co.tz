@@ -1,6 +1,20 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import './style.css'
+import { useDispatch } from "react-redux"
+import {userHasLoggedOut } from "../../redux/features/auth/authSlice"
 const AdminNavBar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const doLogOut = () => {
+    dispatch(
+      userHasLoggedOut({
+        user: {},
+        token: "",
+        config: {},
+      })
+    );
+navigate("/admin");
+  }
   return (
     <nav className="navbar bg-light">
       <div className="navbar-content">
@@ -16,7 +30,7 @@ const AdminNavBar = () => {
             <Link to={"/admin/food-stock"}>Food Stock</Link>
           </div>
           <div className="navbar-item-logout">
-            <Link to={"/admin/food-stock"}>Log Out</Link>
+            <Link onClick={doLogOut} >Log Out</Link>
           </div>
         </div>
       </div>

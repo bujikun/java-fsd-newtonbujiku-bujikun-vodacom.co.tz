@@ -24,14 +24,13 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/food-items" element={<FoodItems />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/foods/:id" element={<div>Book</div>} />
           <Route path="/register-customer" element={<CustomerForm />} />
           <Route path="/order-details" element={<OrderDetails />} />
           <Route path="/payment" element={<ProgressBar />} />
         </Route>
         <Route element={<AdminRoutes />} path="/admin">
           <Route element={<AdminLayout />} path="">
-            <Route element={<Dashboard />} index />
+            <Route element={<FoodStock />} index />
             <Route element={<FoodStock />} path="food-stock" />
             <Route element={<AddFoodItemForm />} path="food-stock/add" />
             <Route element={<CustomerList />} path="customers" />

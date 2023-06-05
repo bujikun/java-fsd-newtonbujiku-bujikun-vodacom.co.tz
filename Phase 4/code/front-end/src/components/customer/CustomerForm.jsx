@@ -48,7 +48,7 @@ const CustomerForm = () => {
             }}
           >
             <div className="my-2">
-              <span className="display-6">Register Customer</span>
+              <span className="display-6">Enter Customer Details</span>
             </div>
             <div className="form-floating mb-3">
               <input

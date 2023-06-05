@@ -29,7 +29,7 @@ public class TokenService {
                 .issuer("http://localhost:8080")
                 .subject(ud.getUsername())
                 .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plus(10, ChronoUnit.MINUTES))
+                .expiresAt(Instant.now().plus(30, ChronoUnit.MINUTES))
                 .audience(Collections.singletonList("http://localhost:8080"))
                 .claim("permissions",ud.getAuthorities().stream().map(s-> s.getAuthority()).toList())
                 .build();

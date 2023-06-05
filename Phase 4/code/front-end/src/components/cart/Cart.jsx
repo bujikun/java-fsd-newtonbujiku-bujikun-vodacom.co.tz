@@ -32,10 +32,16 @@ const Cart = () => {
               <span className="display-6">Cart Items</span>
             </div>
             <div className="">
-              <Link className="btn btn-success me-2 my-1" type="button" to={"/register-customer"}>Checkout</Link>
+              <Link
+                className="btn btn-success me-2 my-1"
+                type="button"
+                to={"/register-customer"}
+              >
+                Checkout
+              </Link>
               <button
                 className="btn btn-danger me-2"
-                onClick={()=>dispatch(clearCart())}
+                onClick={() => dispatch(clearCart())}
               >
                 Clear Cart
               </button>
@@ -44,19 +50,27 @@ const Cart = () => {
         </div>
         <div className="col-sm-12 col-md-10 col-lg-10 col-xl-10 offset-md-1 offset-lg-1 offset-xl-1">
           <div>
-            <table className="table table-striped table-bordered table-hover">
+            <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>Index</th>
+                  <th></th>
                   <th>Food Name</th>
                   <th>Quantity</th>
                   <th>Remove</th>
                 </tr>
               </thead>
               <tbody>
-                {cartItems.map((item, index) => (
+                {cartItems.map((item) => (
                   <tr key={item.id}>
-                    <td>{index + 1}</td>
+                    <td>
+                      <img
+                        src={`${item.img_url}`}
+                        width={50}
+                        height={50}
+                        alt={item.name}
+                        style={{ borderRadius: "50px" }}
+                      />
+                    </td>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
                     <td>
