@@ -9,7 +9,6 @@ import OrderDetails from "./components/order/OrderDetails";
 import ProgressBar from "./components/progressbar/ProgressBar";
 import AdminRoutes from "./components/admin/AdminRoutes";
 import Login from "./components/admin/Login";
-import Dashboard from "./components/admin/Dashboard";
 import PublicLayout from "./components/public/PublicLayout";
 import AdminLayout from "./components/admin/AdminLayout";
 import FoodStock from "./components/admin/FoodStock";
@@ -17,6 +16,7 @@ import AddFoodItemForm from "./components/admin/AddFoodItemForm";
 import CustomerList from "./components/admin/CustomerList";
 import OrdersList from "./components/admin/OrdersList";
 import ChangePasswordForm from "./components/admin/ChangePasswordForm";
+import NotFound from "./components/NotFound";
 function App() {
   return (
     <>
@@ -40,6 +40,7 @@ function App() {
           </Route>
         </Route>
         <Route element={<Login />} path="/login" />
+        <Route path="*" element={<NotFound/>}></Route>
       </Routes>
     </>
   );

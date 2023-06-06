@@ -15,7 +15,8 @@ const ProgressBar = () => {
       const auth = useSelector(selectAuth);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  
 
   const createOrder = async () => {
     const URL = "http://localhost:8080/api/orders";
@@ -52,7 +53,7 @@ const ProgressBar = () => {
       if (progress !== 100) {
         setProgress(progress + 20);
       }
-      if (progress === 100) {
+      if (progress > 99) {
          
           dispatch(clearCart());
         dispatch(clearCustomer())
@@ -69,9 +70,10 @@ const ProgressBar = () => {
           <div className="row gx-1">
             {progress !== 100 ? (
               <>
-                <h3 className="my-5">Payment Gateway</h3>
+                <h3 className="my-5">Dummy Payment Gateway</h3>
                 <label htmlFor="progress" className="d-block">
-                  Processing payment...
+                  Processing payment from account number :
+                  <span className="badge bg-warning">{customer.account_number}</span>
                 </label>
                 <progress
                   id="progress"

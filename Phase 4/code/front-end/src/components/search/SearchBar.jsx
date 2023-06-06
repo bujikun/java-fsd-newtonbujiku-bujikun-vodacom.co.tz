@@ -45,7 +45,7 @@ const SearchBar = () => {
           />
         </div>
       </form>
-      {query.length > 2  && !(foods.length) &&  <NoResultAlert/>}
+      {query.length > 1  && !(foods.length) &&  <NoResultAlert/>}
     </div>
   );
 };

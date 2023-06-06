@@ -10,11 +10,6 @@ const FoodList = () => {
     const food = foods.find((food) => food.id === id);
     dispatch(addToCart(food));
   }
-  const handleMouseEnter = (e) => {
-    
-  };
-  const handleMouseLeave = (e) => {
-  };
   return (
     <div className="my-2">
       <div className="list-group">

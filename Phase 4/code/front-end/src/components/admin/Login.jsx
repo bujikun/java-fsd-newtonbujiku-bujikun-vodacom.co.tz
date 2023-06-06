@@ -7,7 +7,6 @@ import {
   tokenIsReceived,
   userIsLoggedIn,
 } from "../../redux/features/auth/authSlice";
-import ActionFailedAlert from "./ActionFailedAlert";
 
 const URL = "http://localhost:8080/auth/login";
 const initialUser = {
@@ -22,21 +21,26 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (isLoginAttempt) {
+    if (isLoginAttempt && isValid) {
       doLogin();
     }
   }, [isLoginAttempt]);
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: String(e.target.value).trimStart() });
+    setUser({ ...user, [e.target.name]: e.target.value});
     setIsValid(user.username.length > 1 && user.password.length > 1);
   };
 
-  const handleLogin = () => {
-    setIsLoginAttempt(true);
+  const handleLogin = (e) => {
+    console.log(isValid, user);
+    setUser({ ...user });
+        setIsValid(user.username.length > 1 && user.password.length > 1);
+
+    setIsLoginAttempt(!isLoginAttempt);
   };
 
   const doLogin = async () => {
     try {
+      console.log(user);
       const { status, data } = await axios.post(
         URL,
         {},
