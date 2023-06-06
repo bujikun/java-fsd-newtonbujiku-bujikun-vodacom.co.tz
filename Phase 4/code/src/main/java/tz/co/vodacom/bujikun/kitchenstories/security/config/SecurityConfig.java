@@ -15,7 +15,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -42,6 +44,7 @@ import java.util.UUID;
 
 @Configuration(proxyBeanMethods = false)
 @EnableMethodSecurity
+@EnableWebSecurity
 public class SecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -83,6 +86,7 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/orders").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/invalidate").permitAll()
+                                .requestMatchers("/swagger/**","/swagger-ui/**","/api-docs/**").permitAll()
                                 //.requestMatchers("/api/customers")
                                 .anyRequest().authenticated()
                 )
@@ -160,5 +164,13 @@ public class SecurityConfig {
         return ubcs;
 
     }
+
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer(){
+//
+//        return web -> {
+//            web.ignoring().requestMatchers();
+//        };
+//    }
 
 }

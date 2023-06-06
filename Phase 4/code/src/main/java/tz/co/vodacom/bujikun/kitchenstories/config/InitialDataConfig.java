@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
 public class InitialDataConfig {
     @Bean
     public CommandLineRunner commandLineRunner(FoodRepository foodRepository,
