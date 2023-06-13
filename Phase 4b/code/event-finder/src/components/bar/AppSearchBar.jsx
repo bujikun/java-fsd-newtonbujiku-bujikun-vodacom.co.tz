@@ -1,7 +1,9 @@
 import { HowToRegOutlined, LoginOutlined, Search } from "@mui/icons-material";
 import { AppBar, Box, Button, Toolbar,Typography } from "@mui/material"
+import { useNavigate } from "react-router-dom";
 
 const AppSearchBar = () => {
+    const navigate = useNavigate();
   return (
     <Box flexGrow={1}>
       <AppBar position="sticky">
@@ -10,7 +12,14 @@ const AppSearchBar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/");
+            }}
           >
             Event Finder
           </Typography>
@@ -27,6 +36,7 @@ const AppSearchBar = () => {
                 color: "#333",
               },
             }}
+            onClick={() => navigate("/users/login")}
           >
             Login
           </Button>
@@ -43,6 +53,7 @@ const AppSearchBar = () => {
                 color: "#333",
               },
             }}
+            onClick={() => navigate("/users/register")}
           >
             Register
           </Button>

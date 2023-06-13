@@ -3,11 +3,9 @@ import EventGrid from "../components/events/EventGrid";
 
 const Home = () => {
   return (
-    <main>
-      <Container fixed sx={{ mt: 4 }}>
+      <Container fixed sx={{ mt: 4 }} component="main">
           <EventGrid />
       </Container>
-    </main>
   );
 };
 export default Home;

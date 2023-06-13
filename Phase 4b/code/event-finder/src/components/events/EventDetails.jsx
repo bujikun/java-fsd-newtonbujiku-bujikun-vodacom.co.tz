@@ -8,14 +8,25 @@ const EventDetails = () => {
     const event = events.find((item) => item.id === Number(id));
     console.log(id);
   return (
-      <Container sx={{
-          mx: 4, display: "flex",
-          justifyContent: "center", flexDirection: "column"
-      }}>
-      <Box sx={{ mt: 6, mx: 4, textAlign:"center"}}>
-        <Typography variant="h4" component="h4">Event Number: {event.id}</Typography>
+    <Container
+      sx={{
+        mx: "auto",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Box sx={{ mt: 6, mx: "auto", textAlign: "center" }}>
+              <Typography variant="h4" component="h4"
+                  sx={{ textTransform: "uppercase" }}>
+          Event Number {event.id}
+        </Typography>
       </Box>
-      <Grid container sx={{ mt: 6, mx: 4 }} spacing={3}>
+      <Grid
+        container
+        sx={{ mt: 6, mx: 4, display: "flex", justifyContent: "center" }}
+        spacing={3}
+      >
         <Grid xs="12" sm="12" md="6" lg="6">
           <EventSummary event={event} />
         </Grid>
@@ -53,7 +64,7 @@ const EventSummary = ({event}) => {
               {event.name}
             </Typography>
           </Paper>
-          <Paper sx={{ px: 4, py: 2, my: 3 }} elevation={10}>
+          <Paper sx={{ px: 4, pb: 6, pt: 6, my: 3 }} elevation={10}>
             <Box sx={{ my: 1 }}>
               <Typography component="p" variant="body1">
                 {event.description}
@@ -71,8 +82,13 @@ const EventSummary = ({event}) => {
             </Box>
             <Box sx={{ my: 1 }}>
               <Typography component="p" variant="button">
-               Added by:  {event.created_by}
+                Added by: {event.created_by}
               </Typography>
+            </Box>
+            <Box sx={{ mt: 4 }} elevation={10}>
+              <Button size="large" color="error" variant="outlined">
+                Delete event
+              </Button>
             </Box>
           </Paper>
         </Box>
