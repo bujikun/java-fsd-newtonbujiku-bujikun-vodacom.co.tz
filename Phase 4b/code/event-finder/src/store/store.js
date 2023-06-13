@@ -19,7 +19,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 2,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
@@ -29,7 +29,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 3,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
@@ -39,7 +39,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 4,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
@@ -49,7 +49,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 5,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
@@ -59,7 +59,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 6,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
@@ -69,7 +69,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 7,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
@@ -79,7 +79,7 @@ const events = [
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
   {
-    id: 1,
+    id: 8,
     name: "UEFA Champions League Final",
     description:
       "The 2023 UCL final which climaxes a football season in Europe",
