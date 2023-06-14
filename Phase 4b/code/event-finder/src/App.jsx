@@ -20,6 +20,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="users/register" element={<RegistrationForm />} />
           <Route path="events/create" element={<EventCreationForm />} />
+          <Route path="events/view/:id" element={<EventDetails />} />
           <Route path="users/login" element={<LoginForm />} />
         </Route>
       </Routes>

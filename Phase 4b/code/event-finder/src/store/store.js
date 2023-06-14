@@ -1,13 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import eventsReducer from '../features/events/eventsSlice'
 const store = configureStore({
-    reducer: ()=>{}
+    reducer: {
+        events: eventsReducer
+    }
 })
 
 export default store;
 
 
-const events = [
+
+[
   {
     id: 1,
     name: "UEFA Champions League Final",
@@ -88,6 +91,4 @@ const events = [
     created_by: "admin",
     img: "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg",
   },
-];
-
-export {events};
+]

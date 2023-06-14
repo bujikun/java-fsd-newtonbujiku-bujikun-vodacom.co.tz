@@ -1,14 +1,31 @@
-import { Card, CardActionArea, CardContent, CardMedia,Typography,CardActions,Button, Box } from "@mui/material"
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActions,
+  Button,
+  Box,
+} from "@mui/material";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { deleteEventById } from "../../features/events/eventsSlice";
 
-const Event = ({ event }) => {
-    const navigate = useNavigate();
-    const handleViewClick = (id) => {
-        navigate(`/events/view/${id}`);
-    }
+const Event = ({ event,setIsEventDeleted }) => {
+  const navigate = useNavigate();
+    const dispatch = useDispatch();
+  const handleViewClick = (id) => {
+    navigate(`/events/view/${id}`);
+  };
+  const handleDelete = (id) => {
+    dispatch(deleteEventById(id));
+    //console.log(status);
+    setIsEventDeleted(true);
+  };
   return (
-    <Box sx={{display:"flex",justifyContent:"center"}}>
-      <Card sx={{ maxWidth: 400,mt:3 }} raised={true}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Card sx={{ maxWidth: 400, mt: 3 }} raised={true}>
         <CardActionArea>
           <CardMedia component="img" height={200} image={event.img} />
           <CardContent>
@@ -21,15 +38,20 @@ const Event = ({ event }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={()=>handleViewClick(event.id)}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => handleViewClick(event.id)}
+          >
             View
           </Button>
-          <Button size="small" color="error">
+                  <Button size="small" color="error"
+                      onClick={()=>handleDelete(event.id)}>
             Delete
           </Button>
         </CardActions>
       </Card>
     </Box>
   );
-}
-export default Event
+};
+export default Event;

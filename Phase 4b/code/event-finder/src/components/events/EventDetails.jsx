@@ -1,12 +1,35 @@
-import { useParams } from "react-router-dom"
-import { events } from "../../store/store";
-import { Box, Container,Card,CardActionArea,Typography,CardMedia,CardActions,Button, Stack, Paper } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom"
+import { Box, Container,Card,CardActionArea,Typography,CardMedia,Button, Stack, Paper } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import { BASE_URL, deleteEventById, selectDeleteStatus} from "../../features/events/eventsSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const EventDetails = () => {
-    const { id } = useParams();
-    const event = events.find((item) => item.id === Number(id));
-    console.log(id);
+  const { id } = useParams();
+  const [event, setEvent] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const status = selectDeleteStatus();
+  useEffect(() => {
+    const fetchEvent = async () => {
+       try {
+         const { data } = await axios.get(`${BASE_URL}/events/${id}`);
+         setEvent(data);
+       } catch (error) {
+        console.log(error);
+       }
+    }
+    fetchEvent();
+  },[])
+
+  const handleDelete = (id) => {
+    dispatch(deleteEventById(id));
+    console.log(status);
+    navigate("/");
+  }
+   
   return (
     <Container
       sx={{
@@ -28,7 +51,7 @@ const EventDetails = () => {
         spacing={3}
       >
         <Grid xs="12" sm="12" md="6" lg="6">
-          <EventSummary event={event} />
+          <EventSummary event={event} onDelete={ ()=>handleDelete(id)} />
         </Grid>
         <Grid xs="12" sm="12" md="6" lg="6">
           <EventImage image={event.img} />
@@ -55,7 +78,7 @@ const EventDetails = () => {
   );
 }
 
-const EventSummary = ({event}) => {
+const EventSummary = ({event,onDelete}) => {
     return (
       <Stack spacing={2}>
         <Box>
@@ -86,7 +109,9 @@ const EventSummary = ({event}) => {
               </Typography>
             </Box>
             <Box sx={{ mt: 4 }} elevation={10}>
-              <Button size="large" color="error" variant="outlined">
+              <Button size="large" color="error" variant="outlined"
+            onClick={onDelete}
+              >
                 Delete event
               </Button>
             </Box>
