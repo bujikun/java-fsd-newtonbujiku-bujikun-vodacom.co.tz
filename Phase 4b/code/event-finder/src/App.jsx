@@ -10,6 +10,7 @@ import EventDetails from "./components/events/EventDetails";
 import AppLayout from "./components/layout/AppLayout";
 import RegistrationForm from "./components/user/RegistrationForm";
 import LoginForm from "./components/user/LoginForm";
+import EventCreationForm from "./components/events/EventCreationForm";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Home />} />
-          <Route path="events/view/:id" element={<EventDetails />} />
           <Route path="users/register" element={<RegistrationForm />} />
+          <Route path="events/create" element={<EventCreationForm />} />
           <Route path="users/login" element={<LoginForm />} />
         </Route>
       </Routes>
