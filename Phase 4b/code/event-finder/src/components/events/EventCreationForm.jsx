@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createEvent } from "../../features/events/eventsSlice";
+import { useNavigate } from "react-router-dom";
 const initialEvent = {
   name: {
     value: "",
@@ -37,10 +38,12 @@ const initialEvent = {
 const EventCreationForm = () => {
   const [event, setEvent] = useState(initialEvent);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     dispatch(createEvent(formData));
+    navigate("/");
   };
 
   const validateInput = (inputName, value, saneName, length) => {

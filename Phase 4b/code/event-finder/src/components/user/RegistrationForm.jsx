@@ -1,6 +1,9 @@
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser, selectUserStatus } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 const initialUser = {
   firstName: "",
   lastName: "",
@@ -34,9 +37,17 @@ const initialError = {
 
 const RegistrationForm = () => {
   const [user, setUser] = useState(initialUser);
-  const [error, setError] = useState(initialError);
+    const [error, setError] = useState(initialError);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const status = selectUserStatus();
   const handleSubmit = (e) => {
-    e.preventDefault();
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      dispatch(registerUser(formData));
+      if (status === "fulfilled") {
+          navigate("/users/login");
+      }
   };
 
   const validateInput = (inputName, value, saneName, length) => {

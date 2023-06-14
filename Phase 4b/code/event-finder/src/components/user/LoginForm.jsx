@@ -6,10 +6,28 @@ import {
   Button,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authenticateUser, selectIsLoggedIn, selectUser, selectUserStatus } from "../../features/auth/authSlice";
+import { useState } from "react";
+const initialUser = {
+  username: "",
+  password:""
+}
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [user,setUser] = useState(initialUser);
+  const isLoggedIn = selectIsLoggedIn();
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    dispatch(authenticateUser(user));
+    if (isLoggedIn) {
+      navigate("/");
+    } else {
+      //console.log(user, isLoggedIn);
+    }
   };
   return (
     <Container maxWidth="xs" component="main">
@@ -35,6 +53,10 @@ const LoginForm = () => {
                 id="username"
                 label="Username"
                 autoComplete="username"
+                value={user.username}
+                onChange={(e) =>
+                  setUser({ ...user, [e.target.name]: e.target.value })
+                }
               />
             </Grid>
             <Grid xs={12}>
@@ -46,6 +68,10 @@ const LoginForm = () => {
                 type="password"
                 id="password"
                 autoComplete="password"
+                value={user.password}
+                onChange={(e) =>
+                  setUser({ ...user, [e.target.name]: e.target.value })
+                }
               />
             </Grid>
           </Grid>

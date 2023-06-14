@@ -1,10 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { Box, Container,Card,CardActionArea,Typography,CardMedia,Button, Stack, Paper } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { BASE_URL, deleteEventById, selectDeleteStatus} from "../../features/events/eventsSlice";
+import { deleteEventById, selectDeleteStatus} from "../../features/events/eventsSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { BASE_URL } from "../../features/constants";
 
 const EventDetails = () => {
   const { id } = useParams();

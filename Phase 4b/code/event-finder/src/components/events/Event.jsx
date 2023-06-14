@@ -20,12 +20,11 @@ const Event = ({ event,setIsEventDeleted }) => {
   };
   const handleDelete = (id) => {
     dispatch(deleteEventById(id));
-    //console.log(status);
     setIsEventDeleted(true);
   };
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Card sx={{ maxWidth: 400, mt: 3 }} raised={true}>
+      <Card sx={{ minWidth:"360", maxWidth: 450, mt: 3 }} raised={true}>
         <CardActionArea>
           <CardMedia component="img" height={200} image={event.img} />
           <CardContent>

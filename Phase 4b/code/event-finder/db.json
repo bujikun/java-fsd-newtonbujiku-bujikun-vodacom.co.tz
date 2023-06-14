@@ -62,5 +62,22 @@
       "id": 7
     }
   ],
-  "users": []
+  "users": [
+    {
+      "firstName": "Newton",
+      "lastName": "Bujiku",
+      "username": "newton",
+      "password": "password12",
+      "confirmPassword": "password12",
+      "id": 1
+    },
+    {
+      "firstName": "Newton",
+      "lastName": "Bujiku",
+      "username": "gotti",
+      "password": "password12",
+      "confirmPassword": "password12",
+      "id": 2
+    }
+  ]
 }
