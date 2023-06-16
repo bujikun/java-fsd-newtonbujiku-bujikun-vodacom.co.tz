@@ -1,83 +1,64 @@
 {
   "events": [
     {
-      "id": 1,
       "name": "UEFA Champions League Final",
-      "description": "The 2023 UCL final which climaxes a football season in Europe",
-      "location": "Ataturk, Turkey",
-      "date": "10 May 2023",
-      "created_by": "admin",
-      "img": "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-    },
-    {
-      "id": 2,
-      "name": "UEFA Champions League Final",
-      "description": "The 2023 UCL final which climaxes a football season in Europe",
-      "location": "Ataturk, Turkey",
-      "date": "10 May 2023",
-      "created_by": "admin",
-      "img": "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-    },
-    {
-      "id": 3,
-      "name": "UEFA Champions League Final",
-      "description": "The 2023 UCL final which climaxes a football season in Europe",
-      "location": "Ataturk, Turkey",
-      "date": "10 May 2023",
-      "created_by": "admin",
-      "img": "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-    },
-    {
-      "id": 4,
-      "name": "UEFA Champions League Final",
-      "description": "The 2023 UCL final which climaxes a football season in Europe",
-      "location": "Ataturk, Turkey",
-      "date": "10 May 2023",
-      "created_by": "admin",
-      "img": "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-    },
-    {
-      "id": 5,
-      "name": "UEFA Champions League Final",
-      "description": "The 2023 UCL final which climaxes a football season in Europe",
-      "location": "Ataturk, Turkey",
-      "date": "10 May 2023",
-      "created_by": "admin",
-      "img": "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-    },
-    {
-      "id": 6,
-      "name": "UEFA Champions League Final",
-      "description": "The 2023 UCL final which climaxes a football season in Europe",
-      "location": "Ataturk, Turkey",
-      "date": "10 May 2023",
-      "created_by": "admin",
-      "img": "https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-    },
-    {
-      "name": "UEFA Europa League",
-      "description": "In another european based competition",
+      "description": "This is a last match in the european league that determines the champions of europe.",
       "location": "San Siro, Milan",
-      "img": "https://sevillafc.es/sites/default/files/news/image/uel_4.jpg",
-      "id": 7
+      "img": "https://img.asmedia.epimg.net/resizer/9dyn757uDalLOPb-_f2Lk-VMs8A=/1472x828/filters:focal(314x154:324x164)/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/QAOOEW7TNLBZXSZ7QM44SA7L4Q.jpg",
+      "created_by": "AdminUser AdminUser",
+      "id": 1
     }
   ],
   "users": [
     {
       "firstName": "Newton",
       "lastName": "Bujiku",
+      "username": "admin",
+      "password": "password",
+      "confirmPassword": "password",
+      "id": 1
+    },
+    {
+      "firstName": "AdminUser",
+      "lastName": "AdminUser",
       "username": "newton",
       "password": "password12",
-      "confirmPassword": "password12",
-      "id": 1
+      "id": 2
+    },
+    {
+      "firstName": "Gotti47",
+      "lastName": "Bujiku",
+      "username": "the",
+      "password": "password12",
+      "id": 3
+    },
+    {
+      "firstName": "AdminUser",
+      "lastName": "AdminUser",
+      "username": "newto",
+      "password": "password12",
+      "id": 4
+    },
+    {
+      "firstName": "AdminUser",
+      "lastName": "AdminUser",
+      "username": "newton",
+      "password": "password12",
+      "id": 5
+    },
+    {
+      "firstName": "AdminUser",
+      "lastName": "AdminUser",
+      "username": "gotti473",
+      "password": "23232324324242",
+      "id": 6
     },
     {
       "firstName": "Newton",
       "lastName": "Bujiku",
-      "username": "gotti",
+      "username": "newton",
       "password": "password12",
-      "confirmPassword": "password12",
-      "id": 2
+      "id": 7
     }
   ]
 }

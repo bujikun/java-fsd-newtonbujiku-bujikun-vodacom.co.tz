@@ -1,10 +1,22 @@
-import { Event, HowToRegOutlined, LoginOutlined, Search } from "@mui/icons-material";
-import { AppBar, Box, Button, Toolbar,Typography } from "@mui/material"
+import {
+  Event,
+  HowToRegOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  Search,
+} from "@mui/icons-material";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import SearchDialog from "../dialog/SearchDialog";
+import { logout, selectIsLoggedIn } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const AppSearchBar = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+    const isLoggedIn = selectIsLoggedIn();
+    const [isSearchDialogOpen,setIsSearchDialogIsOpen] = useState(false);
   return (
     <Box flexGrow={1}>
       <AppBar position="sticky">
@@ -25,57 +37,6 @@ const AppSearchBar = () => {
             Event Finder
           </Typography>
           <Button
-            color="inherit"
-            variant="outlined"
-            startIcon={<LoginOutlined />}
-            sx={{
-              textTransform: "capitalize",
-              color: "white",
-              ml: 2,
-              ":hover": {
-                bgcolor: "white",
-                color: "#333",
-              },
-            }}
-            onClick={() => navigate("/users/login")}
-          >
-            Login
-          </Button>
-          <Button
-            color="inherit"
-            variant="outlined"
-            startIcon={<HowToRegOutlined />}
-            sx={{
-              textTransform: "capitalize",
-              color: "white",
-              ml: 2,
-              ":hover": {
-                bgcolor: "white",
-                color: "#333",
-              },
-            }}
-            onClick={() => navigate("/users/register")}
-          >
-            Register
-          </Button>
-          <Button
-            color="inherit"
-            variant="outlined"
-            startIcon={<Event />}
-            sx={{
-              textTransform: "capitalize",
-              color: "white",
-              ml: 2,
-              ":hover": {
-                bgcolor: "white",
-                color: "#333",
-              },
-            }}
-            onClick={() => navigate("/events/create")}
-          >
-            Create Event
-          </Button>
-          <Button
             variant="outlined"
             color="primary"
             startIcon={<Search />}
@@ -88,13 +49,93 @@ const AppSearchBar = () => {
                 color: "#333",
               },
             }}
+                      onClick={()=>setIsSearchDialogIsOpen(true)}
           >
             Search...
           </Button>
+          {!isLoggedIn && (
+            <Button
+              color="inherit"
+              variant="outlined"
+              startIcon={<LoginOutlined />}
+              sx={{
+                textTransform: "capitalize",
+                color: "white",
+                ml: 2,
+                ":hover": {
+                  bgcolor: "white",
+                  color: "#333",
+                },
+              }}
+              onClick={() => navigate("/users/login")}
+            >
+              Login
+            </Button>
+          )}
+          {!isLoggedIn && (
+            <Button
+              color="inherit"
+              variant="outlined"
+              startIcon={<HowToRegOutlined />}
+              sx={{
+                textTransform: "capitalize",
+                color: "white",
+                ml: 2,
+                ":hover": {
+                  bgcolor: "white",
+                  color: "#333",
+                },
+              }}
+              onClick={() => navigate("/users/register")}
+            >
+              Register
+            </Button>
+          )}
+          {isLoggedIn && (
+            <Button
+              color="inherit"
+              variant="outlined"
+              startIcon={<Event />}
+              sx={{
+                textTransform: "capitalize",
+                color: "white",
+                ml: 2,
+                ":hover": {
+                  bgcolor: "white",
+                  color: "#333",
+                },
+              }}
+              onClick={() => navigate("/events/create")}
+            >
+              Create Event
+            </Button>
+          )}
+          {isLoggedIn && (
+            <Button
+              color="inherit"
+              variant="outlined"
+              startIcon={<LogoutOutlined />}
+              sx={{
+                textTransform: "capitalize",
+                color: "white",
+                ml: 2,
+                ":hover": {
+                  bgcolor: "white",
+                  color: "#333",
+                },
+              }}
+              onClick={() => {
+                dispatch(logout());
+                navigate("/");
+              }}
+            >
+              Logout
+            </Button>
+          )}
         </Toolbar>
-          </AppBar>
-          <SearchDialog isOpen={false}/>
+      </AppBar>
+          {isSearchDialogOpen && <SearchDialog isOpen={isSearchDialogOpen} setIsSearchDialogIsOpen={setIsSearchDialogIsOpen} />}
     </Box>
   );
-}
-export default AppSearchBar
+};
+export default AppSearchBar;

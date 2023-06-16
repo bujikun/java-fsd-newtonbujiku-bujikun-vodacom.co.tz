@@ -1,6 +1,6 @@
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUser, selectUserStatus } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ const initialUser = {
   lastName: "",
   username: "",
   password: "",
-  confirmPassword: "",
 };
 
 const initialError = {
@@ -29,25 +28,26 @@ const initialError = {
     isError: false,
     errorMessage: "",
   },
-  confirmPassword: {
-    isError: false,
-    errorMessage: "",
-  },
 };
 
 const RegistrationForm = () => {
   const [user, setUser] = useState(initialUser);
-    const [error, setError] = useState(initialError);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const status = selectUserStatus();
+  const [error, setError] = useState(initialError);
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isRegistering) {
+      dispatch(registerUser(user));
+      navigate("/users/login");
+    }
+  }, [isRegistering]);
+
   const handleSubmit = (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      dispatch(registerUser(formData));
-      if (status === "fulfilled") {
-          navigate("/users/login");
-      }
+    e.preventDefault();
+    setIsRegistering(true);
   };
 
   const validateInput = (inputName, value, saneName, length) => {
@@ -71,37 +71,20 @@ const RegistrationForm = () => {
       });
     }
   };
-
-  const validatePassword = (inputName, value) => {
-    if (inputName === "confirmPassword") {
-      if (user.password !== value) {
-        setError({
-          ...error,
-          [inputName]: {
-            ...error.inputName,
-            isError: true,
-            errorMessage: "Passwords do not match",
-          },
-        });
-        console.log(user.password, user.confirmPassword);
-      } else {
-        setError({
-          ...error,
-          [inputName]: {
-            ...error.inputName,
-            isError: false,
-            errorMessage: "",
-          },
-        });
-      }
-    }
-  };
-
   const handleChange = (e, saneName, length) => {
     const value = String(e.target.value).trim();
-    const inputName = e.target.name;
+      const inputName = e.target.name;
+      length = Number(length);
+      console.log(length);
+    if (
+      user.firstName.trim().length >= length &&
+      user.lastName.trim().length >= length &&
+      user.username.trim().length >= length &&
+      user.password.trim().length >= length
+    ) {
+      setIsInvalid(false);
+    }
     validateInput(inputName, value, saneName, length);
-    validatePassword(inputName, value);
     setUser({ ...user, [inputName]: value });
   };
 
@@ -178,27 +161,13 @@ const RegistrationForm = () => {
                 helperText={error.password.errorMessage}
               />
             </Grid>
-            <Grid xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                id="confirmPassword"
-                autoComplete="new-password"
-                value={user.confirmPassword}
-                onChange={(e) => handleChange(e, "Password", 8)}
-                error={error.confirmPassword.isError}
-                helperText={error.confirmPassword.errorMessage}
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2, p: 1.5 }}
+            disabled={isInvalid}
           >
             Register
           </Button>

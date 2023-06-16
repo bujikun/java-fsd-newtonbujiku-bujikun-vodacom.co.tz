@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { BASE_URL } from "../../features/constants";
+import { selectIsLoggedIn } from "../../features/auth/authSlice";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -51,10 +52,10 @@ const EventDetails = () => {
         sx={{ mt: 6, mx: 4, display: "flex", justifyContent: "center" }}
         spacing={3}
       >
-        <Grid xs="12" sm="12" md="6" lg="6">
+        <Grid xs="12" sm="6">
           <EventSummary event={event} onDelete={ ()=>handleDelete(id)} />
         </Grid>
-        <Grid xs="12" sm="12" md="6" lg="6">
+        <Grid xs="12" sm="6">
           <EventImage image={event.img} />
         </Grid>
       </Grid>
@@ -79,7 +80,9 @@ const EventDetails = () => {
   );
 }
 
-const EventSummary = ({event,onDelete}) => {
+const EventSummary = ({ event, onDelete }) => {
+            const isLoggedIn = selectIsLoggedIn();
+
     return (
       <Stack spacing={2}>
         <Box>
@@ -109,13 +112,18 @@ const EventSummary = ({event,onDelete}) => {
                 Added by: {event.created_by}
               </Typography>
             </Box>
-            <Box sx={{ mt: 4 }} elevation={10}>
-              <Button size="large" color="error" variant="outlined"
-            onClick={onDelete}
-              >
-                Delete event
-              </Button>
-            </Box>
+            {isLoggedIn && (
+              <Box sx={{ mt: 4 }} elevation={10}>
+                <Button
+                  size="large"
+                  color="error"
+                  variant="outlined"
+                  onClick={onDelete}
+                >
+                  Delete event
+                </Button>
+              </Box>
+            )}
           </Paper>
         </Box>
       </Stack>

@@ -1,34 +1,41 @@
-import {
-  Container,
-  Box,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
+import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { authenticateUser, selectIsLoggedIn, selectUser, selectUserStatus } from "../../features/auth/authSlice";
-import { useState } from "react";
+import {
+  authenticateUser,
+  selectIsLoggedIn,
+  selectUser,
+  selectUserStatus,
+} from "../../features/auth/authSlice";
+import { useEffect, useState } from "react";
 const initialUser = {
   username: "",
-  password:""
-}
+  password: "",
+};
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user,setUser] = useState(initialUser);
+  const [user, setUser] = useState(initialUser);
+  const [isLoggingIn,setIsLoggingIn] = useState(false);
   const isLoggedIn = selectIsLoggedIn();
+  const status = selectUserStatus();
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    dispatch(authenticateUser(user));
+    console.log(isLoggedIn);
+    setIsLoggingIn(true);
+  };
+
+  useEffect(() => {
     if (isLoggedIn) {
       navigate("/");
-    } else {
-      //console.log(user, isLoggedIn);
+      return;
     }
-  };
+    if (isLoggingIn) {
+      //navigate("/");
+  dispatch(authenticateUser(user));
+    }
+  }, [isLoggingIn,isLoggedIn]);
   return (
     <Container maxWidth="xs" component="main">
       <Box

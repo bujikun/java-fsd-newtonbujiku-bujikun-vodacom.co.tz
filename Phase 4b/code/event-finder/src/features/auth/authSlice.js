@@ -13,12 +13,11 @@ const initialState = {
 
 const registerUser = createAsyncThunk("users/registerUser", async (formData) => {
     try {
-        const { data } = axios.post(`${BASE_URL}/users`, formData, {
+        const { data } = await axios.post(`${BASE_URL}/users`, formData, {
             headers: {
                 "Content-Type":"application/json"
             }
         })
-        
         return data;
     } catch (error) {
         console.log(error);
@@ -44,17 +43,22 @@ const authSlice = createSlice({
     name: "users",
     initialState,
     reducers: {
-        
+        logout: (state, action) => {
+            state.user = {};
+            state.isLoggedIn=false;
+            state.error = null;
+            state.loginFailed = false;
+            state.status="idle"
+        }
     },
     extraReducers: builder => {
         builder
             .addCase(registerUser.fulfilled, (state, action) => {
-                state.user = action.payload;
+                //state.user = action.payload;
                 state.status = "fulfilled";
 
             }).addCase(authenticateUser.fulfilled, (state, action) => {
                 if (action.payload) {
-                                     console.log("PAYLOAD", action.payload);
                   state.user = action.payload;
                   state.status = "fulfilled";
                   state.isLoggedIn = true;
@@ -69,7 +73,7 @@ const authSlice = createSlice({
 
 
 export default authSlice.reducer
-
+export const {logout} = authSlice.actions;
 export { registerUser,authenticateUser }
 
 export const selectUser = () => useSelector((state) => state.auth.user);

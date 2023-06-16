@@ -11,10 +11,12 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteEventById } from "../../features/events/eventsSlice";
+import { selectIsLoggedIn } from "../../features/auth/authSlice";
 
-const Event = ({ event,setIsEventDeleted }) => {
+const Event = ({ event,setIsEventDeleted}) => {
   const navigate = useNavigate();
     const dispatch = useDispatch();
+        const isLoggedIn = selectIsLoggedIn();
   const handleViewClick = (id) => {
     navigate(`/events/view/${id}`);
   };
@@ -23,8 +25,14 @@ const Event = ({ event,setIsEventDeleted }) => {
     setIsEventDeleted(true);
   };
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Card sx={{ minWidth:"360", maxWidth: 450, mt: 3 }} raised={true}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        width: 400,
+      }}
+    >
+      <Card sx={{ width: 350,height:400, mt: 3 }} raised={true}>
         <CardActionArea>
           <CardMedia component="img" height={200} image={event.img} />
           <CardContent>
@@ -44,10 +52,15 @@ const Event = ({ event,setIsEventDeleted }) => {
           >
             View
           </Button>
-                  <Button size="small" color="error"
-                      onClick={()=>handleDelete(event.id)}>
-            Delete
-          </Button>
+          {isLoggedIn && (
+            <Button
+              size="small"
+              color="error"
+              onClick={() => handleDelete(event.id)}
+            >
+              Delete
+            </Button>
+          )}
         </CardActions>
       </Card>
     </Box>

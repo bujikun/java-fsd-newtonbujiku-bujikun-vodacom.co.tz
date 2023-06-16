@@ -2,10 +2,11 @@ import { Container, Box, Typography, TextField, Button } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createEvent } from "../../features/events/eventsSlice";
 import { useNavigate } from "react-router-dom";
+import { selectIsLoggedIn, selectUser } from "../../features/auth/authSlice";
 const initialEvent = {
   name: {
     value: "",
@@ -37,13 +38,32 @@ const initialEvent = {
 
 const EventCreationForm = () => {
   const [event, setEvent] = useState(initialEvent);
+  const [isCreating, setIsCreating] = useState(false);
+  const formDataRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = selectUser();
+  const isLoggedIn = selectIsLoggedIn();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/users/login");
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isCreating) {
+      dispatch(createEvent(formDataRef.current));
+      navigate("/");
+    }
+  },[isCreating])
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    dispatch(createEvent(formData));
-    navigate("/");
+    const fullName = `${user.firstName} ${user.lastName}`;
+    formData.append("created_by", fullName);
+    formDataRef.current = formData;
+    setIsCreating(true);
   };
 
   const validateInput = (inputName, value, saneName, length) => {
@@ -52,29 +72,29 @@ const EventCreationForm = () => {
         ...event,
         [inputName]: {
           ...inputName,
+          ["value"]: value,
           isError: true,
           errorMessage: `${saneName} length must be greater than ${length}`,
         },
       });
     } else {
-     setEvent({
-       ...event,
-       [inputName]: {
-         ...inputName,
-         isError: false,
-         errorMessage: "",
-       },
-     });
+      setEvent({
+        ...event,
+        [inputName]: {
+          ...inputName,
+          ["value"]: value,
+          isError: false,
+          errorMessage: "",
+        },
+      });
     }
   };
 
   const handleChange = (e, saneName, length) => {
     const value = e.target.value;
     const inputName = e.target.name;
-     validateInput(inputName, value, saneName, length);
+    validateInput(inputName, value, saneName, length);
   };
-
-
 
   return (
     <Container maxWidth="xs" component="main">
@@ -100,9 +120,9 @@ const EventCreationForm = () => {
                   disablePast
                   sx={{ width: "100%" }}
                   value={event.date}
-                  onChange={(e) => handleChange(e, "Date", 0)}
-                  error={event.date.isError}
-                  helperText={event.date.errorMessage}
+                  onChange={(newValue) =>
+                    setEvent({ ...event, date: newValue })
+                  }
                   autoFocus
                 />
               </Box>

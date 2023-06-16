@@ -7,7 +7,9 @@ const initialState = {
   items: [],
   status: "idle",
   error: null,
-  deleteStatus: null,
+    deleteStatus: null,
+    searchResult: [],
+  searchStatus:"idle"
 };
 
 
@@ -33,14 +35,23 @@ const deleteEventById = createAsyncThunk(
 );
 
 const createEvent = createAsyncThunk("events/createEvent", async (event) => {
-  console.log(event);
   try {
     const { data } = await axios.post(`${BASE_URL}/events`, event, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(data);
+      return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const searchEvent = createAsyncThunk("events/searchEvent", async (queryString) => {
+    try {
+
+      const { data } = await axios.get(`${BASE_URL}/events?q=${queryString}`);
+      return data;
   } catch (error) {
     console.log(error);
   }
@@ -49,7 +60,11 @@ const createEvent = createAsyncThunk("events/createEvent", async (event) => {
 const eventsSlice = createSlice({
   name: "events",
   initialState,
-  reducers: {},
+    reducers: {
+        clearSearchResult: (state, action) => {
+            state.searchResult = []
+      }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchEvents.pending, (state, action) => {
@@ -72,7 +87,13 @@ const eventsSlice = createSlice({
       .addCase(deleteEventById.rejected, (state, action) => {
         state.deleteStatus = "failed";
         state.error = action.error.message;
-      });
+      })
+      .addCase(searchEvent.fulfilled, (state, action) => {
+          state.searchStatus = "fulfilled";
+          state.searchResult = action.payload;
+          console.log("SEARCHING", action.payload);
+
+      })
   },
 });
 const eventsReducer = eventsSlice.reducer;
@@ -80,8 +101,14 @@ export default eventsReducer;
 export const selectEventStatus = () =>
   useSelector((state) => state.events.status);
 export const selectDeleteStatus = () =>
-  useSelector((state) => state.events.deleteStatus);
+    useSelector((state) => state.events.deleteStatus);
+  export const selectSearchStatus = () =>
+    useSelector((state) => state.events.searchStatus);
 export const selectAllEvents = () => useSelector((state) => state.events.items);
 export const selectCurrentItem = () =>
-  useSelector((state) => state.events.currentItem);
-export { createEvent, fetchEvents, deleteEventById };
+    useSelector((state) => state.events.currentItem);
+  export const selectSearchResult = ()=>useSelector(state=>state.events.searchResult)
+export { createEvent, fetchEvents, deleteEventById, searchEvent };
+    
+    export const{clearSearchResult} = eventsSlice.actions;
+    

@@ -2,12 +2,10 @@ import { Close, HighlightOff, Search } from "@mui/icons-material";
 import {
   TextField,
   Dialog,
-  InputBase,
   IconButton,
   DialogContent,
   InputAdornment,
   Box,
-  DialogTitle,
   Typography,
   Paper,
   List,
@@ -16,16 +14,37 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  Divider,
 } from "@mui/material";
+import {
+    clearSearchResult,
+  searchEvent,
+  selectSearchResult,
+} from "../../features/events/eventsSlice";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const SearchDialog = ({ isOpen }) => {
+const SearchDialog = ({ isOpen, setIsSearchDialogIsOpen }) => {
+  const [searchString, setSearchString] = useState("");
+
+  const dispatch = useDispatch();
+    const handleChange = (e) => {
+        const text = e.target.value;
+        if (text.slice().trim().length <= 0) {
+            setSearchString(text);
+            dispatch(clearSearchResult());
+            return;
+        }
+        setSearchString(text);
+      dispatch(searchEvent(searchString));
+  };
+
   return (
     <Paper>
       <Dialog
         open={isOpen}
         sx={{
-            minWidth: 400,
+          minWidth: 400,
           mb: 4,
           "& .MuiDialog-container": {
             justifyContent: "center",
@@ -39,56 +58,38 @@ const SearchDialog = ({ isOpen }) => {
           sx={{
             display: "flex",
             justifyContent: "end",
-                      alignItems: "center",
-            
+            alignItems: "center",
           }}
         >
-          {/* <Typography variant="inherit">
-            Search for events
-          </Typography> */}
-          <IconButton size="large" color="error" sx={{mr:2,height:64}}>
-            <HighlightOff size="large"/>
+          <IconButton
+            size="large"
+            color="error"
+            sx={{ mr: 2, height: 64 }}
+            onClick={() => {
+              setSearchString("");
+              dispatch(clearSearchResult());
+              setIsSearchDialogIsOpen(false);
+            }}
+          >
+            <HighlightOff size="large" />
           </IconButton>
         </Box>
         <DialogContent>
-          <Box component="form" sx={{ display: "flex" }}>
-            {/* <TextField
-            autoComplete="on"
-            name="name"
-            required
-            fullWidth
-            id="name"
-            value=""
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            variant="standard"
-          /> */}
-            {/* <IconButton
-            type="button"
-            sx={{ p: "10px", minHeight: 24 }}
-            aria-label="search"
-            size="large"
+          <Box
+            component="form"
+            sx={{ display: "flex" }}
+            onSubmit={(e) => e.preventDefault()}
           >
-            <Search />
-          </IconButton> */}
-            {/* <InputBase
-            sx={{ ml: 1, flex: 1, py: 1, fontSize: 24 }}
-            inputProps={{ "aria-label": "search for events" }}
-            autoFocus
-          /> */}
             <TextField
-              autoComplete="on"
+                          autoComplete="off"
+                          autoFocus
               name="name"
               required
               fullWidth
               id="name"
-                          value=""
-                          placeholder="Type to search events"
+              value={searchString}
+              onChange={handleChange}
+              placeholder="Type to search events"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -101,84 +102,61 @@ const SearchDialog = ({ isOpen }) => {
                 fontSize: 24,
               }}
             />
-                  </Box>
-                  <Box>
-                      <SearchResultList/>
-                  </Box>
+          </Box>
+          <Box>
+            <SearchResultList
+              setIsSearchDialogIsOpen={setIsSearchDialogIsOpen}
+            />
+          </Box>
         </DialogContent>
       </Dialog>
     </Paper>
   );
 };
 
-const SearchResultList = ({ list }) => {
+const SearchResultList = ({ setIsSearchDialogIsOpen }) => {
+  const searchResult = selectSearchResult();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
   return (
     <List>
-      <ListItem sx={{ width: "100%",cursor:"pointer" }}>
-        <ListItemButton>
-          <ListItemAvatar>
-            <Avatar
-              alt=""
-              src="https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
+      {searchResult.map((item) => (
+        <ListItem key={item.id} sx={{ width: "100%", cursor: "pointer" }}>
+              <ListItemButton onClick={() => {
+                  dispatch(clearSearchResult());
+                  setIsSearchDialogIsOpen(false);
+                  navigate(`/events/view/${item.id}`);
+              }}>
+            <ListItemAvatar>
+              <Avatar alt={item.img} src={item.img} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={
+                <Typography
+                  sx={{
+                    display: "block",
+                  }}
+                  component="span"
+                  variant="h6"
+                  color="text.primary"
+                >
+                  {item.name}
+                </Typography>
+              }
+              secondary={
+                <Typography
+                  sx={{ display: "block" }}
+                  component="span"
+                  variant="p"
+                  color="text.primary"
+                >
+                  {item.description}
+                </Typography>
+              }
             />
-          </ListItemAvatar>
-          <ListItemText
-            primary={
-              <Typography
-                              sx={{
-                                  display: "block" }}
-                component="span"
-                variant="h6"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-            }
-            secondary={
-              <Typography
-                sx={{ display: "block" }}
-                component="span"
-                variant="p"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-            }
-          />
-        </ListItemButton>
-      </ListItem>
-      <ListItem sx={{ width: "100%" }}>
-        <ListItemButton>
-          <ListItemAvatar>
-            <Avatar
-              alt=""
-              src="https://cdn.punchng.com/wp-content/uploads/2022/02/25122124/UEFA-Champions-League.jpg"
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={
-              <Typography
-                sx={{ display: "block" }}
-                component="span"
-                variant="button"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-            }
-            secondary={
-              <Typography
-                sx={{ display: "block" }}
-                component="span"
-                variant="p"
-                color="text.primary"
-              >
-                Ali Connors
-              </Typography>
-            }
-          />
-        </ListItemButton>
-      </ListItem>
+          </ListItemButton>
+        </ListItem>
+      ))}
     </List>
   );
 };

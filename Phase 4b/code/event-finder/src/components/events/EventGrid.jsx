@@ -19,7 +19,7 @@ const EventGrid = () => {
 
         <Box sx={{ flexGrow: 1 }}>
             <Typography component="h3" variant="h3" sx={{my:2}}>
-                Upcoming events 
+                {events.length>0?"Upcoming events ":"No upcoming events"}
             </Typography>
           <Grid container spacing={2} sx={{mx:"auto"}}>
                 {events.map(event => (
