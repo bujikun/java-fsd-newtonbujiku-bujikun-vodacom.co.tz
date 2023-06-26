@@ -149,13 +149,13 @@ public class SecurityConfig {
         CorsConfiguration apiCors = new CorsConfiguration();
         apiCors.setMaxAge(0L);
         apiCors.setAllowedMethods(List.of("GET", "POST", "DELETE"));
-        apiCors.setAllowedOrigins(List.of("http://localhost:3000"));
+        apiCors.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:4173"));
         apiCors.setAllowedHeaders(List.of("*"));
 
         CorsConfiguration authCors = new CorsConfiguration();
         authCors.setMaxAge(0L);
         authCors.setAllowedMethods(List.of("POST"));
-        authCors.setAllowedOrigins(List.of("http://localhost:3000"));
+        authCors.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:4173"));
         authCors.setAllowedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource ubcs = new UrlBasedCorsConfigurationSource();
